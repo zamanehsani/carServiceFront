@@ -1,22 +1,22 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom";
-
+import { useEffect, useState } from "react"
+// import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {login} from './redux/authSlice';
 
 export default function Login() {
-    const [email,setEmail] = useState('');
+    const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    const [error,setError] = useState('');
-    const navigate = useNavigate();
+    const auth = useSelector((state)=>state.auth)
+
+    const dispatch = useDispatch();
+   
+    useEffect(()=>{
+      console.log("auth: ", auth);
+    },[auth])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if(!email || !password){
-            setError('Please fill in all fields!');
-            return;
-        }
-        navigate("/");
-    
+        dispatch(login({username,password}));
     }
     return (
       <>
@@ -35,19 +35,19 @@ export default function Login() {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                  Email address
+                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                  User Name
                 </label>
                 <div className="mt-2">
                   <input 
                     // set the email state on Change
-                    onChange={(e) => setEmail(e.target.value)}
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
+                    onChange={(e) => setUsername(e.target.value)}
+                    id="username"
+                    name="username"
+                    type="text"
+                    autoComplete="username"
                     required
-                    placeholder="ahmad@gmail.com"
+                    placeholder="ahmad"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -77,9 +77,9 @@ export default function Login() {
                 </div>
               </div>
   
-            {error && <div>
+            {auth.error && <div>
                 <div className="flex items-center justify-between">
-                    <p className="text-red-500 font-bold">{error}</p>
+                    <p className="text-red-500 font-bold">{auth.error}</p>
                 </div>
             </div> }
 

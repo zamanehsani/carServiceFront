@@ -32,22 +32,16 @@ const counterSlice = createSlice({
             console.log("incrementing by async..")
         }).addCase(incrementByAsync.fulfilled, (state)=>{
             state.value++;
-        })
-    },
-    extraReducers:(builder)=>{
-        builder.addCase(decrementByAsync.pending, ()=>{
+        }).addCase(decrementByAsync.pending, ()=>{
             console.log("decrementing by async..");
         }).addCase(decrementByAsync.fulfilled, (state)=>{
             state.value--;
-        })
-    },
-    extraReducers:(builder)=>{
-        builder.addCase(incrementByAmountAsync.pending, ()=>{
+        }).addCase(incrementByAmountAsync.pending, ()=>{
             console.log("incrementing by amount async..");
         }).addCase(incrementByAmountAsync.fulfilled, (state, action)=>{
             state.value += action.payload;
-        })
-    }
+        }) 
+    },
 })
 
 

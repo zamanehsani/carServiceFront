@@ -6,7 +6,7 @@ import Login from '../login';
 import Deal from '../deal';
 import App from '../../App';
 import Expense from '../expense';
-
+import PrivateRoute from './PrivateRoute';
 
 // Define Layout component
 const Layout = ({ children }) => {
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
 const routes = createBrowserRouter([
     {
       path: "/",
-      element: <Layout><App /></Layout>,
+      element:<PrivateRoute><Layout><App /></Layout></PrivateRoute> ,
       errorElement:<Layout><PageNotFound /></Layout>
     },
     {
@@ -32,12 +32,12 @@ const routes = createBrowserRouter([
     },
     {
       path: "/add-deal",
-      element: <Layout> <Deal /></Layout>,
+      element: <PrivateRoute><Layout> <Deal /></Layout></PrivateRoute>,
       errorElement:<Layout><PageNotFound /></Layout>
     },
     {
       path: "/add-expense",
-      element: <Layout> <Expense /></Layout>,
+      element:<PrivateRoute> <Layout> <Expense /></Layout></PrivateRoute>,
       errorElement:<Layout><PageNotFound /></Layout>
     },
   ])
