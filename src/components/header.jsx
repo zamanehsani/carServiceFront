@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {logout} from './redux/authSlice';
 
 
 export default function Header() {
     const [menu, setMenu] = useState(false);
     const toggleMenu = () => { setMenu(!menu)};
-    const auth = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
