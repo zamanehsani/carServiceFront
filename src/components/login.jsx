@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
-// import { useNavigate } from "react-router-dom";
+import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {login} from './redux/authSlice';
+
 
 export default function Login() {
     const [username,setUsername] = useState('');
@@ -9,15 +10,16 @@ export default function Login() {
     const auth = useSelector((state)=>state.auth)
 
     const dispatch = useDispatch();
-   
-    useEffect(()=>{
-      console.log("auth: ", auth);
-    },[auth])
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(login({username,password}));
+        await dispatch(login({username,password}));
+        
+        // logging in the user...
+        navigate('/');
     }
+
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

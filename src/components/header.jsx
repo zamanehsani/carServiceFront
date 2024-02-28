@@ -1,10 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {logout} from './redux/authSlice';
+
 
 export default function Header() {
     const [menu, setMenu] = useState(false);
     const toggleMenu = () => { setMenu(!menu)};
+    const auth = useSelector((state) => state.auth);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = async (e) => {
+        await dispatch(logout());
+        navigate('/login');
+    }
     return (
         <div className="bg-indigo-600 bg-gradient-to-r from-indigo-600 via-indigo-600 to-indigo-600 shadow-lg">
             <div className="container mx-auto">
@@ -18,7 +29,7 @@ export default function Header() {
                     <Link to={'/'} className="text-xl text-white hover:text-gray-300 ">Home</Link>
                     <Link to={'/add-deal'} className="text-xl text-white hover:text-gray-300 ">Add Deal</Link>
                     <Link to={'/add-expense'} className="text-xl text-white hover:text-gray-300 ">Add Expense</Link>
-                    {/* <Link to={'/blog'} className="text-xl text-white hover:text-gray-300 ">Blogs</Link> */}
+                    <span onClick={handleLogout} className="text-xl text-white hover:text-gray-300 ">Logout</span>
                 </div>
 
                 {/* <!-- Mobile menu icon (shown on small screens) --> */}
@@ -50,6 +61,7 @@ export default function Header() {
                             <Link onClick={toggleMenu} to={'/'} className="text-xl text-white hover:text-gray-300 ">Home</Link>
                             <Link onClick={toggleMenu} to={'/add-deal'} className="text-xl text-white hover:text-gray-300 ">Add Deal</Link>
                             <Link onClick={toggleMenu} to={'/add-expense'} className="text-xl text-white hover:text-gray-300 ">Add Expense</Link>
+                            <span onClick={handleLogout} className="text-xl text-white hover:text-gray-300 ">Logout</span>
                             {/* <Link onClick={toggleMenu} to={'/blog'} className="text-xl text-white hover:text-gray-300 ">Blogs</Link> */}
                         </div>
                         

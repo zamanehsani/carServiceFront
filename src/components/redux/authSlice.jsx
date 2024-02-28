@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'; // Import axios
 
 const initialAuthState = {
-    token: null,
-    error: null,
-    loading: false,
-    isAuthenticated: false,
+    token: localStorage.getItem('token')||null,
+    error: localStorage.getItem('error')||null,
+    loading: localStorage.getItem('loading')|| false,
+    isAuthenticated: JSON.parse(localStorage.getItem('isAuthenticated')) || false,
 };
 
 const authSlice = createSlice({
@@ -21,12 +21,15 @@ const authSlice = createSlice({
         })
         .addCase(login.fulfilled, (state, action)=>{
             state.loading = false;
-            state.token = action.payload.token;
-            state.isAuthenticated=true;
+            state.token = action.payload;
+            state.isAuthenticated = true;
+            // Save to local storage
+            localStorage.setItem('token', action.payload);
+            localStorage.setItem('isAuthenticated', true);
         })
         .addCase(login.rejected, (state)=>{
             state.loading = false;
-            state.error = "Something went wrong";
+            state.error = "Ouh! Are you Sure you have entered the right username and password?";
             state.token = null;
             state.isAuthenticated = false;
         })
@@ -35,6 +38,9 @@ const authSlice = createSlice({
             state.error = null;
             state.token = null;
             state.isAuthenticated = false;
+            // Clear local storage
+            localStorage.removeItem('token');
+            localStorage.removeItem('isAuthenticated', false);
         })
         .addCase(logout.pending, (state)=>{
             state.loading = true;
@@ -44,7 +50,7 @@ const authSlice = createSlice({
         })
         .addCase(logout.rejected, (state)=>{
             state.loading = false;
-            state.error = "Something went wrong";
+            state.error = "Could not log out, Something went wrong";
             state.token = null;
             state.isAuthenticated = false;
         })
@@ -54,19 +60,17 @@ const authSlice = createSlice({
 export const login = createAsyncThunk(
     'auth/login',
     async (credentials) => {
-        console.log("trying to login...", axios.post(process.env.REACT_APP_API_URL + '/api/token/', credentials))
         const response = await axios.post(process.env.REACT_APP_API_URL + '/api/token/', credentials);
-        console.log("login - response: ", response);
-        return response.data; // Replace with your API endpoint and response structure
+        return response.data;
     }
 );
 
 export const logout = createAsyncThunk(
     'auth/logout',
-    async () => {
-    await axios.get('/api/logout'); // Replace with your API endpoint
-    return null;
-});
+    async () => { 
+        return null;
+    }
+);
 
 export default authSlice.reducer;
 
