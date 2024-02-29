@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {logout} from './redux/authSlice';
-
+import { useSelector } from "react-redux";
 
 export default function Header() {
+    const auth = useSelector((state)=>state.auth)
     const [menu, setMenu] = useState(false);
+    
     const toggleMenu = () => { setMenu(!menu)};
 
     const dispatch = useDispatch();
@@ -20,7 +22,7 @@ export default function Header() {
             <div className="container mx-auto">
                 <div className="flex items-center justify-between p-4">
                     <div className="flex">
-                        <h1 className="ml-4 lg:ml-0 font-bold text-white text-2xl">Free Style Car Services</h1>
+                        <h1 className="ml-4 lg:ml-0 font-bold text-white text-2xl">{auth && auth.company?.name}</h1>
                     </div>
                 <div className="flex-grow "></div>
 
@@ -47,7 +49,7 @@ export default function Header() {
 
                         {/* Header */}
                         <div className="flex items-center justify-between p-3">
-                            <h1 className="font-bold text-white text-xl">Free Style Car Services</h1>
+                            <h1 className="font-bold text-white text-xl">{auth && auth.company?.name}</h1>
                             <button onClick={toggleMenu} className="text-white hover:text-gray-300">
                                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"></path>

@@ -1,22 +1,25 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {login} from './redux/authSlice';
-
+import {login, getUser, getUserCompany} from './redux/authSlice';
 
 export default function Login() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const auth = useSelector((state)=>state.auth)
-
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await dispatch(login({username,password}));
+        await dispatch(login({username,password}))
         
-        // logging in the user...
+        // get the user information
+        await dispatch(getUser(username));
+        // get the user company
+        await dispatch(getUserCompany(username));
+
         navigate('/');
     }
 

@@ -12,7 +12,7 @@ export default function Deal(){
   // customer details
   const [name, setName] = useState(null);
   const [phone, setPhone] = useState(null);
-  const [paymentOption, setPaymentOption] = useState('Card');
+  const [paymentOption, setPaymentOption] = useState('Cash');
   const [photo, setPhoto] = useState(null);
   const [note, setNote] = useState(null);
   const [total, setTotal] = useState(0);
@@ -173,9 +173,79 @@ export default function Deal(){
     await axios.post(process.env.REACT_APP_API_URL + '/api/customers/', formData,{
         headers: { 'Content-Type': 'multipart/form-data'}
     }).then((response)=>{
-
+      // if the response status is create clear all the states.
+      if(response.status === 201){
+        // clear all the states
+        setName(null);
+        setPhone(null);
+        setPaymentOption('Cash');
+        setPhoto(null);
+        setNote(null);
+        setTotal(0);
+        // car details
+        setPlateSource('Abu Dhabi');
+        setPlateNumber(null);
+        setModel(null);
+        // customer address details
+        setCountry('United Arab Emirates');
+        setState('Al Ain');
+        setAddress(null);
+        // oilchange states:
+        setOil(5000);
+        setCurrentMilage(0);
+        setNextMilage(0);
+        setOilAmount(0);
+        // tint states
+        setTintAmount(0);
+        setTintType('');
+        setWindows();
+        setTintPercentage();
+        // Tyre states
+        setTyreType();
+        setTyreQuantity(4);
+        setTyreAmount(0);
+        setTyreNumber('');
+        // battery states:
+      }
     }).catch((err)=>{ console.log("error: ", err);})
   }
+
+  // on leaving the page, reset all the states as well.
+  useEffect(()=>{
+    return ()=>{
+      setName(null);
+      setPhone(null);
+      setPaymentOption('Cash');
+      setPhoto(null);
+      setNote(null);
+      setTotal(0);
+      // car details
+      setPlateSource('Abu Dhabi');
+      setPlateNumber(null);
+      setModel(null);
+      // customer address details
+      setCountry('United Arab Emirates');
+      setState('Al Ain');
+      setAddress(null);
+      // oilchange states:
+      setOil(5000);
+      setCurrentMilage(0);
+      setNextMilage(0);
+      setOilAmount(0);
+      // tint states
+      setTintAmount(0);
+      setTintType('');
+      setWindows();
+      setTintPercentage();
+      // Tyre states
+      setTyreType();
+      setTyreQuantity(4);
+      setTyreAmount(0);
+      setTyreNumber('');
+      // battery states:
+    }
+  },[])
+
   return (
     <div className="flex flex-col items-center justify-center py-7 px-4">
       <form className='w-full md:w-1/2 lg:w-1/2 px-4 py-6 bg-white rounded-lg shadow-md' 
@@ -370,7 +440,7 @@ export default function Deal(){
                 </div>
                 <div className="bg-white p-4 rounded-lg">
                   <h2 className="text-lg font-semibold mb-2">Payment Methods:</h2>
-                  
+        
                   <div className="flex flex-row">
                     <div className='px-3'>
                       <label> 
