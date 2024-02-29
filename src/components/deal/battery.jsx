@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function Battery({warranty,setWarranty, batteryAmount,setBatteryAmount, setBatteryName, setBatterySize}){
+export default function Battery({warranty,setWarranty, batterySize, batteryAmount,setBatteryAmount, setBatteryName, setBatterySize}){
     // Function to update battery amount
     const handleBatteryAmountChange = (amount) => {
         // If amount is NaN or not a valid number, default it to 0
@@ -12,7 +12,6 @@ export default function Battery({warranty,setWarranty, batteryAmount,setBatteryA
         // set the amount back to zero
         return ()=>{setBatteryAmount(0)}
     },[])
-  
 
     return (
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 bg-indigo-100 rounded-lg p-4 my-2"> 
@@ -29,9 +28,9 @@ export default function Battery({warranty,setWarranty, batteryAmount,setBatteryA
             <div className="rounded-md">
                 <label htmlFor="batterySize" className="block text-sm font-medium leading-6 text-gray-900"> Battery Size </label>
                 <select id="batterySize" name="batterySize" autoComplete="batterySize"
-                    onChange={(e)=>{setBatterySize(parseInt(e.target.value))}} 
+                    onChange={(e)=>{setBatterySize(parseInt(e.target.value))}} defaultValue={batterySize}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
-                    <option value={20}>20</option>
+                    <option value={20}>20 </option>
                     <option value={30}>30</option>
                     <option value={40}>40</option>
                     <option value={50}>50</option>

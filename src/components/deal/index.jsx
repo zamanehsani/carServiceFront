@@ -1,42 +1,36 @@
+import axios from 'axios'; // Import axios
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react';
-
 import OilChange from './oilChange';
 import Tinting from './tinting';
 import Tyre from './tyre';
 import Battery from './battery';
 import OtherService from './otherService';
 
-export default function Deal(){
 
+export default function Deal(){
+  // customer details
   const [name, setName] = useState(null);
   const [phone, setPhone] = useState(null);
+  const [paymentOption, setPaymentOption] = useState('Card');
+  const [photo, setPhoto] = useState(null);
+  const [note, setNote] = useState(null);
+  const [total, setTotal] = useState(0);
+  // car details
   const [plateSource, setPlateSource] = useState('Abu Dhabi');
   const [plateNumber, setPlateNumber] = useState(null);
   const [model, setModel] = useState(null);
-  const [paymentOption, setPaymentOption] = useState('Card');
-  const [photo, setPhoto] = useState(null);
-  const [dragging, setDragging] = useState(false);
 
-  const [note, setNote] = useState(null);
+  // customer address details 
   const [country, setCountry] = useState('United Arab Emirates');
   const [state, setState] = useState('Al Ain');
   const [address, setAddress] = useState(null);
   
+  // this is the other services total amount
   const [otherTotal, setOtherTotal] = useState(0);
-  const [total, setTotal] = useState(0);
 
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setPhoto(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
+  
+  const [dragging, setDragging] = useState(false);
   const handleDragOver = (e) => {e.preventDefault(); setDragging(true);};
   const handleDragEnter = (e) => { e.preventDefault();  setDragging(true);};
   const handleDragLeave = () => {setDragging(false);};
@@ -45,15 +39,8 @@ export default function Deal(){
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setPhoto(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (file) { setPhoto(file);}
   };
-
 
 
   // oilchange states:
@@ -65,12 +52,12 @@ export default function Deal(){
   
   // tint states
   const [tintAmount, setTintAmount]=useState(0);
-  const [tintingType,setTintingType] = useState('');
+  const [tintType,setTintType] = useState('');
   const [windows, setWindows] = useState(); 
   const [tintPercentage, setTintPercentage] = useState();
 
   // Tyre states
-  const [tyreTypre, setTyreType] = useState(); 
+  const [tyreType, setTyreType] = useState(); 
   const [tyreQuantity, setTyreQuantity] = useState(4); 
   const [tyreAmount, setTyreAmount] = useState(0); 
   const [tyreNumber, setTyreNumber] = useState('');
@@ -79,7 +66,7 @@ export default function Deal(){
   const [warranty,setWarranty]=useState(new Date().toISOString().split('T')[0]);
   const [batteryAmount,setBatteryAmount] = useState(0);
   const [batteryName, setBatteryName] = useState('');
-  const [batterySize, setBatterySize] = useState(null);
+  const [batterySize, setBatterySize] = useState(20);
 
 
   // other States
@@ -126,8 +113,69 @@ export default function Deal(){
 
   const handleSubmit=(e)=>{
     e.preventDefault();
+    try{
+      const formData = new FormData();
+      // Customer data
+      name && formData.append("name", name);
+      phone && formData.append("phone", phone);
+      paymentOption && formData.append("paymentOption", paymentOption);
+      note && formData.append("note", note);
+      total && formData.append("total", total); // the service total amount
+      photo && formData.append("photo", photo);
+      address && formData.append("address", `${address} - ${state} - ${country}`);
+      // Car data
+      plateSource && formData.append("plateSource", plateSource);
+      plateNumber && formData.append("plateNumber", plateNumber);
+      model && formData.append("model", model);
+      
+      // append the oilChange 
+      oilChangeService && formData.append("oilChangeService", oilChangeService);
+      oil && formData.append("oil", oil);
+      currentMilage && formData.append("currentMilage", currentMilage);
+      nextMilage && formData.append("nextMilage", nextMilage);
+      oilAmount && formData.append("oilAmount", oilAmount);
+      // append the tint servie
+      tintService && formData.append("tintService", tintService);
+      tintAmount && formData.append("tintAmount", tintAmount);
+      tintType && formData.append("tintType", tintType);
+      windows && formData.append("tintedWindows", windows);
+      tintPercentage && formData.append("tintPercentage", tintPercentage);
+      // append the tyre service
+      tyreService && formData.append("tyreService", tyreService);
+      tyreType && formData.append("tyreType", tyreType);
+      tyreQuantity && formData.append("tyreQuantity", tyreQuantity);
+      tyreAmount && formData.append("tyreAmount", tyreAmount);
+      tyreNumber && formData.append("tyreNumber", tyreNumber);
+      // append the battery service
+      batteryService && formData.append("batteryService", batteryService);
+      warranty && formData.append("warranty", warranty);
+      batteryAmount && formData.append("batteryAmount", batteryAmount);
+      batteryName && formData.append("batteryName", batteryName);
+      batterySize && formData.append("batterySize", batterySize);
+
+      // append the other service
+      otherService && formData.append("otherService", otherService);
+      otherTotal && formData.append(`otherTotal`, otherTotal);
+      otherTotal && formData.append("otherItems", JSON.stringify(otherItems));  // the otherServices total amount.
+      // append the company id and user id to the form
+      // now I have set it manually. change it to actual id
+      formData.append('company_id', 1);
+      formData.append('user_id', 1);
+
+      sendform(formData);
+
+    }catch (formErr){
+      console.log("something went wrong creating form data.", formErr);
+    }
   }
 
+  const  sendform = async(formData)=>{
+    await axios.post(process.env.REACT_APP_API_URL + '/api/customers/', formData,{
+        headers: { 'Content-Type': 'multipart/form-data'}
+    }).then((response)=>{
+
+    }).catch((err)=>{ console.log("error: ", err);})
+  }
   return (
     <div className="flex flex-col items-center justify-center py-7 px-4">
       <form className='w-full md:w-1/2 lg:w-1/2 px-4 py-6 bg-white rounded-lg shadow-md' 
@@ -181,7 +229,7 @@ export default function Deal(){
           
                 <div className="">
                   <label htmlFor="plate-number" className="block text-sm font-medium leading-6 text-gray-900">
-                    Plate Number </label>
+                    Plate Number <span className='text-red-500'>*</span> </label>
                   <input required={true}  type="text" onChange={(e)=>setPlateNumber(e.target.value)} name="plate-number" id="plate-number" autoComplete="plate-number"
                     placeholder='Y21320'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -193,7 +241,7 @@ export default function Deal(){
               <div className='mt-2  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4'>        
                   <div className="">
                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                      Model </label>
+                      Model <span className='text-red-500'>*</span></label>
                     <div className="">
                       <input required={true} onChange={(e)=>setModel(e.target.value)} type="text" placeholder='Kia Sedona 2025'  name="street-address" id="street-address" autoComplete="street-address"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -214,6 +262,7 @@ export default function Deal(){
                     checked={oilChangeService === true} onChange={()=>{}}
                     onClick={(e)=>{setOilChangeService(!oilChangeService)}}
                     className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <br />
                   <label htmlFor="oilChange" className="font-medium text-gray-900"> Oil </label>
                 </div>
                   {/* tinting */}
@@ -222,6 +271,7 @@ export default function Deal(){
                       checked={tintService === true} onChange={()=>{}}
                       onClick={(e)=>{setTintService(!tintService)}}
                       className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                    <br />
                     <label htmlFor="tint" className="font-medium text-gray-900">Tinting </label>
                 </div>
                   {/* tyre service */}
@@ -230,6 +280,7 @@ export default function Deal(){
                     checked={tyreService === true} onChange={()=>{}}
                     onClick={(e)=>{setTyreService(!tyreService)}}
                       className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                      <br />
                     <label htmlFor="tyre" className="font-medium text-gray-900">  Tyre  </label>
                 </div>
                   {/* battery service */}
@@ -238,6 +289,7 @@ export default function Deal(){
                         checked={batteryService === true} onChange={()=>{}}
                         onClick={(e)=>{setBatteryService(!batteryService)}}
                         className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                        <br />
                       <label htmlFor="bettary" className="font-medium text-gray-900">  Bettery  </label>
                 </div>
                 {/* other service */}
@@ -246,6 +298,7 @@ export default function Deal(){
                         checked={otherService === true} onChange={()=>{}}
                         onClick={(e)=>{setOtherService(!otherService);}}
                         className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                        <br />
                       <label htmlFor="other" className="font-medium text-gray-900">  Other  </label>
                 </div>
               </div>
@@ -263,15 +316,15 @@ export default function Deal(){
                 {tintService && <Tinting
                   tintAmount={tintAmount}
                   setTintAmount={setTintAmount}
-                  tintingType={tintingType}
-                  setTintingType={setTintingType}
+                  tintType={tintType}
+                  setTintType={setTintType}
                   windows={windows}
                   setWindows={setWindows}
                   tintPercentage={tintPercentage}
                   setTintPercentage={setTintPercentage}
                 />}
                 {tyreService && <Tyre 
-                  tyreTypre={tyreTypre}
+                  tyreType={tyreType}
                   setTyreType={setTyreType} 
                   tyreQuantity={tyreQuantity}
                   setTyreQuantity={setTyreQuantity}
@@ -349,7 +402,7 @@ export default function Deal(){
                     {photo ? <>
                       <div className="mt-4 relative">
                         <div className='shadow-md rounded-lg p-1'>
-                          <img src={photo} alt="Uploaded" className="max-w-full h-auto rounded-md bg-slate-300" />
+                          <img src={photo && URL.createObjectURL(photo)} alt="Uploaded" className="max-w-full h-auto rounded-md bg-slate-300" />
                         </div>
                         <span onClick={()=>setPhoto(null)} className="absolute shadow-md top-0 right-0 mt-2 mr-2 bg-indigo-600 rounded-full p-1 hover:bg-indigo-400" >
                           <svg xmlns="http://www.w3.org/2000/svg"
@@ -377,7 +430,7 @@ export default function Deal(){
                                 className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                               >
                                 <span>Upload a photo</span>
-                                <input onChange={handlePhotoChange} id="file-upload" name="file-upload"  type="file" className="sr-only" />
+                                <input onChange={(e)=>{setPhoto(e.target.files[0])}} id="file-upload" name="file-upload"  type="file" className="sr-only" />
                               </label>
                               <p className="pl-1">or drag and drop</p>
                             </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 
-export default function Tyre({tyreTypre, setTyreType, tyreQuantity, setTyreQuantity, tyreAmount, setTyreAmount, tyreNumber, setTyreNumber}){
+export default function Tyre({tyreType, setTyreType, tyreQuantity, setTyreQuantity, tyreAmount, setTyreAmount, tyreNumber, setTyreNumber}){
 // Function to update battery amount
 const handleTyreAmountChange = (amount) => {
     // If amount is NaN or not a valid number, default it to 0

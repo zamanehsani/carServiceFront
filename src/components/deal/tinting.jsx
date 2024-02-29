@@ -1,6 +1,6 @@
 import {useEffect} from 'react';
 
-export default function Tinting({tintAmount, setTintAmount,tintingType,setTintingType,windows, setWindows, tintPercentage, setTintPercentage }){
+export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,windows, setWindows, tintPercentage, setTintPercentage }){
     // Function to update battery amount
     const handleTintAmountChange = (amount) => {
         // If amount is NaN or not a valid number, default it to 0
@@ -50,7 +50,7 @@ export default function Tinting({tintAmount, setTintAmount,tintingType,setTintin
             <div className=" rounded md">
                 <label htmlFor="tint-type" className="block text-sm font-medium leading-6 text-gray-900">
                 Type of Tint </label>
-                <input defaultValue={tintingType+''} onChange={(e)=>setTintingType(e.target.value)} type="text"  name="tint-type" id="tint-type" autoComplete="street-address"
+                <input defaultValue={tintType+''} onChange={(e)=>setTintType(e.target.value)} type="text"  name="tint-type" id="tint-type" autoComplete="street-address"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>
