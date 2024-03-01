@@ -7,8 +7,10 @@ import Tyre from './tyre';
 import Battery from './battery';
 import OtherService from './otherService';
 
+import { useSelector } from 'react-redux';
 
 export default function Deal(){
+  const auth = useSelector((state)=>state.auth)
   // customer details
   const [name, setName] = useState(null);
   const [phone, setPhone] = useState(null);
@@ -159,8 +161,8 @@ export default function Deal(){
       otherTotal && formData.append("otherItems", JSON.stringify(otherItems));  // the otherServices total amount.
       // append the company id and user id to the form
       // now I have set it manually. change it to actual id
-      formData.append('company_id', 1);
-      formData.append('user_id', 1);
+      formData.append('company_id', auth.company.id);
+      formData.append('user_id', auth.user.id);
 
       sendform(formData);
 
