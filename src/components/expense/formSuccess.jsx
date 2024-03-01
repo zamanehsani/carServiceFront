@@ -1,6 +1,7 @@
 import React from 'react';
 
-const FormSubmissionSuccess = ({message, setSuccess }) => {
+// this form is being used in beal and expense both.
+const FormSubmissionSuccess = ({ setSuccess }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center">
     <div className="bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded relative w-full max-w-md">
