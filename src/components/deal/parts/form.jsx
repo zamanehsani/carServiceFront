@@ -126,9 +126,9 @@ export default function DealForm({setSuccess,  error, setError}){
       photo && formData.append("photo", photo);
       address && formData.append("address", `${address} - ${state} - ${country}`);
       // Car data
-      plateSource && formData.append("plateSource", plateSource);
-      plateNumber && formData.append("plateNumber", plateNumber);
-      model && formData.append("model", model);
+      plateSource && formData.append("car_plate_source", plateSource);
+      plateNumber && formData.append("car_plate_number", plateNumber);
+      model && formData.append("car_model", model);
       
       // append the oilChange 
       oilChangeService && formData.append("oilChangeService", oilChangeService);

@@ -8,6 +8,7 @@ export default function Form({setSuccess,  error, setError}){
     const auth = useSelector((state)=>state.auth)
     const [invoiceNumber , setInvoiceNumber] = useState(null);
     const [supplierNumber , setSupplierNumber] = useState(null);
+    const [supplierName , setSupplierName] = useState(null);
     const [name , setName] = useState(null);
     const [description , setDescription] = useState(null);
     const [amount , setAmount] = useState(null);
@@ -36,6 +37,7 @@ export default function Form({setSuccess,  error, setError}){
         description && formData.append("description", description);
         amount && formData.append("price", amount);
         quantity && formData.append("quantity", quantity);
+        supplierName && formData.append("supplier_name", supplierName);
         photo && formData.append("image", photo);
         formData.append('company_id', auth.company.id);
         formData.append('user_id', auth.user.id);
@@ -92,6 +94,15 @@ export default function Form({setSuccess,  error, setError}){
                             />
                         </div>
 
+                        <div className="sm:col-span-full">
+                            <label htmlFor="supplier_name" className="block text-sm font-medium leading-6 text-gray-900">
+                                Supplier Name
+                            </label>
+                            <input onChange={(e)=>setSupplierName(e.target.value)} defaultValue={supplierNumber}
+                                id="supplier_name"  name="supplier_name" type="text" autoComplete="phone" placeholder='free style auto'
+                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            />
+                        </div>
                         <div className="sm:col-span-full">
                             <label htmlFor="supplier" className="block text-sm font-medium leading-6 text-gray-900">
                                 Supplier Number

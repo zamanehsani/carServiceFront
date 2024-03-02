@@ -8,7 +8,7 @@ export default function Statistics(){
                 <i className="fas fa-chart-line text-blue-500"></i>
                 </div>
                 <div>
-                <span className="text-3xl font-bold text-green-500">$10,000</span>
+                <span className="text-3xl font-bold text-green-500">AED 10,000</span>
                 </div>
             </div>
 
@@ -18,7 +18,7 @@ export default function Statistics(){
                 <i className="fas fa-money-bill text-red-500"></i>
                 </div>
                 <div>
-                <span className="text-3xl font-bold text-red-500">$5,000</span>
+                <span className="text-3xl font-bold text-red-500">AED 5,000</span>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@ export default function Statistics(){
                 <i className="fas fa-balance-scale text-purple-500"></i>
                 </div>
                 <div>
-                <span className="text-3xl font-bold">$5,000</span>
+                <span className="text-3xl font-bold">AED 5,000</span>
                 </div>
             </div>
         </div>

@@ -1,13 +1,12 @@
 
-export default function ExpenseItem(){
+export default function ExpenseItem({index, expense}){
     return (
-        <div className="card border rounded-lg px-3 py-2 my-2">
-            <div className="card-body">
-                <h2 className="card-title">Expense List</h2>
-            </div>
-            <div className="card-footer">
-                <button className="btn btn-primary">Add Expense</button>
-            </div>
-        </div>
+        <tr className="text-left border-b my-5 border-gray-100">
+            <td className="py-2  ">{index+1}</td>
+            <td className="py-2  ">{expense.supplier_name}</td>
+            <td className="py-2  ">{expense.invoice_number}</td>
+            <td className="py-2  ">{expense.quantity+''}</td>
+            <td className="py-2  ">{expense.price+''}</td>
+        </tr>
     )
 }

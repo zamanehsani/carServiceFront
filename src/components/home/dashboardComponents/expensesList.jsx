@@ -1,21 +1,78 @@
-
 import ExpenseItem from "./expensesItem";
 import Pagination from "./Paginator";
+import axios from 'axios';
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export default function ExpensesList(){
+export default function ExpenseList1(){
+    // get the lis of sales from /api/customers 
+    const [expenses, setExpenses] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(3);
+
+    const auth = useSelector((state)=>state.auth)
+
+    const getData =()=>{
+        axios.get(`${process.env.REACT_APP_API_URL}/api/invoices/`,{
+            params:{
+                page_size: pageSize,
+                page: currentPage,
+                company:auth.company.id
+            }
+        })
+        .then(res => {
+            setExpenses(res.data);
+        })
+        .catch(err => console.log(err));
+    }
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page)
+    }
+    useEffect(() => {
+        getData();
+    },[currentPage,])
+
+    useEffect(() => {
+        return () => {setExpenses([]);} 
+    },[])
 
     return (
-        <div className="grid grid-cols-1 rounded-lg shadow-md bg-white px-3 py-3 my-2 ">
-            <h1 className="leading-4 text-indigo-600 font-bold m-2 mb-4">List of the Expenses</h1>
-            <div className="p-2 overflow-y-auto rounded-md shadow-dm shadow-inner bg-slate-50">
-            <ExpenseItem /> 
-            <ExpenseItem /> 
-            <ExpenseItem /> 
-            <ExpenseItem /> 
-            <ExpenseItem /> 
-            <ExpenseItem /> 
+        <div className="grid grid-cols-1 rounded-lg shadow-md bg-white p-3 my-3">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-5">
+                <div className="flex flex-col">
+                    <h1 className="leading-1 m-0 text-2xl font-bold text-gray-700">Expense</h1>
+                    <p className="text-gray-700 m-0 text-sm">The list of all the epenses. For more details, click on each item.</p>
+                </div>
+                <div className="mt-2 sm:my-3 md:mt-0">
+                    <Link to={'/add-expense'} className="bg-indigo-600 text-white py-2 px-3 rounded inline-block">Add Expense</Link>
+                </div>
             </div>
-            <Pagination />
+
+            <div className="overflow-x-auto mt-5">
+                <table className=" border-collapse w-full">
+                    <thead className="">
+                        <tr className="text-left border-b border-gray-200 text-gray-700">
+                            <th className="">No</th>
+                            <th className="">Supplier</th>
+                            <th className="">Invoice No</th>
+                            <th className="">Quantity</th>
+                            <th className="">Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {expenses && expenses?.results?.map((expense, index) => {return <ExpenseItem index={index} key={index} expense={expense} />})}
+                    </tbody>
+                </table>
+            </div>
+            {expenses?.total_pages > 1 && <Pagination 
+                pageSize={pageSize} 
+                currentPage={currentPage} 
+                handlePageChange={handlePageChange}
+                previous ={expenses.previous ? true: false}
+                next ={expenses.next ? true: false}
+                total_pages={expenses?.total_pages} />}
         </div>
     )
 }
