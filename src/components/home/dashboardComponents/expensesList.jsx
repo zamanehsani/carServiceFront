@@ -39,7 +39,7 @@ export default function ExpenseList1(){
     },[])
 
     return (
-        <div className="grid grid-cols-1 rounded-lg shadow-md bg-white p-3 my-3">
+        <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg shadow-md bg-white py-7 my-3">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-5">
                 <div className="flex flex-col">
                     <h1 className="leading-1 m-0 text-2xl font-bold text-gray-700">Expense</h1>
@@ -50,7 +50,7 @@ export default function ExpenseList1(){
                 </div>
             </div>
 
-            <div className="overflow-x-auto rounded border shadow px-4 py-2 mt-5">
+            <div className="overflow-x-auto rounded px-4 py-2 mt-5">
                 <table className="table-auto w-full border-collapse">
                     <thead className="">
                         <tr className="text-left border-b border-gray-200 text-gray-700">

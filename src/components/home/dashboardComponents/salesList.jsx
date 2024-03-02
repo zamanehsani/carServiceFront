@@ -40,7 +40,7 @@ export default function SalesList(){
     },[])
 
     return (
-        <div className="grid grid-cols-1 rounded-lg shadow-md bg-white p-3 my-3 ">
+        <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg shadow-md bg-white py-7 my-3 ">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-5">
                 <div className="flex flex-col">
                     <h1 className="leading-1 m-0 text-2xl font-bold text-gray-700">Sales</h1>

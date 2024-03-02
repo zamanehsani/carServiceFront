@@ -2,7 +2,7 @@
 export default function SalesItem({sale,index}){
 
     return (
-        <tr className="text-left border-b my-5 border-gray-100">
+        <tr className="text-left border-b my-5 border-gray-100 hover:font-semibold hover:shadow-lg hover:bg-indigo-50">
             <td className="px-4 py-2">{index+1}</td>
             <td className="px-4 py-2" style={{minWidth:'170px'}} >
                 <span className="font-semibold">{sale.car_model}</span> <br /> <span>{sale.car_plate_source}  {sale.car_plate_number} </span> 
