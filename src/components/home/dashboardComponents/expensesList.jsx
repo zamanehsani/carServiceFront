@@ -9,7 +9,7 @@ export default function ExpenseList1(){
     // get the lis of sales from /api/customers 
     const [expenses, setExpenses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(3);
+    const [pageSize, setPageSize] = useState(10);
 
     const auth = useSelector((state)=>state.auth)
 
@@ -50,15 +50,15 @@ export default function ExpenseList1(){
                 </div>
             </div>
 
-            <div className="overflow-x-auto mt-5">
-                <table className=" border-collapse w-full">
+            <div className="overflow-x-auto rounded border shadow px-4 py-2 mt-5">
+                <table className="table-auto w-full border-collapse">
                     <thead className="">
                         <tr className="text-left border-b border-gray-200 text-gray-700">
-                            <th className="">No</th>
-                            <th className="">Supplier</th>
-                            <th className="">Invoice No</th>
-                            <th className="">Quantity</th>
-                            <th className="">Total Amount</th>
+                            <th className="px-4 py-2 w-1/4">No</th>
+                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>Supplier</th>
+                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>Invoice No</th>
+                            <th className="px-4 py-2 w-1/4">Quantity</th>
+                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>Total Amount</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +66,8 @@ export default function ExpenseList1(){
                     </tbody>
                 </table>
             </div>
+           
+
             {expenses?.total_pages > 1 && <Pagination 
                 pageSize={pageSize} 
                 currentPage={currentPage} 

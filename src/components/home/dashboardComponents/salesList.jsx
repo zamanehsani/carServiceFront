@@ -10,7 +10,7 @@ export default function SalesList(){
     // get the lis of sales from /api/customers 
     const [sales, setSales] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(2);
+    const [pageSize, setPageSize] = useState(10);
 
     const auth = useSelector((state)=>state.auth)
 
@@ -51,15 +51,15 @@ export default function SalesList(){
                 </div>
             </div>
 
-            <div className="overflow-x-auto mt-5">
-                <table className=" border-collapse w-full">
+            <div className="overflow-x-auto rounded px-4 py-2 mt-5">
+                <table className="table-auto w-full border-collapse">
                     <thead className="">
                         <tr className="text-left border-b border-gray-200 text-gray-700">
-                            <th className="">No</th>
-                            <th className="">Car</th>
-                            <th className="">Customer</th>
-                            <th className="">Services</th>
-                            <th className="">Total Amount</th>
+                            <th className="px-4 py-2">No</th>
+                            <th className="px-4 py-2">Car</th>
+                            <th className="px-4 py-2">Customer</th>
+                            <th className="px-4 py-2">Services</th>
+                            <th className="px-4 py-2"> Amount</th>
                         </tr>
                     </thead>
                     <tbody>
