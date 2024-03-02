@@ -2,8 +2,9 @@
 // import { useDispatch, useSelector } from "react-redux";
 // const auth = useSelector((state)=>state.auth)
 import Statistics from "./dashboardComponents/statistics";
-import DealList from "./dashboardComponents/dealList";
+import SalesList from "./dashboardComponents/salesList";
 import SearchView from "./dashboardComponents/search";
+import ExpensesList  from './dashboardComponents/expensesList';
 
 export default function Home(){
     // get the customers list on load
@@ -15,9 +16,10 @@ export default function Home(){
             <Statistics/>
 
             {/* the list of deals */}
-            <DealList />
+            <SalesList />
 
             {/* the list of expense */}
+            <ExpensesList />
 
         </div>
     )
