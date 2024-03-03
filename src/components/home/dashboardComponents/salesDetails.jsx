@@ -40,7 +40,7 @@ export default function SalesDetails(){
                         {sale?.oilChangeService.map((oil, index)=>{
                             return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
                                 <h1 className="font-bold leading-10 text-2xl text-indigo-600">Oil Change Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Oil Tyre: </span> {oil?.oil}</p>
+                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Oil Type: </span> {oil?.oil}</p>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Car Milage: </span> {oil?.currentMilage}</p>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Next Oil Change Milage: </span> {parseFloat((oil?.oil))+parseFloat((oil?.currentMilage))}</p>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {oil?.amount}</p>
@@ -63,7 +63,7 @@ export default function SalesDetails(){
                         {sale?.tintService.map((tint, index)=>{
                             return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
                                 <h1 className="font-bold leading-10 text-2xl text-indigo-600">Tint Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Type Of tint: </span> {tint?.tintType}</p>
+                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Type Of Tint: </span> {tint?.tintType}</p>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Tint Percentage: </span> {tint?.tintPercentage} %</p>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Classes Tinted: </span> {tint?.tintedWindows}</p>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {tint?.amount}</p>
@@ -87,7 +87,7 @@ export default function SalesDetails(){
                             return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
                                 <h1 className="font-bold leading-10 text-2xl text-indigo-600">Other Service Details</h1>
                                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Name of the Service: </span> {service?.name}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Amount: </span> {service?.amount}</p>
+                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Amount: </span>AED {service?.amount}</p>
                             </div>
                         })}
                     </> }

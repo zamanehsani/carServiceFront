@@ -19,7 +19,7 @@ export default function ExpenseDetails({match}){
     return (
         <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg my-4 p-5">
             {!error && <>
-            <div className="m-2 bg-white rounded-md shadow-md py-5 px-5">
+            <div className="m-2 bg-slate-100 rounded-md shadow-md py-5 px-5">
                 <h1 className="font-bold leading-10 text-2xl text-indigo-600">Expense Details:</h1>
                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600 ">Invoice Number: </span>{exp?.invoice_number}</p>
                 <p className="text-gray-600"><span className="font-semibold mx-2">Date of Purchase: </span>{exp?.date}</p>

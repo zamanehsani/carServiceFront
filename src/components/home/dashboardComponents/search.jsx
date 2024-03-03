@@ -4,25 +4,9 @@ const SearchView = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const searchRef = useRef(null);
   const [data] = useState([
-    'oil','Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10',
-    'tyre',
-    'tint',
-    'ahmad',
-    'mohammad',
-    'dxb',
-    'zaman',
-    'Item 8',
-    'Item 9',
-    'Item 10',
+    'oil','Item 1', 'Item 2', 'ahmad',
+    'mohammad', 'dxb', 'zaman',
+    'Item 8', 'Item 9', 'Item 10',
     // Add more items as needed
   ]);
 
@@ -32,8 +16,7 @@ const SearchView = () => {
   );
 
 //   if the search input is empty, hide the results
-  useEffect(()=>{if(searchTerm.length === 0){ setShowResults(false) }
-  },[searchTerm])
+  useEffect(()=>{if(searchTerm.length === 0){ setShowResults(false) }},[searchTerm])
 
 
   useEffect(() => {
@@ -56,8 +39,8 @@ const SearchView = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-slate-100" ref={searchRef}>
-      <div className="mb-4 relative bg-slate-100">
+    <div className="max-w-6xl mx-auto" ref={searchRef}>
+      <div className="mb-4 relative">
         <input
           type="text"
           placeholder="Search anything "

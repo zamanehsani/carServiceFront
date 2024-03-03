@@ -68,10 +68,11 @@ export default function Header() {
                             </div>
                             <div className="flex flex-col justify-center items-center w--full">
                                 <h1 className="text-xl text-indigo-800 capitalize leading-9 my-1 font-extrabold">{auth?.user?.username}</h1>
-                                <h1 className="text-xl text-white ">{auth?.user?.email}</h1> 
+                                {/* <h1 className="text-xl text-white ">{auth?.user?.email}</h1>  */}
                                 <Link to={'/user'} className="text-xl bg-indigo-700 shadow-md px-4 py-1 mb-3 rounded-md text-white hover:bg-indigo-600 hover:text-gray-300 ">My Profile</Link>
                             </div>
                         </div>
+                        <br />
                         {/* Menu items */}
                         <div className="flex flex-col space-y-4 px-4">
                             <Link onClick={toggleMenu} to={'/'} className="text-xl text-white hover:font-bold hover:text-gray-200 ">Home</Link>

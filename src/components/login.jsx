@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {login, getUser, getUserCompany} from './redux/authSlice';
@@ -10,17 +10,29 @@ export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await dispatch(login({username,password}))
-        // get the user information
-        await dispatch(getUser(username));
-        // get the user company
-        await dispatch(getUserCompany(username));
+         const isLogged = await dispatch(login({ username, password }));
 
-        navigate('/');
+        //  if the login dispatch return payload with access token, user is authenticated.
+        if(isLogged.payload.access.length > 1){
+          // get the user information
+          await dispatch(getUser(username));
+          // get the user company
+          await dispatch(getUserCompany(username));
+      
+          navigate('/');
+        }
+          
     }
 
+    useEffect(()=>{
+      return () =>{
+        setUsername('');
+        setPassword('');
+      }
+    },[])
     return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

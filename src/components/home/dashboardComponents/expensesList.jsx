@@ -1,42 +1,25 @@
 import ExpenseItem from "./expensesItem";
 import Pagination from "./Paginator";
-import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getExpenses } from "../../redux/expensesSlice";
 
 export default function ExpenseList1(){
-    // get the lis of sales from /api/customers 
-    const [expenses, setExpenses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(3);
 
     const auth = useSelector((state)=>state.auth)
-
-    const getData =()=>{
-        axios.get(`${process.env.REACT_APP_API_URL}/api/invoices/`,{
-            params:{
-                page_size: pageSize,
-                page: currentPage,
-                company:auth.company.id
-            }
-        })
-        .then(res => {
-            setExpenses(res.data);
-        })
-        .catch(err => console.log(err));
-    }
+    const expenses = useSelector((state)=>state.expenses.expenses)
+    const dispatch = useDispatch();
 
     const handlePageChange = (page) => {
         setCurrentPage(page)
     }
     useEffect(() => {
-        getData();
+        dispatch(getExpenses({pageSize, currentPage, company:auth.company.id}))
     },[currentPage,])
 
-    useEffect(() => {
-        return () => {setExpenses([]);} 
-    },[])
 
     return (
         <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg shadow-md bg-white py-7 my-3">
@@ -72,8 +55,8 @@ export default function ExpenseList1(){
                 pageSize={pageSize} 
                 currentPage={currentPage} 
                 handlePageChange={handlePageChange}
-                previous ={expenses.previous ? true: false}
-                next ={expenses.next ? true: false}
+                previous ={expenses?.previous ? true: false}
+                next ={expenses?.next ? true: false}
                 total_pages={expenses?.total_pages} />}
         </div>
     )
