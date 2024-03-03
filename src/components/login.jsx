@@ -7,14 +7,12 @@ export default function Login() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const auth = useSelector((state)=>state.auth)
-    
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         await dispatch(login({username,password}))
-        
         // get the user information
         await dispatch(getUser(username));
         // get the user company

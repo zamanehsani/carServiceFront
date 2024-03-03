@@ -42,6 +42,8 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             // Clear local storage
             localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('company');
             localStorage.removeItem('isAuthenticated', false);
         })
         .addCase(logout.pending, (state)=>{
@@ -106,8 +108,13 @@ const authSlice = createSlice({
 export const login = createAsyncThunk(
     'auth/login',
     async (credentials) => {
-        const response = await axios.post(process.env.REACT_APP_API_URL + '/api/token/', credentials);
-        return response.data;
+        try {
+            const response = await axios.post(process.env.REACT_APP_API_URL + '/api/token/', credentials);
+            return response.data;
+        } catch (error) {
+            console.error("Error making request:", error);
+            // Handle the error as needed
+        }
     }
 );
 

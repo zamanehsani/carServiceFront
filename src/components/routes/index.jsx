@@ -9,6 +9,8 @@ import Expense from '../expense';
 import PrivateRoute from './PrivateRoute';
 import SalesDetails from '../home/dashboardComponents/salesDetails';
 import ExpenseDetails from '../home/dashboardComponents/expenseDetails';
+import UserProfile from '../home/user/index'
+import CompanyProfile from '../home/company/index'
 
 
 // Define Layout component
@@ -51,6 +53,16 @@ const routes = createBrowserRouter([
     {
       path: "/expense-details/:id",
       element:<PrivateRoute> <Layout> <ExpenseDetails /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/user",
+      element:<PrivateRoute> <Layout> <UserProfile /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/company",
+      element:<PrivateRoute> <Layout> <CompanyProfile /></Layout></PrivateRoute>,
       errorElement:<Layout><PageNotFound /></Layout>
     },
   ])

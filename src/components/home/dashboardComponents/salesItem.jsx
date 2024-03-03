@@ -22,7 +22,7 @@ export default function SalesItem({sale,index}){
                 { sale.tyreService?.length> 0 && <span 
                     className="m-1 inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-600 ring-1 ring-inset ring-indigo-500/10">
                     Tyre</span>}
-                { sale.oilchangeService?.length> 0 && <span 
+                { sale.oilChangeService?.length> 0 && <span 
                     className="m-1 inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-600 ring-1 ring-inset ring-indigo-500/10">
                     Oil</span> }
                 { sale.batteryService?.length> 0 && <span 
