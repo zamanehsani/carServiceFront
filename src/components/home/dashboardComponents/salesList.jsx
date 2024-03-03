@@ -1,43 +1,25 @@
-
 import SalesItem from "./salesItem";
 import Pagination from "./Paginator";
-import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSales } from "../../redux/salesSlice";
 
 export default function SalesList(){
-    // get the lis of sales from /api/customers 
-    const [sales, setSales] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-
+    
     const auth = useSelector((state)=>state.auth)
+    const sales = useSelector((state)=>state.sales.sales)
 
-    const getData =()=>{
-        axios.get(`${process.env.REACT_APP_API_URL}/api/customers/`,{
-            params:{
-                page_size: pageSize,
-                page: currentPage,
-                company:auth.company.id
-            }
-        })
-        .then(res => {
-            setSales(res.data);
-        })
-        .catch(err => console.log(err));
-    }
+    const dispatch = useDispatch();
 
     const handlePageChange = (page) => {
         setCurrentPage(page)
     }
     useEffect(() => {
-        getData();
+        dispatch(getSales({pageSize, currentPage, company:auth.company.id}))
     },[currentPage,])
-
-    useEffect(() => {
-        return () => {setSales([]);} 
-    },[])
 
     return (
         <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg shadow-md bg-white py-7 my-3 ">
@@ -72,7 +54,7 @@ export default function SalesList(){
                 currentPage={currentPage} 
                 handlePageChange={handlePageChange}
                 previous ={sales.previous ? true: false}
-                next ={sales.next ? true: false}
+                next ={sales?.next ? true: false}
                 total_pages={sales?.total_pages} />}
         </div>
     )

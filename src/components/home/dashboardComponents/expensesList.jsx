@@ -7,7 +7,7 @@ import { getExpenses } from "../../redux/expensesSlice";
 
 export default function ExpenseList1(){
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(3);
+    const [pageSize, setPageSize] = useState(10);
 
     const auth = useSelector((state)=>state.auth)
     const expenses = useSelector((state)=>state.expenses.expenses)

@@ -11,7 +11,7 @@ export default function SalesItem({sale,index}){
             <td className="px-4 py-2 capitalize">
                 <span className="font-semibold">{sale.name}</span> <br /> {sale.phone}
             </td>
-            <td className="px-4 py-2">
+            <td className="px-4 py-2 " style={{minWidth:'200px'}}>
                 { sale.tintService?.length> 0 && <span 
                     className="m-1 inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-600 ring-1 ring-inset ring-indigo-500/10">
                     Tint</span>
