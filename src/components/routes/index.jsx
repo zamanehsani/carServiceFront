@@ -7,11 +7,14 @@ import Deal from '../deal';
 import App from '../../App';
 import Expense from '../expense';
 import PrivateRoute from './PrivateRoute';
+import SalesDetails from '../home/dashboardComponents/salesDetails';
+import ExpenseDetails from '../home/dashboardComponents/expenseDetails';
+
 
 // Define Layout component
 const Layout = ({ children }) => {
     return (
-      <div className='bg-slate-100'>
+      <div>
         <Header/>
         <main className=''>{children}</main>
         {/* footer here */}
@@ -38,6 +41,16 @@ const routes = createBrowserRouter([
     {
       path: "/add-expense",
       element:<PrivateRoute> <Layout> <Expense /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/sale-details/:id",
+      element:<PrivateRoute> <Layout> <SalesDetails /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/expense-details/:id",
+      element:<PrivateRoute> <Layout> <ExpenseDetails /></Layout></PrivateRoute>,
       errorElement:<Layout><PageNotFound /></Layout>
     },
   ])

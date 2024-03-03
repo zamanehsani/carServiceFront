@@ -15,7 +15,7 @@ export default function Expense(){
 
     return ( <>
         {success ?  <FormSubmissionSuccess setSuccess={setSuccess}/> :
-            <div className="flex flex-col items-center justify-center py-7 px-4">
+            <div className="bg-slate-100 flex flex-col items-center justify-center py-7 px-4">
                 <Form success={success} setSuccess={setSuccess} error={error} setError={setError} />
             </div>}
     </>

@@ -10,7 +10,7 @@ export default function Home(){
     // get the customers list on load
 
     return(
-        <div className="mx-auto p-4 justify-center items-center">
+        <div className="mx-auto p-4 justify-center items-center bg-slate-100">
             <SearchView />
             {/* the totals cards */}
             <Statistics/>

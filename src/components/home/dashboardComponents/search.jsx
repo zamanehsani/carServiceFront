@@ -56,8 +56,8 @@ const SearchView = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto" ref={searchRef}>
-      <div className="mb-4 relative">
+    <div className="max-w-6xl mx-auto bg-slate-100" ref={searchRef}>
+      <div className="mb-4 relative bg-slate-100">
         <input
           type="text"
           placeholder="Search anything "
