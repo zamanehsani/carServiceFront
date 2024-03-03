@@ -19,6 +19,7 @@ export default function Home(){
             <SalesList />
 
             {/* the list of expense */}
+            {/* check if the auth.user.is active */}
             <ExpensesList />
 
         </div>
