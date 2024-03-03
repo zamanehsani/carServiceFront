@@ -6,6 +6,7 @@ import Tinting from './tinting';
 import Tyre from './tyre';
 import Battery from './battery';
 import OtherService from './otherService';
+import { Link } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 
@@ -250,7 +251,16 @@ export default function DealForm({setSuccess,  error, setError}){
   },[])
 
   return (
-      <form className='w-full md:w-1/2 lg:w-1/2 px-4 py-6 bg-white rounded-lg shadow-md' 
+    <div className='w-full md:w-1/2 lg:w-1/2 rounded-lg'>
+      <div className="flex my-4 ml-5 overflow-x-auto" >
+          <Link to={'/'} className="flex"> 
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 text-indigo-600">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+            <span className="text-indigo-600 mx-3">/</span></Link> 
+          <span className="text-indigo-900"> Add Sale Form</span> 
+      </div>
+      <form className='px-4 py-6 bg-white rounded-lg shadow-md' 
         onSubmit={handleSubmit}>
         <div className="space-y-6">
           <div className="border-b border-gray-900/10 ">
@@ -589,5 +599,6 @@ export default function DealForm({setSuccess,  error, setError}){
           <br />
         </div>
       </form>
+    </div>
   )
 }

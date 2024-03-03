@@ -45,6 +45,7 @@ const authSlice = createSlice({
             localStorage.removeItem('user');
             localStorage.removeItem('company');
             localStorage.removeItem('expenses');
+            localStorage.removeItem('sales');
             localStorage.removeItem('isAuthenticated', false);
         })
         .addCase(logout.pending, (state)=>{

@@ -11,8 +11,8 @@ export default function Statistics(){
     const [totalExpenses, setTotalExpenses] = useState(0);
 
     useEffect(()=>{
-        setTotalSales(sales.results.reduce((total, sale) => total + parseFloat(sale.price), 0) || 0)
-        setTotalExpenses( expenses.results.reduce((total, exp) => total + parseFloat(exp.price), 0) || 0)
+        setTotalSales(sales?.results?.reduce((total, sale) => total + parseFloat(sale.price), 0) || 0)
+        setTotalExpenses( expenses?.results?.reduce((total, exp) => total + parseFloat(exp.price), 0) || 0)
     },[sales, expenses])
 
     return (

@@ -14,6 +14,7 @@ export default function Deal(){
   },[])
 
   return ( <>
+  
       {success ?  <FormSubmissionSuccess setSuccess={setSuccess}/> :
           <div className="flex bg-slate-100 flex-col items-center justify-center py-7 px-4">
           <DealForm success={success} setSuccess={setSuccess} error={error} setError={setError} />
