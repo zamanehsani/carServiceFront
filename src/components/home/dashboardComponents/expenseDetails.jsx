@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { useSelector } from "react-redux";
+import axios from 'axios'; 
+
 
 export default function ExpenseDetails({match}){
     const {id} = useParams(); 
@@ -11,7 +13,20 @@ export default function ExpenseDetails({match}){
     const auth = useSelector((state)=>state.auth)
 
     useEffect(()=>{ 
-        setExp(expenses?.results?.find(ex => ex.id === parseInt(id)));
+        const expObject = expenses.results.find(obj => obj.id === parseInt(id));
+        if (!expObject) {
+            // get the object from the backend
+            axios.get(`${process.env.REACT_APP_API_URL}/api/invoices/${id}/`)
+            .then(response => {
+              setExp(response.data);
+            })
+            .catch(error => {
+              setError('Error fetching new data.');
+            });
+        }else{
+            setExp(expenses?.results?.find(ex => ex.id === parseInt(id)));
+        }
+
     },[expenses])
 
     useEffect(() => {

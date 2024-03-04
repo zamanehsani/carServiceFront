@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from 'axios'; 
 
 export default function SalesDetails(){
 
@@ -11,7 +12,19 @@ export default function SalesDetails(){
     const auth = useSelector((state)=>state.auth)
 
     useEffect(()=>{ 
-        setSale(sales.results.find(sal => sal.id === parseInt(id)));
+        const saleObject = sales.results.find(obj => obj.id === parseInt(id));
+        if (!saleObject) {
+            // get the object from the backend
+            axios.get(`${process.env.REACT_APP_API_URL}/api/customers/${id}/`)
+            .then(response => {
+              setSale(response.data);
+            })
+            .catch(error => {
+              setError('Error fetching new data.');
+            });
+        }else{
+            setSale(sales.results.find(sal => sal.id === parseInt(id)));
+        }
     },[sales])
     useEffect(() => {
         // Scroll the window to the top when the component is mounted
