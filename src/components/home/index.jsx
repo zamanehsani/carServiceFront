@@ -2,9 +2,9 @@
 // import { useDispatch, useSelector } from "react-redux";
 // const auth = useSelector((state)=>state.auth)
 import Statistics from "./dashboardComponents/statistics";
-import SalesList from "./dashboardComponents/salesList";
+import SalesList from "./dashboardComponents/sales/salesList";
 import SearchView from "./dashboardComponents/search";
-import ExpensesList  from './dashboardComponents/expensesList';
+import ExpensesList  from './dashboardComponents/expenses/expensesList';
 
 export default function Home(){
     // get the customers list on load

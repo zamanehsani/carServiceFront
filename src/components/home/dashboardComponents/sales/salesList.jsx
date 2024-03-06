@@ -1,9 +1,9 @@
 import SalesItem from "./salesItem";
-import Pagination from "./Paginator";
+import Pagination from "../Paginator";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSales } from "../../redux/salesSlice";
+import { getSales } from "../../../redux/salesSlice";
 
 export default function SalesList(){
     const [currentPage, setCurrentPage] = useState(1);

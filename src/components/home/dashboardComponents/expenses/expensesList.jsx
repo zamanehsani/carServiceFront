@@ -1,9 +1,9 @@
 import ExpenseItem from "./expensesItem";
-import Pagination from "./Paginator";
+import Pagination from "../Paginator";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getExpenses } from "../../redux/expensesSlice";
+import { getExpenses } from "../../../redux/expensesSlice";
 
 export default function ExpenseList1(){
     const [currentPage, setCurrentPage] = useState(1);

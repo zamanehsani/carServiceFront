@@ -7,8 +7,8 @@ import Deal from '../deal';
 import App from '../../App';
 import Expense from '../expense';
 import PrivateRoute from './PrivateRoute';
-import SalesDetails from '../home/dashboardComponents/salesDetails';
-import ExpenseDetails from '../home/dashboardComponents/expenseDetails';
+import SalesDetails from '../home/dashboardComponents/sales/salesDetails';
+import ExpenseDetails from '../home/dashboardComponents/expenses/expenseDetails';
 import UserProfile from '../home/user/index'
 import CompanyProfile from '../home/company/index'
 
