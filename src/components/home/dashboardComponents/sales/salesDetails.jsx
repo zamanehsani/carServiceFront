@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from 'axios'; 
+import SalesCustomer from "./salesCustomer";
+import SalesCar from "./salesCar";
 
 export default function SalesDetails(){
 
@@ -48,18 +50,10 @@ export default function SalesDetails(){
 
             <div className="m-2 bg-slate-100 rounded-md shadow-md py-5 px-5">
                 {/* customer details */}
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Customer Details:</h1>
-                <p className="text-gray-600"><span className="font-semibold mx-2"></span>{sale?.date}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Name: </span>{sale?.name}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Phone: </span>{sale?.phone}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Amount: </span>AED {sale?.price}</p>
-                <hr className="my-5 border-gray-100"/>
+                <SalesCustomer instance={sale} />
 
                 {/* car details */}
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Car Details:</h1>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600 ">Car Model: </span>{sale?.car_model}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Plate: </span>{sale?.car_plate_source} {sale?.car_plate_number}</p>
-                <hr className="my-5 border-gray-100"/>
+               <SalesCar instance={sale} />
                 
                 {/* service details */}
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
