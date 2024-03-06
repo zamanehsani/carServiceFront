@@ -10,21 +10,17 @@ export default function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
          const isLogged = await dispatch(login({ username, password }));
-
         //  if the login dispatch return payload with access token, user is authenticated.
         if(isLogged.payload.access.length > 1){
           // get the user information
           await dispatch(getUser(username));
           // get the user company
           await dispatch(getUserCompany(username));
-      
           navigate('/');
         }
-          
     }
 
     useEffect(()=>{

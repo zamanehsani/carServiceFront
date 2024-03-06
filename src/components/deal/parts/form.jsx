@@ -593,9 +593,9 @@ export default function DealForm({setSuccess,  error, setError}){
             Save </button>
 
           <br /> 
-          <button type="button" 
-            className="rounded-md text-lg font-bold bg-slate-200 py-2 px-6 leading-6 text-gray-900">
-            Cancel </button>
+          <Link to={`/`}
+              className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-20 leading-6 text-gray-900">
+              Cancel </Link>
           <br />
         </div>
       </form>

@@ -9,6 +9,7 @@ import Expense from '../expense';
 import PrivateRoute from './PrivateRoute';
 import SalesDetails from '../home/dashboardComponents/sales/salesDetails';
 import ExpenseDetails from '../home/dashboardComponents/expenses/expenseDetails';
+import ExpenseEdit from    '../home/dashboardComponents/expenses/expenseEdit';
 import UserProfile from '../home/user/index'
 import CompanyProfile from '../home/company/index'
 
@@ -53,6 +54,11 @@ const routes = createBrowserRouter([
     {
       path: "/expense-details/:id",
       element:<PrivateRoute> <Layout> <ExpenseDetails /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/expense-edit/:id",
+      element:<PrivateRoute> <Layout> <ExpenseEdit /></Layout></PrivateRoute>,
       errorElement:<Layout><PageNotFound /></Layout>
     },
     {

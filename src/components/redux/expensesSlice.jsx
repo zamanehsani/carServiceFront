@@ -10,7 +10,9 @@ const initialExpenseState = {
 const ExpensesSlice = createSlice({
     name: "expenses",
     initialState: initialExpenseState,
-    reducers: {},
+    reducers: {
+        
+    },
     extraReducers: (builder)=>{
         builder.addCase(getExpenses.pending, (state)=>{
             state.loading = true;
