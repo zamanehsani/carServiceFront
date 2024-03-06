@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import axios from 'axios'; 
 import SalesCustomer from "./salesCustomer";
 import SalesCar from "./salesCar";
+import SalesNote from "./salesNote";
+import SalesImage from "./salesImage";
 
 export default function SalesDetails(){
 
@@ -113,25 +115,13 @@ export default function SalesDetails(){
                         })}
                     </> }
                 </div>
-              
-                        <br />
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Note</h1>
-                <div className="w-full h-40 rounded-md border p-3 bg-white border-gray-100">
-                    <p className="text-gray-600">{sale?.description}</p>
-                </div>
+                <br />
+
+                <SalesNote instance={sale} />
+            
                 <br />
             
-                <div className="w-full md:w-1/2 lg:w-1/3 mx-auto">
-                    {/* Conditional check for image presence */}
-                    {sale?.image ? (
-                        <img src={sale?.image} alt="the invoice photo" />
-                    ) : (
-                        /* If image is null, display placeholder */
-                        <div className="w-full max-h-52 mx-auto h-48 rounded-sm bg-indigo-100 flex items-center justify-center">
-                            <p className="text-indigo-400">No image available</p>
-                        </div>
-                    )}
-                </div>
+                <SalesImage instance={sale} />
                 <div>
                     <span className="text-gray-500 mt-5 text-sm ">This sale is added by {sale?.user?.username}.</span>
                 </div>
