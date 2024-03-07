@@ -8,7 +8,6 @@ export default function Battery({instance}){
     const [editMode, setEditMode] = useState(false);
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
 
-    console.log("instainc:", instance)
     return (
         <div className="rounded-md w-full bg-white p-4 mx-auto">
             <div className="flex items-center">
