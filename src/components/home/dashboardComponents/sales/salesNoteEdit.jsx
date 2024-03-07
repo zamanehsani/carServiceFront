@@ -13,6 +13,7 @@ export default function SalesNoteEdit({instance, setEditMode}){
 
     let timeoutId = null;
 
+    console.log("insta: ", instance)
     const handleSubmit =(e)=>{
         e.preventDefault();
         // create a formdata instance
@@ -53,12 +54,11 @@ export default function SalesNoteEdit({instance, setEditMode}){
                 <div className="space-y-6">
                     {/* Note */}
                     <div className="col-span-full">
-                   
                         <textarea onChange={(e)=>{setNote(e.target.value)}}
                         id="description"
                         name="description"
                         placeholder='Your note here...'
-                        defaultChecked={instance.note}
+                        defaultValue={instance?.description }
                         rows={3}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />

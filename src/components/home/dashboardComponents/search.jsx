@@ -2,19 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios'; // Import axios
 import { Link } from 'react-router-dom';
-
+import { useTranslation } from "react-i18next";
 
 const SearchView = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [customersResults, setCustomersResults] = useState([])
   const [expensesResult, setExpensesResults] = useState([])
-
+  
   const [oilResult, setOilResults] = useState([])
   const [tintResult, setTintResults] = useState([])
   const [tyreResult, setTyreResults] = useState([])
   const [batteryResult, setBatteryResults] = useState([])
   const [otherResult, setOtherResults] = useState([])
   const searchRef = useRef(null);
+  const [t, i18n] = useTranslation("global");
   const auth = useSelector(state => state.auth);
 
 //   if the search input is empty, hide the results
@@ -95,7 +96,7 @@ const searchBackend = async (value) => {
       <div className="mb-4 relative">
         <input
           type="text"
-          placeholder="Search anything "
+          placeholder={t("search.search")}
           className="w-full px-4 py-2 rounded-full border-0 shadow-md hover:bg-indigo-100"
           onChange={(e)=>handleInputChange(e.target.value)}
         />

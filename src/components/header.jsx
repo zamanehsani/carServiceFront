@@ -1,21 +1,44 @@
-import { useState } from "react";
+import { useState,useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {logout} from './redux/authSlice';
 import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
     const auth = useSelector((state)=>state.auth)
     const [menu, setMenu] = useState(false);
-    
+    const [t, i18n] = useTranslation("global");
     const toggleMenu = () => { setMenu(!menu)};
-
+    const [showLang, setShowLang] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const langRef = useRef();
+
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+          if (langRef.current && !langRef.current.contains(event.target)) {
+            setShowLang(false);
+          }
+        };
+    
+        document.addEventListener('mousedown', handleOutsideClick);
+    
+        return () => {
+          document.removeEventListener('mousedown', handleOutsideClick);
+        };
+      }, []);
 
     const handleLogout = async (e) => {
         await dispatch(logout());
         navigate('/login');
+    }
+
+    const handleLanguageChange = (lng) => {
+        i18n.changeLanguage(lng);
+        // close the language pop up as well
+        setShowLang(false);
     }
     return (
         <div className="bg-indigo-600 bg-gradient-to-r from-indigo-600 via-indigo-600 to-indigo-600 shadow-lg">
@@ -27,12 +50,33 @@ export default function Header() {
                 <div className="flex-grow "></div>
 
                 <div className="hidden lg:flex items-center space-x-6">
-                    <Link to={'/'} className="text-xl text-white hover:text-gray-300 ">Home</Link>
-                    <Link to={'/add-deal'} className="text-xl text-white hover:text-gray-300 ">Add Deal</Link>
-                    <Link to={'/add-expense'} className="text-xl text-white hover:text-gray-300 ">Add Expense</Link>
-                    <Link to={'/user'} className="text-xl text-white hover:text-gray-300 ">My Profile</Link>
-                    <Link to={'/company'} className="text-xl text-white hover:text-gray-300 ">Company</Link>
-                    <span onClick={handleLogout} className="text-xl text-white hover:text-gray-300 ">Logout</span>
+                    <Link to={'/'} className="text-xl text-white hover:text-gray-300 ">{t("header.home")}</Link>
+                    <Link to={'/add-deal'} className="text-xl text-white hover:text-gray-300 ">{t("header.add-deal")}</Link>
+                    <Link to={'/add-expense'} className="text-xl text-white hover:text-gray-300 ">{t("header.add-expense")}</Link>
+                    <Link to={'/user'} className="text-xl text-white hover:text-gray-300 ">{t("header.my-profile")}</Link>
+                    <Link to={'/company'} className="text-xl text-white hover:text-gray-300 ">{t("header.company")}</Link>
+                    {/* <div className="relative">
+                        <svg onClick={()=>setShowLang(!showLang)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
+                        className="w-6 h-6 text-white font-bold text-2xl">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+                        </svg>
+                        {showLang &&
+                        <div ref={langRef} className="absolute left-1/2 z-10 mt-6 flex w-screen max-w-max -translate-x-1/2 px-4">
+                            <div className=" max-w-md flex-auto overflow-hidden rounded-lg bg-white text-sm leading-6 shadow-lg">
+                                <div onClick={()=>handleLanguageChange('en')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50 px-4">
+                                    <span  className="font-semibold text-indigo-600"> Enlish </span>
+                                </div>
+                                <div onClick={()=>handleLanguageChange('ar')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50">
+                                    <span  className="font-semibold text-indigo-600"> العربية </span>
+                                </div>
+                                <div onClick={()=>handleLanguageChange('fr')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50">
+                                    <span  className="font-semibold text-indigo-600"> فارسی </span>
+                                </div>
+                            </div>
+                        </div>}
+                    </div> */}
+
+                    <span onClick={handleLogout} className="text-xl text-white hover:text-gray-300 ">{t("header.logout")}</span>
                 </div>
 
                 {/* <!-- Mobile menu icon (shown on small screens) --> */}
@@ -72,14 +116,37 @@ export default function Header() {
                                 <Link to={'/user'} className="text-xl bg-indigo-700 shadow-md px-4 py-1 mb-3 rounded-md text-white hover:bg-indigo-600 hover:text-gray-300 ">My Profile</Link>
                             </div>
                         </div>
+
                         <br />
+                        <div className="relative">
+                            <svg onClick={()=>setShowLang(!showLang)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
+                                className="w-6 h-6 mx-auto text-white font-bold text-2xl">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+                            </svg>
+                            {showLang &&
+                            <div ref={langRef} className="absolute left-1/2 z-10 mt-6 flex w-screen max-w-max -translate-x-1/2 px-4">
+                                <div className=" max-w-md flex-auto overflow-hidden rounded-lg bg-white text-sm leading-6 shadow-lg">
+                                    <div onClick={()=>handleLanguageChange('en')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50 px-4">
+                                        <span  className="font-semibold text-indigo-600"> Enlish </span>
+                                    </div>
+                                    <div onClick={()=>handleLanguageChange('ar')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50">
+                                        <span  className="font-semibold text-indigo-600"> العربية </span>
+                                    </div>
+                                    <div onClick={()=>handleLanguageChange('fr')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50">
+                                        <span  className="font-semibold text-indigo-600"> فارسی </span>
+                                    </div>
+                                </div>
+                            </div>}
+                        </div>
+
+
                         {/* Menu items */}
                         <div className="flex flex-col space-y-4 px-4">
-                            <Link onClick={toggleMenu} to={'/'} className="text-xl text-white hover:font-bold hover:text-gray-200 ">Home</Link>
-                            <Link onClick={toggleMenu} to={'/add-deal'} className="text-xl  text-white hover:text-gray-300 ">Add Deal</Link>
-                            <Link onClick={toggleMenu} to={'/add-expense'} className="text-xl text-white hover:text-gray-300 ">Add Expense</Link>
-                            <Link onClick={toggleMenu} to={'/company'} className="text-xl text-white hover:text-gray-300 ">Company</Link>
-                            <span onClick={handleLogout} className="text-xl text-white hover:text-gray-300 ">Logout</span>
+                            <Link onClick={toggleMenu} to={'/'} className="text-xl text-white hover:font-bold hover:text-gray-200 ">{t("header.home")}</Link>
+                            <Link onClick={toggleMenu} to={'/add-deal'} className="text-xl  text-white hover:text-gray-300 ">{t("header.add-deal")}</Link>
+                            <Link onClick={toggleMenu} to={'/add-expense'} className="text-xl text-white hover:text-gray-300 ">{t("header.add-expense")}</Link>
+                            <Link onClick={toggleMenu} to={'/company'} className="text-xl text-white hover:text-gray-300 ">{t("header.company")}</Link>
+                            <span onClick={handleLogout} className="text-xl text-white hover:text-gray-300 ">{t('header.logout')}</span>
                             {/* <Link onClick={toggleMenu} to={'/blog'} className="text-xl text-white hover:text-gray-300 ">Blogs</Link> */}
                         </div>
                         
