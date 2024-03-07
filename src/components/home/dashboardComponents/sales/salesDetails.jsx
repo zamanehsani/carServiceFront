@@ -6,6 +6,13 @@ import SalesCustomer from "./salesCustomer";
 import SalesCar from "./salesCar";
 import SalesNote from "./salesNote";
 import SalesImage from "./salesImage";
+import RemoveItemModal from './saleRemove';
+
+import OilChangeService from "./services/oilChange";
+import Tyre from "./services/tyre";
+import Tint from "./services/tint";
+import Battery from "./services/battery";
+import OtherService from "./services/other";
 
 export default function SalesDetails(){
 
@@ -35,6 +42,7 @@ export default function SalesDetails(){
         window.scrollTo(0, 0);
     }, []);
 
+    function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
 
     return (
         <div className="grid grid-cols-1 max-w-6xl mx-auto  rounded-lg my-4 p-5">
@@ -61,57 +69,30 @@ export default function SalesDetails(){
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ">
                     {sale?.oilChangeService && sale?.oilChangeService?.length > 0 && <>
                         {sale?.oilChangeService.map((oil, index)=>{
-                            return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
-                                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Oil Change Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Oil Type: </span> {oil?.oil}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Car Milage: </span> {oil?.currentMilage}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Next Oil Change Milage: </span> {parseFloat((oil?.oil))+parseFloat((oil?.currentMilage))}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {oil?.amount}</p>
-                            </div>
-                        })}
+                            return <OilChangeService key={index} instance={oil} />
+                        }
+                        )}
                     </> }
                     {sale?.batteryService && sale?.batteryService?.length > 0 && <>
                         {sale?.batteryService.map((battery, index)=>{
-                            return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
-                                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Battery Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Battery Name: </span> {battery?.name}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Battery Size: </span> {battery?.size}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Battery Warranty Ends: </span> {battery?.warrenty}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {battery?.amount}</p>
-                            </div>
+                            return <Battery key={index} instance={battery} />
                         })}
                     </> }
 
                     {sale?.tintService && sale?.tintService?.length > 0 && <>
                         {sale?.tintService.map((tint, index)=>{
-                            return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
-                                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Tint Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Type Of Tint: </span> {tint?.tintType}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Tint Percentage: </span> {tint?.tintPercentage} %</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Classes Tinted: </span> {tint?.tintedWindows}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {tint?.amount}</p>
-                            </div>
+                            return <Tint key={index} instance={tint}/>
                         })}
                     </> }
                     {sale?.tyreService && sale?.tyreService?.length > 0 && <>
                         {sale?.tyreService.map((tyre, index)=>{
-                            return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
-                                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Tyre Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Type Of Tyre: </span> {tyre?.tyreType}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Tyre Model Number: </span> {tyre?.tyreNumber}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Tyres Serviced: </span> {tyre?.quantity}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {tyre?.amount}</p>
-                            </div>
+                            return <Tyre key={index} instance={tyre} />
                         })}
                     </> }
 
                     {sale?.otherService && sale?.otherService?.length > 0 && <>
                         {sale?.otherService.map((service, index)=>{
-                            return <div key={index} className="rounded-md w-full bg-white p-4 mx-auto">
-                                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Other Service Details</h1>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Name of the Service: </span> {service?.name}</p>
-                                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Amount: </span>AED {service?.amount}</p>
-                            </div>
+                            return <OtherService key={index} instance={service} />
                         })}
                     </> }
                 </div>
@@ -122,6 +103,9 @@ export default function SalesDetails(){
                 <br />
             
                 <SalesImage instance={sale} />
+                <div>
+                    {hasPermission('delete_invoice') ? <RemoveItemModal instance={sale}/> :""}
+                </div>
                 <div>
                     <span className="text-gray-500 mt-5 text-sm ">This sale is added by {sale?.user?.username}.</span>
                 </div>

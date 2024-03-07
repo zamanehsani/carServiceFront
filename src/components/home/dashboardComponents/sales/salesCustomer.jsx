@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RemoveItemModal from './saleRemove';
+
 import SalesCustomerEdit from './salesCustomerEdit';
 import { useSelector } from "react-redux";
 
@@ -31,7 +31,7 @@ export default function SalesCustomer({instance}){
                         </div>
                         }
                         
-                        {hasPermission('delete_invoice') && <RemoveItemModal instance={instance} />}
+                       
                 </div>
         </div>
     )
