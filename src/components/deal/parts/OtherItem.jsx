@@ -1,6 +1,8 @@
 import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 export default function Item({changeName,changeAmount,removeItem,item}){
+    const [t] = useTranslation('global');
     return (
         <div className="my-2">
             <div className="grid grid-cols-6">
@@ -8,7 +10,7 @@ export default function Item({changeName,changeAmount,removeItem,item}){
                     <div className="bg-white p-2 px-3 rounded-l-lg">
                         <div className="rounded">
                             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
-                            Name </label>
+                            {t("dash.sales.name")} </label>
                             <input type="text" name="amount" id="street-address" autoComplete="street-address"
                                 onChange={(e)=>changeName(item.id,e.target.value)}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -16,7 +18,7 @@ export default function Item({changeName,changeAmount,removeItem,item}){
                         </div>
                         <div className="">
                             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
-                                Amount </label>
+                                {t("dash.sales.amount")} </label>
                             <input onChange={(e)=>changeAmount(item.id,parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                             placeholder='120.00'
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

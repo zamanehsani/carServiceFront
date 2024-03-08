@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import axios from 'axios'; // Import axios
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { tab } from '@material-tailwind/react';
 
 export default function Form({setSuccess,  error, setError}){
     const auth = useSelector((state)=>state.auth)
@@ -14,7 +16,7 @@ export default function Form({setSuccess,  error, setError}){
     const [amount , setAmount] = useState(null);
     const [quantity , setQuantity] = useState(null);
     const [photo , setPhoto] = useState(null);
-    
+    const [t] = useTranslation('global');
     const [dragging, setDragging] = useState(false);
     const handleDragOver = (e) => {e.preventDefault(); setDragging(true);};
     const handleDragEnter = (e) => { e.preventDefault();  setDragging(true);};
@@ -85,17 +87,17 @@ export default function Form({setSuccess,  error, setError}){
                         <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                     </svg>
                  <span className="text-indigo-600 mx-3">/</span></Link> 
-                <span className="text-indigo-900">Add Expense Form</span> 
+                <span className="text-indigo-900">{t("dash.expenses.add-expense-form")}</span> 
             </div>
         <form className='px-4 py-6 bg-white rounded-lg shadow-md' 
             onSubmit={handleSubmit}>
             <div className="space-y-6">
                 <div className="border-b border-gray-900/10 ">
-                    <h2 className="text-base font-semibold leading-7 text-gray-900">Purchase Information</h2>
+                    <h2 className="text-base font-semibold leading-7 text-gray-900">{t("dash.expenses.purchase-information")}</h2>
                     <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 py-3">
                         <div className="sm:col-span-full">
                             <label htmlFor="invoice" className="block text-sm font-medium leading-6 text-gray-900">
-                                Invoice Number
+                                {t("dash.expenses.invoice-number")}
                             </label>
                             <input onChange={(e)=>setInvoiceNumber(e.target.value)} defaultValue={invoiceNumber}
                             id="invoice"  name="invoice" type="tel" autoComplete="phone" placeholder='1234321'
@@ -105,7 +107,7 @@ export default function Form({setSuccess,  error, setError}){
 
                         <div className="sm:col-span-full">
                             <label htmlFor="supplier_name" className="block text-sm font-medium leading-6 text-gray-900">
-                                Supplier Name
+                               {t("dash.expenses.supplier-name")}
                             </label>
                             <input onChange={(e)=>setSupplierName(e.target.value)} defaultValue={supplierNumber}
                                 id="supplier_name"  name="supplier_name" type="text" autoComplete="phone" placeholder='free style auto'
@@ -114,7 +116,7 @@ export default function Form({setSuccess,  error, setError}){
                         </div>
                         <div className="sm:col-span-full">
                             <label htmlFor="supplier" className="block text-sm font-medium leading-6 text-gray-900">
-                                Supplier Number
+                                {t("dash.expenses..supplier-number")}
                             </label>
                             <input onChange={(e)=>setSupplierNumber(e.target.value)} defaultValue={supplierNumber}
                                 id="supplier"  name="supplier" type="tel" autoComplete="phone" placeholder='0566643234'
@@ -124,7 +126,7 @@ export default function Form({setSuccess,  error, setError}){
 
                         <div className="sm:col-span-full">
                             <label htmlFor="expense" className="block text-sm font-medium leading-6 text-gray-900">
-                                What did you buy?  </label>
+                                {t("dash.expenses.what-did-you-buy")}  </label>
                             <input onChange={(e)=>setName(e.target.value)} type="text" name="expense" id="expense"
                                 autoComplete="given-name" placeholder='tyres' defaultValue={name}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -132,7 +134,7 @@ export default function Form({setSuccess,  error, setError}){
                         </div>
                         <div className="sm:col-span-full">
                             <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
-                                How many pieces? 
+                                {t("dash.expenses..how-many-pieces")} 
                             </label>
                             <input onChange={(e)=>setQuantity(parseInt(e.target.value))} defaultValue={quantity}
                             id="quantity"  name="quantity" type="tel" autoComplete="phone" placeholder='120'
@@ -141,7 +143,7 @@ export default function Form({setSuccess,  error, setError}){
                         </div>
                         <div className="sm:col-span-full">
                             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
-                                Total Amount
+                                {t("dash.expenses.total-amount")}
                             </label>
                             <input onChange={(e)=>setAmount(parseFloat(e.target.value))} defaultValue={amount}
                             id="amount"  name="amount" type="tel" autoComplete="phone" placeholder='12,000'
@@ -167,7 +169,7 @@ export default function Form({setSuccess,  error, setError}){
                             </div>
                             </>:<>
                             <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                                photo </label> 
+                                {t("dash.expenses.photo")} </label> 
                                 <div 
                                 onDragOver={handleDragOver}
                                 onDragEnter={handleDragEnter}
@@ -181,12 +183,12 @@ export default function Form({setSuccess,  error, setError}){
                                         htmlFor="file-upload"
                                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                     >
-                                        <span>Upload a photo</span>
+                                        <span>{t("dash.sales.upload-a-photo")}</span>
                                         <input onChange={(e)=>{setPhoto(e.target.files[0])}} id="file-upload" name="file-upload"  type="file" className="sr-only" />
                                     </label>
-                                    <p className="pl-1">or drag and drop</p>
+                                    <p className="pl-1">{t("dash.sales.or-drag-and-drop")}</p>
                                     </div>
-                                    <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                                    <p className="text-xs leading-5 text-gray-600">{t("dash.sales.PNG-JPG-GIF-up-to-5MB")}</p>
                                 </div>
                                 </div>
                             </>}
@@ -194,7 +196,7 @@ export default function Form({setSuccess,  error, setError}){
 
                         <div className="sm:col-span-full">
                             <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
-                                Note </label>
+                                {t("dash.expenses.note")} </label>
                                 <textarea onChange={(e)=>setDescription(e.target.value)}
                                 id="description" defaultValue={description}
                                 name="description"
@@ -203,7 +205,7 @@ export default function Form({setSuccess,  error, setError}){
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 
                                 />
-                            <p className="px-1 text-sm leading-6 text-gray-600">Write a note or anything to remember about this.</p>
+                            <p className="px-1 text-sm leading-6 text-gray-600">{t("dash.expenses.note-desc")}</p>
                         </div>
                     </div>
                 </div>
@@ -219,11 +221,11 @@ export default function Form({setSuccess,  error, setError}){
             <div className="grid mt-3">     
             <button type="submit"
                 className="rounded-md bg-indigo-600 px-6 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Upload </button>
+                {t("dash.expenses.submit")} </button>
             <br /> 
             <Link to={`/`}
                 className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-6 leading-6 text-gray-900">
-                Cancel </Link>
+                {t("dash.expenses.cancel")} </Link>
             </div>
         </form>
         </div>

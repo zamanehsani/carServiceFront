@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'; 
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import { getExpenses } from "../../../redux/expensesSlice";
+import { useTranslation } from "react-i18next";
 
 
 export default function ExpenseEdit(){
@@ -11,7 +12,7 @@ export default function ExpenseEdit(){
     const [exp, setExp] = useState({});
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('');
-    
+    const [t] = useTranslation('global');
     const expenses = useSelector((state)=>state.expenses.expenses)
     const auth = useSelector((state)=>state.auth)
     const dispatch = useDispatch();
@@ -131,21 +132,21 @@ export default function ExpenseEdit(){
                     </svg>
                  <span className="text-indigo-600 mx-3">/</span></Link> 
 
-                <Link to={`/expense-details/${exp?.id}`} className="text-indigo-600"> Expenses <span className="text-indigo-600 mx-3">/</span></Link> 
-                <span className="text-indigo-900"> Edit </span> 
+                <Link to={`/expense-details/${exp?.id}`} className="text-indigo-600"> {t("dash.expenses.expenses")} <span className="text-indigo-600 mx-3">/</span></Link> 
+                <span className="text-indigo-900"> {t("dash.expenses.edit")} </span> 
             </div>
             <div className="m-2 bg-slate-100 rounded-md shadow-md py-5 px-5">
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Expense Edit</h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.expenses.expense-edit")}</h1>
                 
                 <form className='px-4 py-6 bg-white rounded-lg shadow-md' 
                     onSubmit={handleSubmit}>
                     <div className="space-y-6">
                         <div className="border-b border-gray-900/10 ">
-                            <h2 className="text-base font-semibold leading-7 text-gray-900">Purchase Information</h2>
+                            <h2 className="text-base font-semibold leading-7 text-gray-900">{t("dash.expenses.purchase-information")}</h2>
                             <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 py-3">
                                 <div className="sm:col-span-full">
                                     <label htmlFor="invoice" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Invoice Number
+                                        {t("dash.expenses.invoice-number")}
                                     </label>
                                     <input onChange={(e)=>setInvoiceNumber(e.target.value)} defaultValue={exp?.invoice_number}
                                     id="invoice"  name="invoice" type="tel" autoComplete="phone" placeholder='1234321'
@@ -155,7 +156,7 @@ export default function ExpenseEdit(){
 
                                 <div className="sm:col-span-full">
                                     <label htmlFor="supplier_name" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Supplier Name
+                                        {t("dash.expenses.supplier-name")}
                                     </label>
                                     <input onChange={(e)=>setSupplierName(e.target.value)} defaultValue={exp?.supplier_name}
                                         id="supplier_name"  name="supplier_name" type="text" autoComplete="phone" placeholder='free style auto'
@@ -164,7 +165,7 @@ export default function ExpenseEdit(){
                                 </div>
                                 <div className="sm:col-span-full">
                                     <label htmlFor="supplier" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Supplier Number
+                                        {t("dash.expenses.supplier-number")}
                                     </label>
                                     <input onChange={(e)=>setSupplierNumber(e.target.value)} defaultValue={exp?.supplier_number}
                                         id="supplier"  name="supplier" type="tel" autoComplete="phone" placeholder='0566643234'
@@ -174,7 +175,7 @@ export default function ExpenseEdit(){
 
                                 <div className="sm:col-span-full">
                                     <label htmlFor="expense" className="block text-sm font-medium leading-6 text-gray-900">
-                                        What did you buy?  </label>
+                                        {t("dash.expenses.what-did-you-buy")}  </label>
                                     <input onChange={(e)=>setName(e.target.value)} type="text" name="expense" id="expense"
                                         autoComplete="given-name" placeholder='tyres' defaultValue={exp?.name}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -182,7 +183,7 @@ export default function ExpenseEdit(){
                                 </div>
                                 <div className="sm:col-span-full">
                                     <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
-                                        How many pieces? 
+                                        {t("dash.expenses.how-many-pieces")}
                                     </label>
                                     <input onChange={(e)=>setQuantity(parseInt(e.target.value))} defaultValue={exp?.quantity}
                                     id="quantity"  name="quantity" type="tel" autoComplete="phone" placeholder='120'
@@ -191,7 +192,7 @@ export default function ExpenseEdit(){
                                 </div>
                                 <div className="sm:col-span-full">
                                     <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Total Amount
+                                        {t("dash.expenses.total-amount")}
                                     </label>
                                     <input onChange={(e)=>setAmount(parseFloat(e.target.value))} defaultValue={exp?.price}
                                     id="amount"  name="amount" type="tel" autoComplete="phone" placeholder='12,000'
@@ -231,12 +232,12 @@ export default function ExpenseEdit(){
                                                 htmlFor="file-upload"
                                                 className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                             >
-                                                <span>Upload a photo</span>
+                                                <span>{t("dash.sales.upload-a-photo")}</span>
                                                 <input onChange={(e)=>{setPhoto(e.target.files[0])}} id="file-upload" name="file-upload"  type="file" className="sr-only" />
                                             </label>
-                                            <p className="pl-1">or drag and drop</p>
+                                            <p className="pl-1">{t("dash.sales.or-drag-and-drop")}</p>
                                             </div>
-                                            <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                                            <p className="text-xs leading-5 text-gray-600">{t("dash.sales.PNG-JPG-GIF-up-to-5MB")}</p>
                                         </div>
                                         </div>
                                     </>}
@@ -244,7 +245,7 @@ export default function ExpenseEdit(){
 
                                 <div className="sm:col-span-full">
                                     <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
-                                        Note </label>
+                                        {t("dash.expenses.note")} </label>
                                         <textarea onChange={(e)=>setDescription(e.target.value)}
                                         id="description" defaultValue={exp?.description}
                                         name="description"
@@ -253,7 +254,7 @@ export default function ExpenseEdit(){
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         
                                         />
-                                    <p className="px-1 text-sm leading-6 text-gray-600">Write a note or anything to remember about this.</p>
+                                    <p className="px-1 text-sm leading-6 text-gray-600">{t("dash.sales.note-desc")}</p>
                                 </div>
                             </div>
                         </div>
@@ -272,11 +273,11 @@ export default function ExpenseEdit(){
                     <div className="grid mt-3">     
                     <button type="submit"
                         className="rounded-md bg-indigo-600 px-6 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Update </button>
+                        {t("dash.expenses.update")} </button>
                     <br /> 
                     <Link to={`/expense-details/${exp.id}`}
                         className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-20 leading-6 text-gray-900">
-                       Cancel </Link>
+                       {t("dash.expenses.cancel")} </Link>
                     </div>
                 </form>
             </div>

@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useSelector } from "react-redux";
 import axios from 'axios'; 
-
+import { useTranslation } from "react-i18next";
 import RemoveItemModal from "./expenseRemove";
 
 export default function ExpenseDetails({match}){
     const {id} = useParams(); 
     const [exp, setExp] = useState({});
     const [error, setError] = useState('')
-
+    const [t] = useTranslation('global');
     const nagivate = useNavigate();
 
     const expenses = useSelector((state)=>state.expenses.expenses)
@@ -54,18 +54,18 @@ export default function ExpenseDetails({match}){
                     </svg>
                  <span className="text-indigo-600 mx-3">/</span></Link> 
 
-                <Link to={'/'} className="text-indigo-600"> Expenses <span className="text-indigo-600 mx-3">/</span></Link> 
-                <span className="text-indigo-900"> Details </span> 
+                <Link to={'/'} className="text-indigo-600"> {t("dash.expenses.expenses")} <span className="text-indigo-600 mx-3">/</span></Link> 
+                <span className="text-indigo-900"> {t("dash.expenses.details")} </span> 
             </div>
             <div className="m-2 bg-slate-100 rounded-md shadow-md py-5 px-5">
                  
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Expense Details:</h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.expenses.expense-details")}:</h1>
 
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600 ">Invoice Number: </span>{exp?.invoice_number}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Date of Purchase: </span>{exp?.date}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Expense Name: </span>{exp?.name}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Quantity: </span > {exp?.quantity}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2">Price: </span > AED {exp?.price}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600 ">{t("dash.expenses.invoice-number")}: </span>{exp?.invoice_number}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2">{t("dash.expenses.date-of-purchase")}: </span>{exp?.date}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2">{t("dash.expenses.expense-name")}: </span>{exp?.name}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2">{t("dash.expenses.quantity")}: </span > {exp?.quantity}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2">{t("dash.expenses.price")}: </span > AED {exp?.price}</p>
                 
                 {/* Edit and Delete icons */}
                 <div className="flex">
@@ -81,15 +81,15 @@ export default function ExpenseDetails({match}){
                 </div>
 
                 <hr className="my-5 border-gray-100"/>
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Note</h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.expenses.note")}</h1>
                 <div className="w-full h-40 rounded-md border p-3 border-gray-100">
                     <p className="text-gray-600">{exp?.description}</p>
                 </div>
                 <hr className="my-5 border-gray-100"/>
                
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Supplier Information</h1>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Supplier Name: </span> {exp?.supplier_name}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Supplier Number: </span> {exp?.supplier_number}</p>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.expenses.supplier-details")}</h1>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.expenses.supplier-name")}: </span> {exp?.supplier_name}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.expenses.supplier-number")}: </span> {exp?.supplier_number}</p>
                 <hr className="my-5 border-gray-100"/>
             
                 <div className="w-full md:w-1/2 lg:w-1/3 mx-auto">
@@ -121,7 +121,6 @@ export default function ExpenseDetails({match}){
                                 </svg>
                             </div>
                             <div>
-                                <p className="font-bold">Error:</p>
                                 <p>{error+""}</p>
                             </div>
                         </div>

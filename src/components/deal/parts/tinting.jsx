@@ -1,7 +1,9 @@
 import {useEffect} from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,windows, setWindows, tintPercentage, setTintPercentage }){
     // Function to update battery amount
+    const [t] = useTranslation('global');
     const handleTintAmountChange = (amount) => {
         // If amount is NaN or not a valid number, default it to 0
         if (isNaN(amount)) {amount = 0}
@@ -14,9 +16,9 @@ export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,
 
     return (
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 bg-indigo-100 rounded-lg my-2 p-4"> 
-            <h2 className="text-base font-bold leading-7 text-gray-900"> Tinting Service Details</h2>
+            <h2 className="text-base font-bold leading-7 text-gray-900"> {t("dash.sales.tint-service")}</h2>
             <div className=" rounded-md">
-                <label htmlFor="tints" className="block text-sm font-medium leading-6 text-gray-900"> Tinted Windows </label>
+                <label htmlFor="tints" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.tinted-windows")} </label>
                 <select id="tints" name="tints" autoComplete="tints"
                     onChange={(e)=>setWindows(parseInt(e.target.value))} 
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
@@ -33,7 +35,7 @@ export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,
                 </select>
             </div>
             <div className=" rounded-md">
-                <label htmlFor="tint-percentage" className="block text-sm font-medium leading-6 text-gray-900"> Tint Percentage </label>
+                <label htmlFor="tint-percentage" className="block text-sm font-medium leading-6 text-gray-900">{t("dash.sales.tint-percentage")} </label>
                 <select id="tint-percentage" name="tint-percentage" autoComplete="tint-percentage"
                     onChange={(e)=>{setTintPercentage(parseInt(e.target.value))}} 
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
@@ -49,14 +51,14 @@ export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,
             </div>
             <div className=" rounded md">
                 <label htmlFor="tint-type" className="block text-sm font-medium leading-6 text-gray-900">
-                Type of Tint </label>
+                {t("dash.sales.tint-type")} </label>
                 <input defaultValue={tintType+''} onChange={(e)=>setTintType(e.target.value)} type="text"  name="tint-type" id="tint-type" autoComplete="street-address"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>
             <div className="">
                 <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
-                    Amount </label>
+                    {t("dash.sales.amount")} </label>
                 <input onChange={(e)=>handleTintAmountChange(parseFloat(e.target.value))}  type="tel"  name="amount" id="street-address" autoComplete="street-address"
                 placeholder='120.00' defaultValue={tintAmount+''}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

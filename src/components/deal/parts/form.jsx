@@ -9,9 +9,11 @@ import OtherService from './otherService';
 import { Link } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 export default function DealForm({setSuccess,  error, setError}){
   const auth = useSelector((state)=>state.auth)
+  const [t] = useTranslation('global');
   // customer details
   const [name, setName] = useState(null);
   const [phone, setPhone] = useState(null);
@@ -258,21 +260,21 @@ export default function DealForm({setSuccess,  error, setError}){
                   <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
             <span className="text-indigo-600 mx-3">/</span></Link> 
-          <span className="text-indigo-900"> Add Sale Form</span> 
+          <span className="text-indigo-900">{t("dash.sales.add-sale")}</span> 
       </div>
       <form className='px-4 py-6 bg-white rounded-lg shadow-md' 
         onSubmit={handleSubmit}>
         <div className="space-y-6">
           <div className="border-b border-gray-900/10 ">
             <div className="border-b border-gray-900/10 pb-2">
-              <h2 className="text-base font-semibold leading-7 text-gray-900">Customer Information</h2>
+              <h2 className="text-base font-semibold leading-7 text-gray-900">{t("dash.sales.customer-information")}</h2>
 
               {/* customer info  */}
               <div className=" grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
                 {/* name */}
                 <div className="sm:col-span-full">
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                    Name</label>
+                    {t("dash.sales.name")}</label>
                   <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)}
                     autoComplete="given-name" placeholder='Mohammad'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -282,7 +284,7 @@ export default function DealForm({setSuccess,  error, setError}){
                 {/* phone  */}
                 <div className="sm:col-span-full">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                    Phone Number </label>
+                    {t("dahs.sales.phone")} </label>
                   <input id="phone" onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder='0566652534'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -293,10 +295,10 @@ export default function DealForm({setSuccess,  error, setError}){
 
             {/* car info */}
             <div className="border-b border-gray-900/10 py-2">
-              <h2 className='text-base font-semibold leading-6 text-gray-900'>Car Information</h2>
+              <h2 className='text-base font-semibold leading-6 text-gray-900'>{t("dash.sales.car-information")}</h2>
               <div className="mt-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2">
                 <div className="">
-                  <label htmlFor="plate-source" className="block text-sm font-medium leading-6 text-gray-900"> Plate Source </label>
+                  <label htmlFor="plate-source" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.plate-source")} </label>
                   <select onChange={(e)=>setPlateSource(e.target.value)} id="plate-source" name="plate-source" autoComplete="plate-source"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
                     <option>Abu Dhabi</option>
@@ -311,7 +313,7 @@ export default function DealForm({setSuccess,  error, setError}){
           
                 <div className="">
                   <label htmlFor="plate-number" className="block text-sm font-medium leading-6 text-gray-900">
-                    Plate Number <span className='text-red-500'>*</span> </label>
+                    {t("dash.sales.plate-number")} <span className='text-red-500'>*</span> </label>
                   <input required={true}  type="text" onChange={(e)=>setPlateNumber(e.target.value)} name="plate-number" id="plate-number" autoComplete="plate-number"
                     placeholder='Y21320'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -323,7 +325,7 @@ export default function DealForm({setSuccess,  error, setError}){
               <div className='mt-2  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4'>        
                   <div className="">
                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                      Model <span className='text-red-500'>*</span></label>
+                      {t("dash.sales.car-model")} <span className='text-red-500'>*</span></label>
                     <div className="">
                       <input required={true} onChange={(e)=>setModel(e.target.value)} type="text" placeholder='Kia Sedona 2025'  name="street-address" id="street-address" autoComplete="street-address"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -335,7 +337,7 @@ export default function DealForm({setSuccess,  error, setError}){
 
               {/* service info */}
             <div className=" border-gray-900/10 py-2">
-                <h2 className="text-base font-bold leading-7 text-gray-900">Service</h2>
+                <h2 className="text-base font-bold leading-7 text-gray-900">{t("dash.sales.services")}</h2>
                 
               <div className=" grid grid-cols-6 sm:grid-cols-6 lg:grid-cols-6 gap-2">
                 {/* oil change */}
@@ -345,7 +347,7 @@ export default function DealForm({setSuccess,  error, setError}){
                     onClick={(e)=>{setOilChangeService(!oilChangeService)}}
                     className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
                     <br />
-                  <label htmlFor="oilChange" className="font-medium text-gray-900"> Oil </label>
+                  <label htmlFor="oilChange" className="font-medium text-gray-900"> {t("dash.sales.oil")} </label>
                 </div>
                   {/* tinting */}
                 <div className="px-5">
@@ -354,7 +356,7 @@ export default function DealForm({setSuccess,  error, setError}){
                       onClick={(e)=>{setTintService(!tintService)}}
                       className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
                     <br />
-                    <label htmlFor="tint" className="font-medium text-gray-900">Tinting </label>
+                    <label htmlFor="tint" className="font-medium text-gray-900">{t("dash.sales.tint")} </label>
                 </div>
                   {/* tyre service */}
                 <div className="px-5">
@@ -363,7 +365,7 @@ export default function DealForm({setSuccess,  error, setError}){
                     onClick={(e)=>{setTyreService(!tyreService)}}
                       className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
                       <br />
-                    <label htmlFor="tyre" className="font-medium text-gray-900">  Tyre  </label>
+                    <label htmlFor="tyre" className="font-medium text-gray-900">  {t("dash.sales.tyre")}  </label>
                 </div>
                   {/* battery service */}
                 <div className="px-5">
@@ -372,7 +374,7 @@ export default function DealForm({setSuccess,  error, setError}){
                         onClick={(e)=>{setBatteryService(!batteryService)}}
                         className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
                         <br />
-                      <label htmlFor="bettary" className="font-medium text-gray-900">  Bettery  </label>
+                      <label htmlFor="bettary" className="font-medium text-gray-900">  {t("dash.sales.battery")}  </label>
                 </div>
                 {/* other service */}
                 <div className="px-5">
@@ -381,7 +383,7 @@ export default function DealForm({setSuccess,  error, setError}){
                         onClick={(e)=>{setOtherService(!otherService);}}
                         className="h-10 w-10 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
                         <br />
-                      <label htmlFor="other" className="font-medium text-gray-900">  Other  </label>
+                      <label htmlFor="other" className="font-medium text-gray-900">  {t("dash.sales.other")}  </label>
                 </div>
               </div>
               
@@ -446,31 +448,31 @@ export default function DealForm({setSuccess,  error, setError}){
                     <span className='text-indigo-900'> {0}</span>
                   </div> */}
                   <div className="flex justify-between font-bold">
-                    <span>Total Amount</span>
+                    <span>{t("dash.sales.total-amount")}</span>
                     <span className='text-indigo-900'> {total? "AED "+((total).toFixed(2)) :""}</span>
                   </div>
                 </div>
                 <div className="bg-white p-4 rounded-lg">
-                  <h2 className="text-lg font-semibold mb-2">Payment Methods:</h2>
+                  <h2 className="text-lg font-semibold mb-2">{t("dash.sales.payment-methods")}:</h2>
         
                   <div className="flex flex-row">
                     <div className='px-3'>
                       <label> 
                         <input  checked={(paymentOption==='Cash') === true} onChange={(e)=>setPaymentOption('Cash')} type="radio" name="paymentMethod" value="cash"
                         className="h-6 w-6 mx-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
-                        Cash
+                        {t("dash.sales.cash")}
                       </label>
                     </div>
                     <div className='px-3'>
                       <label> <input checked={(paymentOption==='Card') === true} onChange={(e)=>setPaymentOption('Card')} type="radio" name="paymentMethod" value="cash" 
                         className="h-6 w-6 mx-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
-                        Card
+                        {t("dash.sales.card")}
                       </label>
                     </div>
                     <div className='px-3'>
                       <label> <input checked={(paymentOption==='Transfer') === true} onChange={(e)=>setPaymentOption('Transfer')} type="radio" name="paymentMethod" value="cash" 
                         className="h-6 w-6 mx-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
-                        Transfer
+                        {t("dash.sales.transfer")}
                       </label>
                     </div>
                     
@@ -497,7 +499,7 @@ export default function DealForm({setSuccess,  error, setError}){
                       </div>
                     </>:<>
                       <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-                        photo </label> 
+                        {t("dash.sales.photo")} </label> 
                         <div 
                         onDragOver={handleDragOver}
                         onDragEnter={handleDragEnter}
@@ -511,12 +513,12 @@ export default function DealForm({setSuccess,  error, setError}){
                                 htmlFor="file-upload"
                                 className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                               >
-                                <span>Upload a photo</span>
+                                <span>{t("dash.sales.upload-a-photo")}</span>
                                 <input onChange={(e)=>{setPhoto(e.target.files[0])}} id="file-upload" name="file-upload"  type="file" className="sr-only" />
                               </label>
-                              <p className="pl-1">or drag and drop</p>
+                              <p className="pl-1">{t("dash.sales.or-drag-and-drop")}</p>
                             </div>
-                            <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                            <p className="text-xs leading-5 text-gray-600">{t("dash.sales.PNG-JPG-GIF-up-to-5MB")}</p>
                           </div>
                         </div>
                     </>}
@@ -525,7 +527,7 @@ export default function DealForm({setSuccess,  error, setError}){
                 {/* Note */}
                 <div className="col-span-full">
                   <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
-                    Note </label>
+                    {t("dash.sales.note")} </label>
                     <textarea onChange={(e)=>{setNote(e.target.value)}}
                       id="description"
                       name="description"
@@ -533,16 +535,16 @@ export default function DealForm({setSuccess,  error, setError}){
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
-                  <p className="px-1 text-sm leading-6 text-gray-600">Write a note or anything to remember about this.</p>
+                  <p className="px-1 text-sm leading-6 text-gray-600">{t("dash.sasles.note-desc")}</p>
                 </div>
               </div>
 
               {/* address  */}
               <div className="border-b border-gray-900/10 py-6 ">
-                <h2 className="text-base font-semibold leading-7 text-gray-900">Address Details</h2>
+                <h2 className="text-base font-semibold leading-7 text-gray-900">{t("dash.sales.address-details")}</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                   <div className="">
-                    <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900"> Country </label>
+                    <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.country")} </label>
                     <select onChange={(e)=>setCountry(e.target.value)} id="country" name="country" autoComplete="country-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
                       <option>United Arab Emirates</option>
@@ -553,7 +555,7 @@ export default function DealForm({setSuccess,  error, setError}){
                     </select>
                   </div>
                   <div className="">
-                    <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900"> Emirates </label>
+                    <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.emirates")} </label>
                     <select onChange={(e)=>setState(e.target.value)} id="country" name="country" autoComplete="country-name"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
                       <option>Al Ain</option>
@@ -569,7 +571,7 @@ export default function DealForm({setSuccess,  error, setError}){
 
                 <div className="mt-3">
                   <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                    Address </label>
+                    {t("dash.sales.address")} </label>
                     <input  onChange={(e)=>setAddress(e.target.value)} type="text"  name="street-address" id="street-address" autoComplete="street-address"
                       placeholder='204 building 25 Al yahar st, al hamriah'
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -590,12 +592,12 @@ export default function DealForm({setSuccess,  error, setError}){
         <div className="grid">     
           <button type="submit"
             className="rounded-md bg-indigo-600 px-6 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-            Save </button>
+            {t("dash.sales.submit")} </button>
 
           <br /> 
           <Link to={`/`}
               className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-20 leading-6 text-gray-900">
-              Cancel </Link>
+              {t("dash.sales.cancel")} </Link>
           <br />
         </div>
       </form>

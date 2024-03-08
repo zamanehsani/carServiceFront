@@ -44,6 +44,7 @@
             "oil":"Oil",
             "tint":"Tint",
             "tyre":"Tyre",
+            "tyre-number":"Tyre Number",
             "other":"Other",
             "battery":"Battery",
             "oil-change":"Oil Change",
@@ -57,7 +58,7 @@
             "transfer":"Transfer",
             "photo":"Photo",
             "note-desc":"Write a note or anything to remember about this.",
-            "address-detials":"Address Details",
+            "address-details":"Address Details",
             "country":"Country",
             "emirates":"Emirates",
             "address":"Address",
@@ -94,6 +95,10 @@
             "expenses":"Expenses",
             "desc":"The list of all the expenses. For more details, click on each item.",
             "add-expense":"Add Expense",
+            "success":"Success",
+            "success-desc":"Added successfully.",
+            "edit":"Edit",
+            "expense-edit":"Expense Edit",
             "no":"No",
             "name":"Name",
             "amount":"Amount",
@@ -123,7 +128,10 @@
             "how-many-pieces":"How many pieces?",
             "photo":"Photo",
             "note-desc":"Write a note or anything to remember about this.",
-            "update":"Update"
+            "update":"Update",
+            "details":"Details",
+            "add-expense-form":"Add Expense Form"
+
         },
         "login":{
             "desc":"Sing in to your account",

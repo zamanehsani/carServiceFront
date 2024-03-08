@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getExpenses } from "../../../redux/expensesSlice";
+import { useTranslation } from "react-i18next";
 
 export default function ExpenseList1(){
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-
+    const [t] = useTranslation('global');
     const auth = useSelector((state)=>state.auth)
     const expenses = useSelector((state)=>state.expenses.expenses)
     const dispatch = useDispatch();
@@ -25,11 +26,11 @@ export default function ExpenseList1(){
         <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg shadow-md bg-white py-7 my-3">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center px-5">
                 <div className="flex flex-col">
-                    <h1 className="leading-1 m-0 text-2xl font-bold text-gray-700">Expense</h1>
-                    <p className="text-gray-700 m-0 text-sm">The list of all the epenses. For more details, click on each item.</p>
+                    <h1 className="leading-1 m-0 text-2xl font-bold text-gray-700">{t("dash.expenses.expenses")}</h1>
+                    <p className="text-gray-700 m-0 text-sm">{t("dash.expenses.desc")}</p>
                 </div>
                 <div className="mt-2 sm:my-3 md:mt-0">
-                    <Link to={'/add-expense'} className="bg-indigo-600 text-white py-2 px-3 rounded inline-block">Add Expense</Link>
+                    <Link to={'/add-expense'} className="bg-indigo-600 text-white py-2 px-3 rounded inline-block">{t("dash.expenses.add-expense")}</Link>
                 </div>
             </div>
 
@@ -37,11 +38,11 @@ export default function ExpenseList1(){
                 <table className="table-auto w-full border-collapse">
                     <thead className="">
                         <tr className="text-left border-b border-gray-200 text-gray-700">
-                            <th className="px-4 py-2 w-1/4">No</th>
-                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>Supplier</th>
-                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>Invoice No</th>
-                            <th className="px-4 py-2 w-1/4">Quantity</th>
-                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>Total Amount</th>
+                            <th className="px-4 py-2 w-1/4">{t("dash.expenses.no")}</th>
+                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>{t("dash.expenses.supplier")}</th>
+                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>{t("dash.expenses.invoice-no")}</th>
+                            <th className="px-4 py-2 w-1/4">{t("dash.expenses.quantity")}</th>
+                            <th className="px-4 py-2 w-1/4" style={{minWidth:'170px'}}>{t("dash.expenses.total-amount")}</th>
                         </tr>
                     </thead>
                     <tbody>
