@@ -19,9 +19,9 @@ useEffect(()=>{
 
     return (
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 bg-indigo-100 rounded-lg my-2 p-4"> 
-            <h2 className="text-base font-bold leading-7 text-gray-900"> {t("dahs.sales.tyre-service")}</h2>
+            <h2 className="text-base font-bold leading-7 text-gray-900"> {t("dash.sales.tyre-service")}</h2>
 
-        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4">
             <div className="px-2">
                 <input id="newTyre"  name="tyre" type="radio" value={'new'}
                    onChange={(e)=>setTyreType(e.target.value)} className="h-5 w-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
@@ -41,7 +41,7 @@ useEffect(()=>{
 
         <div className="px-4 rounded md">
             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
-            {t("dash.sales.tyre-number")} </label>
+            {t("dash.sales.tyre-model-number")} </label>
             <input onChange={(e)=>setTyreNumber(e.target.value)} defaultValue={tyreNumber+""} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />

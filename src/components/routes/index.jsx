@@ -16,6 +16,8 @@ import CompanyProfile from '../home/company/index'
 
 // Define Layout component
 const Layout = ({ children }) => {
+  // this is for the direction of langauges. 
+  // so we are changing the directionn of anything inside the layouts.
   const direction = useSelector(state => state.lng.direction);
     return (
       <div dir={direction}>

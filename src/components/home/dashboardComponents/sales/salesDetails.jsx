@@ -104,7 +104,7 @@ export default function SalesDetails(){
             
                 <SalesImage instance={sale} />
                 <div>
-                    {hasPermission('delete_invoice') ? <RemoveItemModal instance={sale}/> :""}
+                    {hasPermission('delete_customers') ? <RemoveItemModal instance={sale}/> :""}
                 </div>
                 <div>
                     <span className="text-gray-500 mt-5 text-sm ">This sale is added by {sale?.user?.username}.</span>

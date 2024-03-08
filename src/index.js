@@ -23,27 +23,14 @@ i18next.init({
     ar: { global: global_ar }
   }
 })
-// Determine language direction
-const langDirection = (language) => {
-  // List of RTL languages
-  const rtlLanguages = ["ar","fr"]; // Add more RTL languages if needed
-
-  return rtlLanguages.includes(language) ? "rtl" : "ltr";
-};
-
-// Get current language and set direction
-const currentLanguage = i18next.language;
-const direction = langDirection(currentLanguage);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <div dir={direction}>
         <Provider store={store}>
           <RouterProvider router={routes} />
         </Provider>
-      </div>
     </I18nextProvider>
   </React.StrictMode>
 );

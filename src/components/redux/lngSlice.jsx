@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialLngState = {
     lng:       localStorage.getItem('lng') || null,
     direction: localStorage.getItem('direction') || 'ltr'

@@ -284,7 +284,7 @@ export default function DealForm({setSuccess,  error, setError}){
                 {/* phone  */}
                 <div className="sm:col-span-full">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                    {t("dahs.sales.phone")} </label>
+                    {t("dash.sales.phone")} </label>
                   <input id="phone" onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder='0566652534'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -535,7 +535,7 @@ export default function DealForm({setSuccess,  error, setError}){
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
-                  <p className="px-1 text-sm leading-6 text-gray-600">{t("dash.sasles.note-desc")}</p>
+                  <p className="px-1 text-sm leading-6 text-gray-600">{t("dash.sales.note-desc")}</p>
                 </div>
               </div>
 

@@ -47,7 +47,7 @@ function RemoveItemModal({ instance }) {
           <h2 className="text-lg font-bold mb-4">{t("dash.sales.confirm-removal")}</h2>
           <p className="mb-4">{t("dash.sales.remove-text")}</p>
           <div className="flex justify-end">
-            <button onClick={()=>handleConfirm()} className="rounded-md bg-red-600 hover:bg-red-500 text-white py-2 px-6 mr-2">{t("dash.sales.confirm")}</button>
+            <button onClick={()=>handleConfirm()} className="rounded-md bg-red-600 hover:bg-red-500 text-white py-2 px-6 mx-2">{t("dash.sales.confirm")}</button>
             <button onClick={closeModal} className="rounded-md bg-gray-300 hover:bg-gray-200 text-gray-800 py-2 px-6">{t("dash.sales.cancel")}</button>
           </div>
         </div>
