@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios'; 
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import { getSales } from '../../../redux/salesSlice';
+import { useTranslation } from 'react-i18next';
 
 
 export default function SalesImageEdit({instance, setEditMode}){
     // it takes the auth.user and permissionName as params
+    const [t] = useTranslation('global');
     const auth = useSelector(state => state.auth);
     const [image, setImage] = useState(null);
     const [photoUpload, setPhotoUpload] = useState(null);
@@ -109,19 +111,17 @@ export default function SalesImageEdit({instance, setEditMode}){
                                         htmlFor="file-upload"
                                         className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                                     >
-                                        <span>Upload a photo</span>
+                                        <span>{t("dash.sales.upload-a-photo")}</span>
                                         <input onChange={(e)=>{setImage(e.target.files[0])}} id="file-upload" name="file-upload"  type="file" className="sr-only" />
                                     </label>
-                                    <p className="pl-1">or drag and drop</p>
+                                    <p className="pl-1">{t("dash.sales.or-drag-and-drop")}</p>
                                     </div>
-                                    <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 5MB</p>
+                                    <p className="text-xs leading-5 text-gray-600">{t("dash.sales.PNG-JPG-GIF-up-to-5MB")}</p>
                                 </div>
                                 </div>
                             }
                         </div>
-                   
                 </div>
-         
 
                 <div className='space-y-6 pb-4'>
                     {error && <div className="my-2 rounded-md bg-red-50 p-4">
@@ -135,11 +135,10 @@ export default function SalesImageEdit({instance, setEditMode}){
                 <div className="flex flex-col">     
                     <button type="submit"
                         className="rounded-md bg-indigo-600 mx-auto px-12 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Save </button> <br />
+                        {t("dash.sales.submit")} </button> <br />
                     <button type='reset' onClick={()=>setEditMode(false)}
                         className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-10 leading-6 text-gray-900">
-                        Cancel </button>
-               
+                        {t("dash.sales.cancel")} </button>
                 </div>
             </form>
 

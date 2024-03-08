@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSales } from "../../../../redux/salesSlice";
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'; 
-
+import { useTranslation } from 'react-i18next';
 function RemoveItemModal({ instance }) {
     const auth = useSelector((state)=>state.auth)
     const dispatch = useDispatch();
     const nagivate = useNavigate();
-
+    const [t] = useTranslation('global');
     const [isOpen, setIsOpen] = useState(false);
     const openModal = () => {setIsOpen(true);};
     const closeModal = () => {setIsOpen(false);};
@@ -42,11 +42,11 @@ function RemoveItemModal({ instance }) {
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="bg-white p-6 rounded-lg z-50">
-            <h2 className="text-lg font-bold mb-4">Confirm Removal</h2>
-            <p className="mb-4">Are you sure you want to remove Item?</p>
+            <h2 className="text-lg font-bold mb-4">{t("dash.sales.confirm-removal")}</h2>
+            <p className="mb-4">{t("dash.sales.remove-text")}</p>
             <div className="flex justify-end">
-              <button onClick={()=>handleConfirm()} className="rounded-md bg-red-600 hover:bg-red-500 text-white py-2 px-6 mr-2">Confirm</button>
-              <button onClick={closeModal} className="rounded-md bg-gray-300 hover:bg-gray-200 text-gray-800 py-2 px-6">Cancel</button>
+              <button onClick={()=>handleConfirm()} className="rounded-md bg-red-600 hover:bg-red-500 text-white py-2 px-6 mr-2">{t("dash.sales.confirm")}</button>
+              <button onClick={closeModal} className="rounded-md bg-gray-300 hover:bg-gray-200 text-gray-800 py-2 px-6">{t("dash.sales.cancel")}</button>
             </div>
           </div>
         </div>

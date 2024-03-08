@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getSales } from '../../../redux/salesSlice';
 import axios from 'axios'; 
+import { use } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 
 export default function SalesCustomerEdit({instance, setEditMode}){
@@ -15,6 +17,7 @@ export default function SalesCustomerEdit({instance, setEditMode}){
     const dispatch = useDispatch();
     const [success, setSuccess] = useState(null);
     let timeoutId = null;
+    const [t] = useTranslation('global');
 
     const handleSubmit =(e)=>{
         e.preventDefault();
@@ -65,7 +68,7 @@ export default function SalesCustomerEdit({instance, setEditMode}){
                         {/* name */}
                         <div className="sm:col-span-full">
                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                            Name</label>
+                            {t("dash.sales.name")}</label>
                             <input type="text" name="name" defaultValue={instance.name} id="name" onChange={(e)=>setName(e.target.value)}
                                 autoComplete="given-name" placeholder='Mohammad'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -75,7 +78,7 @@ export default function SalesCustomerEdit({instance, setEditMode}){
                         {/* phone  */}
                         <div className="sm:col-span-full">
                             <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
-                                Phone Number </label>
+                                {t("dash.sales.phone")}</label>
                             <input id="phone" defaultValue={instance.phone} onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder='0566652534'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -83,7 +86,7 @@ export default function SalesCustomerEdit({instance, setEditMode}){
 
                         <div className="sm:col-span-full">
                             <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
-                            Amount </label>
+                            {t("dash.sales.amount")} </label>
                             <input id="price" defaultValue={instance.price} onChange={(e)=>setPrice(parseFloat(e.target.value))}  name="price" type="tel" autoComplete="price" placeholder='12.00'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -103,10 +106,10 @@ export default function SalesCustomerEdit({instance, setEditMode}){
                 <div className="flex flex-col">     
                     <button type="submit"
                         className="rounded-md bg-indigo-600 mx-auto px-12 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Save </button> <br />
+                        {t("dash.sales.submit")} </button> <br />
                     <button type='reset' onClick={()=>setEditMode(false)}
                         className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-10 leading-6 text-gray-900">
-                        Cancel </button>
+                        {t("dash.sales.cancel")} </button>
                
                 </div>
             </form>

@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom"
-
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 export default function SalesItem({sale,index}){
+    const [t] = useTranslation('global');
     const navigate = useNavigate()
     return (
         <tr onClick={()=>navigate(`/sale-details/${sale.id}`)} className="text-left border-b my-5 border-gray-100 hover:font-semibold hover:shadow-lg hover:bg-indigo-50">

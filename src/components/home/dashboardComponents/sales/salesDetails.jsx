@@ -7,7 +7,7 @@ import SalesCar from "./salesCar";
 import SalesNote from "./salesNote";
 import SalesImage from "./salesImage";
 import RemoveItemModal from './saleRemove';
-
+import { useTranslation } from "react-i18next";
 import OilChangeService from "./services/oilChange";
 import Tyre from "./services/tyre";
 import Tint from "./services/tint";
@@ -15,10 +15,10 @@ import Battery from "./services/battery";
 import OtherService from "./services/other";
 
 export default function SalesDetails(){
-
+    const [t] = useTranslation('global');
     const {id} = useParams(); 
     const [sale, setSale] = useState({});
-    const [error, setError] = useState('')
+    const [error, setError] = useState('');
     const sales = useSelector((state)=>state.sales.sales)
     const auth = useSelector((state)=>state.auth)
 
@@ -54,8 +54,8 @@ export default function SalesDetails(){
                     </svg>
                  <span className="text-indigo-600 mx-3">/</span></Link> 
 
-                <Link to={'/'} className="text-indigo-600"> Sales <span className="text-indigo-600 mx-3">/</span></Link> 
-                <span className="text-indigo-900"> Details</span> 
+                <Link to={'/'} className="text-indigo-600"> {t("dash.sales.sales")} <span className="text-indigo-600 mx-3">/</span></Link> 
+                <span className="text-indigo-900"> {t("dash.sales.details")}</span> 
             </div>
 
             <div className="m-2 bg-slate-100 rounded-md shadow-md py-5 px-5">
@@ -122,7 +122,7 @@ export default function SalesDetails(){
                                 </svg>
                             </div>
                             <div>
-                                <p className="font-bold">Error:</p>
+                                <p className="font-bold"></p>
                                 <p>{error+""}</p>
                             </div>
                         </div>

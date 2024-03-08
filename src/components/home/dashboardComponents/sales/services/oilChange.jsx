@@ -2,18 +2,17 @@ import { useSelector } from "react-redux";
 import {useState} from "react";
 import OilChangeEdit from "./oilChangeEdit";
 import RemoveItemModal from "./oilRemove";
-
+import { useTranslation } from "react-i18next";
 export default function OilChangeService({instance}){
     const auth = useSelector(state => state.auth);
     const [editMode, setEditMode] = useState(false);
+    const [t] = useTranslation('global');
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
 
     return (
         <div className="rounded-md w-full bg-white p-4 mx-auto">
             <div className="flex items-center">
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Oil Change
-                
-                </h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.sales.oil-change")} </h1>
                 {hasPermission('change_oilchange') &&
                     <svg onClick={(e)=>setEditMode(!editMode)} style={{display: editMode ? "none" :null}} xmlns="http://www.w3.org/2000/svg" 
                         fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
@@ -25,10 +24,10 @@ export default function OilChangeService({instance}){
                     {hasPermission('delete_oilchange') && <RemoveItemModal instance={instance} />}
             </div>
             {editMode ? <OilChangeEdit instance={instance} setEditMode={setEditMode} /> : <>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Oil Type: </span> {instance?.oil}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Car Milage: </span> {instance?.currentMilage}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Next Oil Change Milage: </span> {parseFloat((instance?.oil))+parseFloat((instance?.currentMilage))}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {instance?.amount}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.oil-type")}: </span> {instance?.oil}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.car-milage")}: </span> {instance?.currentMilage}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.next-oil-mhange-milage")}: </span> {parseFloat((instance?.oil))+parseFloat((instance?.currentMilage))}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.service-amount")}: </span>AED {instance?.amount}</p>
             </>
                 }
         </div>

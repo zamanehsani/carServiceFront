@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import SalesCarEdit from './salesCarEdit';
 import { useSelector } from "react-redux";
 import SalesNoteEdit from './salesNoteEdit'
+import { useTranslation } from 'react-i18next';
 
 export default function SalesNote({instance}){
     // it takes the auth.user and permissionName as params
     const auth = useSelector(state => state.auth);
+    const [t] = useTranslation('global');
     const [editMode, setEditMode] = useState(false);
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
     return(
         <div className='flex flex-col mb-2'>
             <div className='flex items-center'>
-            <h1 className="font-bold leading-10 text-2xl text-indigo-600">Note </h1>
+            <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.sales.note")} </h1>
                 {hasPermission('change_invoice') &&
                 <span className='mx-3' onClick={(e)=>setEditMode(!editMode)} style={{display: editMode ? "none" :null}}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="text-indigo-500 w-6 h-6">

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-
+import { useTranslation } from "react-i18next"
 
 export default function Statistics(){
     const sales = useSelector((state)=>state.sales.sales)
     const expenses = useSelector((state)=>state.expenses.expenses)
     const auth = useSelector((state)=>state.auth)
-
+    const { t } = useTranslation("global")
     const [totalSales, setTotalSales] = useState(0);
     const [totalExpenses, setTotalExpenses] = useState(0);
 
@@ -19,7 +19,7 @@ export default function Statistics(){
         <div className=" grid md:grid-cols-3 max-w-6xl mx-auto lg:grid-cols-3 grid-cols-1 gap-4 mt-5">
             <div className="hover:shadow-xl hover:bg-green-50 bg-green-100 p-4 shadow rounded-lg">
                 <div className="flex items-center justify-between mb-4">
-                <span className="text-xl text-green-900 font-semibold">Total Sales</span>
+                <span className="text-xl text-green-900 font-semibold">{t("dash.statistics.total-sales")}</span>
                 <i className="fas fa-chart-line text-blue-900"></i>
                 </div>
                 <div>
@@ -29,7 +29,7 @@ export default function Statistics(){
 
             <div className="hover:shadow-xl hover:bg-red-50 bg-red-100 p-4 shadow rounded-lg">
                 <div className="flex items-center justify-between mb-4">
-                <span className="text-xl font-semibold text-red-900">Total Expense</span>
+                <span className="text-xl font-semibold text-red-900">{t("dash.statistics.total-expenses")}</span>
                 <i className="fas fa-money-bill text-red-900"></i>
                 </div>
                 <div>
@@ -39,7 +39,7 @@ export default function Statistics(){
 
             <div className="hover:shadow-xl hover:bg-indigo-50 bg-indigo-100 p-4 shadow rounded-lg">
                 <div className="flex items-center justify-between mb-4">
-                <span className="text-xl font-semibold text-indigo-900">Balance</span>
+                <span className="text-xl font-semibold text-indigo-900">{t("dash.statistics.balance")}</span>
                 <i className="fas fa-balance-scale text-purple-900"></i>
                 </div>
                 <div>

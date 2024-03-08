@@ -2,7 +2,8 @@ import {useState, useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { getSales } from '../../../../redux/salesSlice';
 import axios from 'axios'; 
-
+import { useTranslation } from 'react-i18next';
+import { use } from 'i18next';
 export default function OilChangeEdit({instance, setEditMode}){
     const [oil,setOil] = useState(null);
     const [currentMilage, setCurrentMilage] = useState(0);
@@ -12,7 +13,7 @@ export default function OilChangeEdit({instance, setEditMode}){
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
     let timeoutId = null;
-
+    const [t] = useTranslation('global');
 
     const handleSubmit =(e)=>{
         e.preventDefault();
@@ -53,10 +54,9 @@ export default function OilChangeEdit({instance, setEditMode}){
     
     return (
         <div className="grid grid-cols-1 gap-x-4 gap-y-4 rounded-lg my-2 bg-indigo-100 p-4"> 
-            <h2 className="text-base font-bold leading-7 text-gray-900"> Oil Change Service Details</h2>
             <form onSubmit={handleSubmit}>
                 <div className="">
-                    <label htmlFor="oil" className="block text-sm font-medium leading-6 text-gray-900"> Oil Type </label>
+                    <label htmlFor="oil" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.oil-type")} </label>
                     <select id="oil" name="oil" defaultValue={instance?.oil}  autoComplete="oil-name"
                         onChange={(e)=>{setOil(parseInt(e.target.value))}} 
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
@@ -66,7 +66,7 @@ export default function OilChangeEdit({instance, setEditMode}){
                     </select>
                 </div>
                 <div className="">
-                    <label htmlFor="milage" className="block text-sm font-medium leading-6 text-gray-900">Current Milage </label>
+                    <label htmlFor="milage" className="block text-sm font-medium leading-6 text-gray-900">{t("dash.sales.current-milage")} </label>
                     <input type="tel" name="milage" id="milage"
                     autoComplete="milage" placeholder='120,000' defaultValue={instance?.currentMilage+''}
                     onChange={(e)=>{setCurrentMilage(parseInt(e.target.value))}}
@@ -75,14 +75,14 @@ export default function OilChangeEdit({instance, setEditMode}){
                 </div>
 
                 <div className="rounded-md">
-                    <label htmlFor="nextMilage" className="block text-sm font-medium leading-6 text-gray-900">Next Oil Change Milage </label>
+                    <label htmlFor="nextMilage" className="block text-sm font-medium leading-6 text-gray-900">{t("dash.sales.next-oil-change-milage")}</label>
                     <p className="bg-indigo-200 w-full px-2 rounded-md py-1.5 text-gray-900 sm:text-sm sm:leading-6"
                     >{parseFloat(instance.oil)+ parseFloat(instance.currentMilage)+''}</p>
                 </div>
 
                 <div className="">
                     <label htmlFor="oilAmount" className="block text-sm font-medium leading-6 text-gray-900">
-                        Amount </label>
+                        {t("dash.sales.amount")} </label>
                     <input onChange={(e)=>setAmount(parseFloat(e.target.value))} type="tel"  name="amount" id="oilAmount" autoComplete="oilAmount"
                     placeholder='120.00' defaultValue={instance?.amount}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -99,10 +99,10 @@ export default function OilChangeEdit({instance, setEditMode}){
                 
                 <div className="flex justify-between my-2">
                     <button type='submit' className="rounded-md bg-indigo-600 mx-auto px-12 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Submit </button>
+                        {t("dash.sales.submit")} </button>
                     <button type='reset' onClick={()=>setEditMode(false)}
                         className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-300 hover:bg-slate-200 py-2 px-10 leading-6 text-gray-900">
-                        Cancel </button>
+                        {t("dash.sales.cancel")} </button>
                 </div>
 
             </form>

@@ -2,16 +2,18 @@ import { useSelector } from "react-redux";
 import {useState} from "react";
 import OtherEdit from "./otherEdit";
 import RemoveItemModal from "./otherRemove";
+import { useTranslation } from "react-i18next";
 
 export default function OtherService({instance}){
     const auth = useSelector(state => state.auth);
+    const [t] = useTranslation('global');
     const [editMode, setEditMode] = useState(false);
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
 
     return (
         <div className="rounded-md w-full bg-white p-4 mx-auto">
             <div className="flex items-center">
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Other Service</h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.sales.other-service")}</h1>
                 {hasPermission('change_otherservice') &&
                     <svg onClick={(e)=>setEditMode(!editMode)} style={{display: editMode ? "none" :null}} xmlns="http://www.w3.org/2000/svg" 
                         fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
@@ -24,8 +26,8 @@ export default function OtherService({instance}){
             </div>
             {editMode ? <OtherEdit instance={instance} setEditMode={setEditMode} /> : <>
                 <div className="rounded-md w-full bg-white p-4 mx-auto">
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Name of the Service: </span> {instance?.name}</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Amount: </span>AED {instance?.amount}</p>
+                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.name")}: </span> {instance?.name}</p>
+                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.amount")}: </span>AED {instance?.amount}</p>
                 </div>
             </>
                 }

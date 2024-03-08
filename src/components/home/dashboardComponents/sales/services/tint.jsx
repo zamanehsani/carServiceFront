@@ -1,17 +1,19 @@
 import { useSelector } from "react-redux";
-import {useState} from "react";
+import {useState, useTransition} from "react";
 import TintEdit from "./tintEdit";
 import RemoveItemModal from "./tintRemove";
-
+import { useTranslation } from "react-i18next";
+import { use } from "i18next";
 export default function Tint({instance}){
     const auth = useSelector(state => state.auth);
     const [editMode, setEditMode] = useState(false);
+    const [t] = useTranslation("global");
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
 
     return (
         <div className="rounded-md w-full bg-white p-4 mx-auto">
             <div className="flex items-center">
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Tint Service</h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.sales.tint-service")}</h1>
                 {hasPermission('change_tint') &&
                     <svg onClick={(e)=>setEditMode(!editMode)} style={{display: editMode ? "none" :null}} xmlns="http://www.w3.org/2000/svg" 
                         fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
@@ -24,10 +26,10 @@ export default function Tint({instance}){
             </div>
             {editMode ? <TintEdit instance={instance} setEditMode={setEditMode} /> : <>
                 <div className="rounded-md w-full bg-white p-4 mx-auto">
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Type Of Tint: </span> {instance?.tintType}</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Tint Percentage: </span> {instance?.tintPercentage} %</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Classes Tinted: </span> {instance?.tintedWindows}</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {instance?.amount}</p>
+                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.tint-type")}: </span> {instance?.tintType}</p>
+                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.tint-percentage")}: </span> {instance?.tintPercentage} %</p>
+                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.tinted-windows")}: </span> {instance?.tintedWindows}</p>
+                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.service-amount")}: </span>AED {instance?.amount}</p>
                 </div>
             </>
                 }

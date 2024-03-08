@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { getSales } from '../../../redux/salesSlice';
@@ -10,7 +11,7 @@ export default function SalesNoteEdit({instance, setEditMode}){
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const dispatch = useDispatch();
-
+    const [t] = useTranslation('global');
     let timeoutId = null;
 
     console.log("insta: ", instance)
@@ -79,10 +80,10 @@ export default function SalesNoteEdit({instance, setEditMode}){
                 <div className="flex flex-col">     
                     <button type="submit"
                         className="rounded-md bg-indigo-600 mx-auto px-12 py-2 text-lg font-bold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                        Save </button> <br />
+                        {t("dash.sales.submit")} </button> <br />
                     <button type='reset' onClick={()=>setEditMode(false)}
                         className="grid-cols-1 rounded-md mx-auto text-lg font-bold bg-slate-200 py-2 px-10 leading-6 text-gray-900">
-                        Cancel </button>
+                        {t("dash.sales.cancel")} </button>
                
                 </div>
             </form>

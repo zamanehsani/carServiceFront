@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import SalesCarEdit from './salesCarEdit';
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 export default function SalesCar({instance}){
     // it takes the auth.user and permissionName as params
     const auth = useSelector(state => state.auth);
     const [editMode, setEditMode] = useState(false);
+    const [t] = useTranslation('global');
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
     return(
         <div className='flex flex-col mb-2'>
             {editMode ? <SalesCarEdit instance={instance} setEditMode={setEditMode} /> : <>
-            <h1 className="font-bold leading-10 text-2xl text-indigo-600">Car Details:</h1>
-            <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600 ">Car Model: </span>{instance?.car_model}</p>
-            <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Plate: </span>{instance?.car_plate_source} {instance?.car_plate_number}</p>
+            <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.sales.car-detials")}:</h1>
+            <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600 ">{t("dash.sales.car-model")}: </span>{instance?.car_model}</p>
+            <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.plate")}: </span>{instance?.car_plate_source} {instance?.car_plate_number}</p>
             <hr className=" border-gray-100"/>
             </>}
             {/* Edit and Delete icons */}

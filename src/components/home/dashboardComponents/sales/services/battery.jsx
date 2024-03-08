@@ -2,16 +2,17 @@ import { useSelector } from "react-redux";
 import {useState} from "react";
 import BatteryEdit from "./batteryEdit";
 import RemoveItemModal from "./batteryRemove";
-
+import { useTranslation } from "react-i18next";
 export default function Battery({instance}){
     const auth = useSelector(state => state.auth);
     const [editMode, setEditMode] = useState(false);
+    const [t] = useTranslation('global');
     function hasPermission(permissionName) {return auth.user.user_permissions.some(permission => permission.codename === permissionName);}
 
     return (
         <div className="rounded-md w-full bg-white p-4 mx-auto">
             <div className="flex items-center">
-                <h1 className="font-bold leading-10 text-2xl text-indigo-600">Battery Service</h1>
+                <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.sales.battery-service")}</h1>
                 {hasPermission('change_battery') &&
                     <svg onClick={(e)=>setEditMode(!editMode)} style={{display: editMode ? "none" :null}} xmlns="http://www.w3.org/2000/svg" 
                         fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
@@ -24,10 +25,10 @@ export default function Battery({instance}){
             </div>
             {editMode ? <BatteryEdit instance={instance} setEditMode={setEditMode} /> : <>
                 <div className="rounded-md w-full bg-white p-4 mx-auto">
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Battery Name: </span> {instance?.name}</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Battery Size: </span> {instance?.size}</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Battery Warranty Ends: </span> {instance?.warrenty}</p>
-                    <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">Service Amount: </span>AED {instance?.amount}</p>
+                    <p className="text-gray-600"><span className="font-semibold text-indigo-600">{t("dash.sales.battery-name")}: </span> {instance?.name}</p>
+                    <p className="text-gray-600"><span className="font-semibold text-indigo-600">{t("dash.sales.battery-size")}: </span> {instance?.size}</p>
+                    <p className="text-gray-600"><span className="font-semibold text-indigo-600">{t("dash.sales.battery-warrenty-end")}: </span> {instance?.warrenty}</p>
+                    <p className="text-gray-600"><span className="font-semibold text-indigo-600">{t("dash.sales.service-amount")}: </span>AED {instance?.amount}</p>
                 </div>
             </>
                 }
