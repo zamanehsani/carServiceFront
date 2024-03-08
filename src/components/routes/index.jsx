@@ -1,5 +1,6 @@
 
 import { createBrowserRouter } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from '../header';
 import PageNotFound from '../pageNotFound';
 import Login from '../login';
@@ -13,11 +14,11 @@ import ExpenseEdit from    '../home/dashboardComponents/expenses/expenseEdit';
 import UserProfile from '../home/user/index'
 import CompanyProfile from '../home/company/index'
 
-
 // Define Layout component
 const Layout = ({ children }) => {
+  const direction = useSelector(state => state.lng.direction);
     return (
-      <div>
+      <div dir={direction}>
         <Header/>
         <main className=''>{children}</main>
         {/* footer here */}

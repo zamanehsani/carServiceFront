@@ -1,12 +1,9 @@
-
-import Home from './components/home/index'
-
+import Home from './components/home/index';
 function App() {
-
   return (
-    <>
+    <div >
       <Home />
-    </>
+    </div>
   );
 }
 

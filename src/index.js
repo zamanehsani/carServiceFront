@@ -16,27 +16,34 @@ import { I18nextProvider } from 'react-i18next';
 
 i18next.init({
   interpolation: { escapeValue: false },
-  lng:"en",
+  lng: localStorage.getItem('lng') || "en",
   resources:{
-    en: {
-      global: global_en
-    },
-    fr: {
-      global: global_fr
-    },
-    ar: {
-      global: global_ar
-    }
+    en: { global: global_en },
+    fr: { global: global_fr },
+    ar: { global: global_ar }
   }
 })
+// Determine language direction
+const langDirection = (language) => {
+  // List of RTL languages
+  const rtlLanguages = ["ar","fr"]; // Add more RTL languages if needed
+
+  return rtlLanguages.includes(language) ? "rtl" : "ltr";
+};
+
+// Get current language and set direction
+const currentLanguage = i18next.language;
+const direction = langDirection(currentLanguage);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <I18nextProvider i18n={i18next}>
-      <Provider store={store}>
-        <RouterProvider router={routes} />
-      </Provider>
+      <div dir={direction}>
+        <Provider store={store}>
+          <RouterProvider router={routes} />
+        </Provider>
+      </div>
     </I18nextProvider>
   </React.StrictMode>
 );

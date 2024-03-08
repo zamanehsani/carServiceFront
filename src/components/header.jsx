@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import {logout} from './redux/authSlice';
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { setLng } from "./redux/lngSlice";
 
 export default function Header() {
     const auth = useSelector((state)=>state.auth)
@@ -35,8 +36,13 @@ export default function Header() {
         navigate('/login');
     }
 
-    const handleLanguageChange = (lng) => {
+    const handleLanguageChange = (lng,dir) => {
         i18n.changeLanguage(lng);
+        console.log("lng:",lng);
+        console.log("dir:",dir);
+        dispatch(setLng({ lng: lng, direction: dir }));
+        // set the lng to localstorage as well.
+        // localStorage.setItem('lng', lng);
         // close the language pop up as well
         setShowLang(false);
     }
@@ -126,13 +132,13 @@ export default function Header() {
                             {showLang &&
                             <div ref={langRef} className="absolute left-1/2 z-10 mt-6 flex w-screen max-w-max -translate-x-1/2 px-4">
                                 <div className=" max-w-md flex-auto overflow-hidden rounded-lg bg-white text-sm leading-6 shadow-lg">
-                                    <div onClick={()=>handleLanguageChange('en')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50 px-4">
+                                    <div onClick={()=>handleLanguageChange('en','ltr')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50 cursor-pointers">
                                         <span  className="font-semibold text-indigo-600"> Enlish </span>
                                     </div>
-                                    <div onClick={()=>handleLanguageChange('ar')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50">
+                                    <div onClick={()=>handleLanguageChange('ar','rtl')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50 cursor-pointers">
                                         <span  className="font-semibold text-indigo-600"> العربية </span>
                                     </div>
-                                    <div onClick={()=>handleLanguageChange('fr')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50">
+                                    <div onClick={()=>handleLanguageChange('fr','rtl')} className="px-8 py-3 group relative rounded-lg hover:bg-gray-50 cursor-pointers">
                                         <span  className="font-semibold text-indigo-600"> فارسی </span>
                                     </div>
                                 </div>
