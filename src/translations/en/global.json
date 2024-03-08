@@ -138,7 +138,7 @@
             "username":"User Name",
             "password":"Password",
             "forgot-password":"Forgot Password",
-            "Sing-in":"Sing In",
+            "sign-in":"Sing In",
             "not-a-member":"Not a member?",
             "contact-me":"Contact me"
         }

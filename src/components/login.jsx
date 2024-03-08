@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {login, getUser, getUserCompany} from './redux/authSlice';
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
     const [username,setUsername] = useState('');
@@ -9,12 +10,13 @@ export default function Login() {
     const auth = useSelector((state)=>state.auth)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [t] = useTranslation('global');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
          const isLogged = await dispatch(login({ username, password }));
         //  if the login dispatch return payload with access token, user is authenticated.
-        if(isLogged.payload.access.length > 1){
+        if(isLogged.payload?.access?.length > 1){
           // get the user information
           await dispatch(getUser(username));
           // get the user company
@@ -39,7 +41,7 @@ export default function Login() {
               alt="Your Company"
             />
             <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign in to your account
+              {t("dash.login.desc")}
             </h2>
           </div>
   
@@ -47,7 +49,7 @@ export default function Login() {
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                  User Name
+                  {t("dash.login.username")}
                 </label>
                 <div className="mt-2">
                   <input 
@@ -67,11 +69,11 @@ export default function Login() {
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                    Password
+                    {t("dash.login.password")}
                   </label>
                   <div className="text-sm">
                     <a href="https://zamanehsani.com" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
+                      {t("dash.login.forgot-password")}
                     </a>
                   </div>
                 </div>
@@ -99,15 +101,15 @@ export default function Login() {
                   type="submit"
                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Sign in
+                 {t("dash.login.sign-in")}
                 </button>
               </div>
             </form>
   
             <p className="mt-10 text-center text-sm text-gray-500">
-              Not a member?{' '}
+              {t("dash.login.not-a-member")}
               <a href="mailto:zamanehsani@gmail.com" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                Contant me
+                {t("dash.login.contact-me")}
               </a>
             </p>
           </div>

@@ -96,7 +96,7 @@ const searchBackend = async (value) => {
       <div className="mb-4 relative">
         <input
           type="text"
-          placeholder={t("search.search")}
+          placeholder={t("dash.search.search")}
           className="w-full px-4 py-2 rounded-full border-0 shadow-md hover:bg-indigo-100"
           onChange={(e)=>handleInputChange(e.target.value)}
         />

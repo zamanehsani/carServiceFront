@@ -26,7 +26,7 @@ export default function OilChangeService({instance}){
             {editMode ? <OilChangeEdit instance={instance} setEditMode={setEditMode} /> : <>
                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.oil-type")}: </span> {instance?.oil}</p>
                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.car-milage")}: </span> {instance?.currentMilage}</p>
-                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.next-oil-mhange-milage")}: </span> {parseFloat((instance?.oil))+parseFloat((instance?.currentMilage))}</p>
+                <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.next-oil-change-milage")}: </span> {parseFloat((instance?.oil))+parseFloat((instance?.currentMilage))}</p>
                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.sales.service-amount")}: </span>AED {instance?.amount}</p>
             </>
                 }
