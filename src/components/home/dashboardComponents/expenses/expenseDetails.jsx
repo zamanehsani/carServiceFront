@@ -5,13 +5,12 @@ import axios from 'axios';
 import { useTranslation } from "react-i18next";
 import RemoveItemModal from "./expenseRemove";
 
-export default function ExpenseDetails({match}){
+export default function ExpenseDetails(){
     const {id} = useParams(); 
     const [exp, setExp] = useState({});
     const [error, setError] = useState('')
     const [t] = useTranslation('global');
     const nagivate = useNavigate();
-
     const expenses = useSelector((state)=>state.expenses.expenses)
     const auth = useSelector((state)=>state.auth)
 

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import axios from 'axios'; // Import axios
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { tab } from '@material-tailwind/react';
 
 export default function Form({setSuccess,  error, setError}){
     const auth = useSelector((state)=>state.auth)
@@ -40,7 +39,7 @@ export default function Form({setSuccess,  error, setError}){
         name && formData.append("name", name);
         description && formData.append("description", description);
         amount && formData.append("price", amount);
-        quantity && formData.append("quantity", quantity);
+        quantity && formData.append("quantity", quantity);  
         supplierName && formData.append("supplier_name", supplierName);
         photo && formData.append("image", photo);
         formData.append('company_id', auth.company.id);

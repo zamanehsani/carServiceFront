@@ -126,7 +126,7 @@ export default function DealForm({setSuccess,  error, setError}){
       name && formData.append("name", name);
       phone && formData.append("phone", phone);
       paymentOption && formData.append("paymentOption", paymentOption);
-      note && formData.append("note", note);
+      note && formData.append("description", note);
       total && formData.append("total", total); // the service total amount
       photo && formData.append("photo", photo);
       address && formData.append("address", `${address} - ${state} - ${country}`);
