@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next';
 
 export default function DealForm({setSuccess,  error, setError}){
   const auth = useSelector((state)=>state.auth)
+  const lng = useSelector((state)=>state.lng);
+
   const [t] = useTranslation('global');
   // customer details
   const [name, setName] = useState(null);
@@ -285,7 +287,7 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="sm:col-span-full">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.phone")} </label>
-                  <input id="phone" onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder={t("dash.sales.phone-placeholder")}
+                  <input id="phone" onChange={(e)=>setPhone(e.target.value)} style={{direction:lng?.direction}} name="phone" type="tel" autoComplete="phone" placeholder={t("dash.sales.phone-placeholder")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>

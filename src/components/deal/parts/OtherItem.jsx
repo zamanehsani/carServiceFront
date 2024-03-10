@@ -1,8 +1,10 @@
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
-
+import { useSelector } from "react-redux";
 export default function Item({changeName,changeAmount,removeItem,item}){
     const [t] = useTranslation('global');
+    const lng = useSelector((state)=>state.lng);
+    
     return (
         <div className="my-2">
             <div className="grid grid-cols-6">
@@ -20,7 +22,7 @@ export default function Item({changeName,changeAmount,removeItem,item}){
                             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.sales.amount")} </label>
                             <input onChange={(e)=>changeAmount(item.id,parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
-                            placeholder='120.00'
+                            placeholder='120.00' style={{direction:lng?.direction}}
                             className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>

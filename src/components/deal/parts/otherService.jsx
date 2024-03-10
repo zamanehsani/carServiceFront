@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 export default function OtherService({otherItems, addItem, changeName, changeAmount, removeItem}){
     // add a first empty item object in the item list.
     // if the item list has element, do not add.
+
     const [t] = useTranslation('global');
     useEffect(()=>{
         if(otherItems.length === 0){addItem()}

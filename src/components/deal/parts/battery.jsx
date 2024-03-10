@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 export default function Battery({warranty,setWarranty, batterySize, batteryAmount,setBatteryAmount, setBatteryName, setBatterySize}){
     const [t] = useTranslation('global');
+    const lng = useSelector((state)=>state.lng);
+
     // Function to update battery amount
     const handleBatteryAmountChange = (amount) => {
         // If amount is NaN or not a valid number, default it to 0
@@ -58,7 +61,7 @@ export default function Battery({warranty,setWarranty, batterySize, batteryAmoun
                 <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.amount")} </label>
                 <input onChange={(e)=>handleBatteryAmountChange(parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
-                placeholder='120.00' defaultValue={batteryAmount+''}
+                placeholder='120.00' defaultValue={batteryAmount+''} style={{direction:lng?.direction}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>

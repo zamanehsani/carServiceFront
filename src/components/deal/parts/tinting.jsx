@@ -1,9 +1,12 @@
 import {useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,windows, setWindows, tintPercentage, setTintPercentage }){
     // Function to update battery amount
     const [t] = useTranslation('global');
+    const lng = useSelector((state)=>state.lng);
+
     const handleTintAmountChange = (amount) => {
         // If amount is NaN or not a valid number, default it to 0
         if (isNaN(amount)) {amount = 0}
@@ -60,7 +63,7 @@ export default function Tinting({tintAmount, setTintAmount,tintType,setTintType,
                 <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.amount")} </label>
                 <input onChange={(e)=>handleTintAmountChange(parseFloat(e.target.value))}  type="tel"  name="amount" id="street-address" autoComplete="street-address"
-                placeholder='120.00' defaultValue={tintAmount+''}
+                placeholder='120.00' defaultValue={tintAmount+''} style={{direction:lng?.direction}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>
