@@ -59,6 +59,7 @@ export default function Header() {
                         <Link to={'/add-expense'} className="text-xl text-white mx-4 hover:text-gray-300 ">{t("header.add-expense")}</Link>
                         <Link to={'/user'} className="text-xl text-white mx-4 hover:text-gray-300 ">{t("header.my-profile")}</Link>
                         <Link to={'/company'} className="text-xl text-white mx-4 hover:text-gray-300 ">{t("header.company")}</Link>
+
                         <div className="relative">
                             <svg onClick={()=>setShowLang(!showLang)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
                             className="w-6 h-6 text-white font-bold text-2xl">
@@ -122,28 +123,20 @@ export default function Header() {
                         </div>
 
                         <br />
-                        <div className="">
-                            <svg onClick={()=>setIsExpand(!isExpand)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
-                                className="w-6 h-6 mx-auto text-white font-bold text-2xl">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
-                            </svg>
-                            {isExpand && 
-                            <div className=" mb-6 mt-2 px-4 transition-all duration-1000 ease-in-out"
-                                    style={{ maxHeight: isExpand ? '1000px' : '0' }}> 
-                                <div className="flex-auto bg-indigo-100 rounded-lg leading-6 ">
-                                    <div onClick={()=>handleLanguageChange('en','ltr')} className="px-8 py-3 rounded-lg hover:bg-gray-50 cursor-pointers">
-                                        <span  className="font-semibold text-indigo-600"> Enlish </span>
-                                    </div>
-                                    <div onClick={()=>handleLanguageChange('ar','rtl')} className="px-8 py-3 rounded-lg hover:bg-gray-50 cursor-pointers">
-                                        <span  className="font-semibold text-indigo-600"> العربية </span>
-                                    </div>
-                                    <div onClick={()=>handleLanguageChange('fr','rtl')} className="px-8 py-3 rounded-lg hover:bg-gray-50 cursor-pointers">
-                                        <span  className="font-semibold text-indigo-600"> فارسی </span>
-                                    </div>
-                                </div>
-                            </div>}
+
+                        <div className="flex justify-between w-full p-3 mx-1">
+                            <button onClick={()=>handleLanguageChange('en','ltr')}
+                            className="bg-indigo-300 text-indigo-700 px-4 py-1 rounded">
+                                English </button>
+                            <button onClick={()=>handleLanguageChange('fr','rtl')}
+                            className="bg-indigo-300  text-indigo-700  px-4 py-1 mx-1 rounded">
+                                فارسی </button>
+                            <button onClick={()=>handleLanguageChange('ar','rtl')}
+                            className="bg-indigo-300  text-indigo-700  px-4 py-1 rounded">
+                                العربية</button>
                         </div>
 
+                                <br />
 
                         {/* Menu items */}
                         <div className="flex flex-col space-y-4 px-4">
