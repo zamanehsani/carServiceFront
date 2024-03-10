@@ -14,7 +14,6 @@ export default function ExpenseDetails(){
     const expenses = useSelector((state)=>state.expenses.expenses)
     const auth = useSelector((state)=>state.auth)
 
-
         // check for permissions in user. 
     // it takes the auth.user and permissionName as params
     function hasPermission(permissionName) {
