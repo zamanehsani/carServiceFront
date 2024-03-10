@@ -7,7 +7,8 @@ import { useTranslation } from "react-i18next";
 export default function Login() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    const auth = useSelector((state)=>state.auth)
+    const auth = useSelector((state)=>state.auth);
+    const lng = useSelector((state)=>state.lng);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [t] = useTranslation('global');
@@ -33,7 +34,7 @@ export default function Login() {
     },[])
     return (
       <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div dir={lng.direction} className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               className="mx-auto h-10 w-auto"

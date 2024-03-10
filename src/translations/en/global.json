@@ -89,7 +89,14 @@
             "battery-name":"Battery Name",
             "battery-size":"Battery Size",
             "battery-warrenty-end":"Battery Warrenty End",
-            "battery-warrenty-start":"Battery Warrenty Start"
+            "battery-warrenty-start":"Battery Warrenty Start",
+            "name-placeholder":"Mohammad",
+            "phone-placeholder":"0566652534",
+            "car-model-placeholder":"Kia sedona 2015",
+            "note-placeholder":"Your note here",
+            "address-placeholder":"Building 25 Al Yahar",
+            "supplier-placeholder":"Free Style Auto",
+            "expense-name-placeholder":"Tyres"
         },
         "expenses":{
             "expenses":"Expenses",

@@ -276,7 +276,7 @@ export default function DealForm({setSuccess,  error, setError}){
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.name")}</label>
                   <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)}
-                    autoComplete="given-name" placeholder='Mohammad'
+                    autoComplete="given-name" placeholder={t("dash.sales.name-placeholder")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -285,7 +285,7 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="sm:col-span-full">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.phone")} </label>
-                  <input id="phone" onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder='0566652534'
+                  <input id="phone" onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder={t("dash.sales.phone-placeholder")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -327,7 +327,7 @@ export default function DealForm({setSuccess,  error, setError}){
                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                       {t("dash.sales.car-model")} <span className='text-red-500'>*</span></label>
                     <div className="">
-                      <input required={true} onChange={(e)=>setModel(e.target.value)} type="text" placeholder='Kia Sedona 2025'  name="street-address" id="street-address" autoComplete="street-address"
+                      <input required={true} onChange={(e)=>setModel(e.target.value)} type="text" placeholder={t("dash.sales.car-model-placeholder")}  name="street-address" id="street-address" autoComplete="street-address"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
@@ -531,7 +531,7 @@ export default function DealForm({setSuccess,  error, setError}){
                     <textarea onChange={(e)=>{setNote(e.target.value)}}
                       id="description"
                       name="description"
-                      placeholder='Your note here...'
+                      placeholder={t("dash.sales.note-placeholder")}
                       rows={3}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -573,7 +573,7 @@ export default function DealForm({setSuccess,  error, setError}){
                   <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.address")} </label>
                     <input  onChange={(e)=>setAddress(e.target.value)} type="text"  name="street-address" id="street-address" autoComplete="street-address"
-                      placeholder='204 building 25 Al yahar st, al hamriah'
+                      placeholder={t("dash.sales.address-placeholder")}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>

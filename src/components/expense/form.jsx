@@ -110,16 +110,16 @@ export default function Form({setSuccess,  error, setError}){
                                {t("dash.expenses.supplier-name")}
                             </label>
                             <input onChange={(e)=>setSupplierName(e.target.value)} defaultValue={supplierNumber}
-                                id="supplier_name"  name="supplier_name" type="text" autoComplete="phone" placeholder='free style auto'
+                                id="supplier_name"  name="supplier_name" type="text" autoComplete="phone" placeholder={t("dash.sales.supplier-placeholder")}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                         <div className="sm:col-span-full">
                             <label htmlFor="supplier" className="block text-sm font-medium leading-6 text-gray-900">
-                                {t("dash.expenses..supplier-number")}
+                                {t("dash.expenses.supplier-number")}
                             </label>
                             <input onChange={(e)=>setSupplierNumber(e.target.value)} defaultValue={supplierNumber}
-                                id="supplier"  name="supplier" type="tel" autoComplete="phone" placeholder='0566643234'
+                                id="supplier"  name="supplier" type="tel" autoComplete="phone" placeholder={t("dash.sales.phone-placeholder")}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -128,13 +128,13 @@ export default function Form({setSuccess,  error, setError}){
                             <label htmlFor="expense" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.expenses.what-did-you-buy")}  </label>
                             <input onChange={(e)=>setName(e.target.value)} type="text" name="expense" id="expense"
-                                autoComplete="given-name" placeholder='tyres' defaultValue={name}
+                                autoComplete="given-name" placeholder={t("dash.sales.tyre")} defaultValue={name}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
                         <div className="sm:col-span-full">
                             <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
-                                {t("dash.expenses..how-many-pieces")} 
+                                {t("dash.expenses.quantity")} 
                             </label>
                             <input onChange={(e)=>setQuantity(parseInt(e.target.value))} defaultValue={quantity}
                             id="quantity"  name="quantity" type="tel" autoComplete="phone" placeholder='120'
@@ -200,7 +200,7 @@ export default function Form({setSuccess,  error, setError}){
                                 <textarea onChange={(e)=>setDescription(e.target.value)}
                                 id="description" defaultValue={description}
                                 name="description"
-                                placeholder='Your note here...'
+                                placeholder={t("dash.sales.note-placeholder")}
                                 rows={3}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 

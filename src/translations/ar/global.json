@@ -89,7 +89,14 @@
         "battery-name": "اسم البطارية",
         "battery-size": "حجم البطارية",
         "battery-warrenty-end": "انتهاء الضمان للبطارية",
-        "battery-warrenty-start": "بداية الضمان للبطارية"
+        "battery-warrenty-start": "بداية الضمان للبطارية",
+        "name-placeholder":"محمد",
+        "phone-placeholder":"٠٥٦٦٦٥٢٥٣٤",
+        "car-model-placeholder": "كيا سيدانا ٢٠١٥",
+        "note-placeholder": "ملاحظتك هنا",
+        "address-placeholder": "بناية ٢٥ اليحر",
+        "supplier-placeholder": "فري ستايل أوتو",
+        "expense-name-placeholder": "إطارات"
       },
       "expenses": {
         "expenses": "المصروفات",

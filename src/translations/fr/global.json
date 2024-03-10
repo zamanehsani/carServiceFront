@@ -89,7 +89,14 @@
         "battery-name": "نام باتری",
         "battery-size": "سایز باتری",
         "battery-warrenty-end": "پایان گارانتی باتری",
-        "battery-warrenty-start": "شروع گارانتی باتری"
+        "battery-warrenty-start": "شروع گارانتی باتری",
+        "name-placeholder":"محمد",
+        "phone-placeholder":"٠٥٦٦٦٥٢٥٣٤",
+        "car-model-placeholder":"كيا سيدانا ٢٠١٥",
+        "note-placeholder":"يادداشت شما اينجا",
+        "address-placeholder":"ساختمان شماره ٢٤، اليهار",
+        "supplier-placeholder":"شركت فري استايل",
+        "expense-name-placeholder":"لاستیک"
       },
       "expenses": {
         "expenses": "هزینه ها",
