@@ -303,10 +303,13 @@ export default function DealForm({setSuccess,  error, setError}){
 
   const handleSuggestedCustomer =(customer)=>{
     // set customer address, car, name 
-    const addArr = customer.address.split("-");
-    setAddress(addArr[0])
-    addArr[1] && setState(addArr[1])
-    addArr[2] && setCountry(addArr[2])
+    try{
+      const addArr = customer.address.split("-");
+      setAddress(addArr[0])
+      addArr[1] && setState(addArr[1])
+      addArr[2] && setCountry(addArr[2])
+
+    }catch(err){console.log("something went wrong while setting the address.")}
     setName(customer.name)
     setPhone(customer.phone)
     setPlateNumber1(customer.car_plate_number)
@@ -357,13 +360,13 @@ export default function DealForm({setSuccess,  error, setError}){
                   <div className='mt-5'>
                     {(customersList?.length > 0) && 
                     <div className=''>
-                      <label>Suggested Customers:</label>
+                      <label>{t("dash.sales.suggested-customers")}:</label>
                       {customersList?.map((customer, index)=>{
                       return <div key={index} onClick={()=>handleSuggestedCustomer(customer)}
                           className='my-2 rounded-lg shadow-sm p-2 px-4 bg-indigo-50 cursor-pointer'>
                         <h1 className='font-bold'>{customer?.name} - {customer?.phone}</h1>
-                        <p><span className='font-bold'>Car:</span> {customer.car_plate_source} - {customer?.car_plate_number}</p>
-                        <p><span className='font-bold'>Address:</span> {customer?.address}</p>
+                        <p><span className='font-bold'>{t("dash.sales.car")}:</span> {customer.car_plate_source} - {customer?.car_plate_number}</p>
+                        <p><span className='font-bold'>{t("dash.sales.address")}:</span> {customer?.address}</p>
                       </div>
                       })}
                    
