@@ -26,6 +26,7 @@ export default function DealForm({setSuccess,  error, setError}){
   // car details
   const [plateSource, setPlateSource] = useState('Abu Dhabi');
   const [plateNumber, setPlateNumber] = useState(null);
+  const [plateNumber1, setPlateNumber1] = useState(null);
   const [model, setModel] = useState(null);
 
   // customer address details 
@@ -35,7 +36,6 @@ export default function DealForm({setSuccess,  error, setError}){
   
   // this is the other services total amount
   const [otherTotal, setOtherTotal] = useState(0);
-
   
   const [dragging, setDragging] = useState(false);
   const handleDragOver = (e) => {e.preventDefault(); setDragging(true);};
@@ -107,6 +107,50 @@ export default function DealForm({setSuccess,  error, setError}){
     const [batteryService, setBatteryService] = useState(false);
     const [otherService, setOtherService] = useState(false);
 
+    const [customersList, setCustomersList] = useState([]);
+
+    // on phone number changes get the customer with address, car details and customer details to fill the form quicker
+    // useEffect(()=>{
+    //   if(phone?.length > 3){
+    //     SearchCustomer(phone)
+    //   }
+    // },[phone])
+
+    // suggest customer based on plate number
+    useEffect(()=>{
+      if(plateNumber?.length > 2){
+        SearchCustomer(plateNumber)
+      }
+      setPlateNumber1(null)
+    },[plateNumber])
+
+
+    // the function that search the customer model and return a list and sets the sugguested customerList
+  function SearchCustomer(term){
+    axios.get(process.env.REACT_APP_API_URL + '/api/customers/', {params:{search:term}})
+    .then((response)=>{
+      // if the response status is create clear all the states.
+      // filter the customers with duplicate phone or plate
+      filterDuplicateCustomers(response?.data?.results);
+      
+    }).catch((err)=>{ setError("Something went wrong submitting!")})
+  }
+
+  // this function filters the suggested customers fetched just not to show duplicates and sets the liststate
+  const filterDuplicateCustomers = (arr) => {
+    const uniqueEntries = {};
+    const filteredArray = [];
+    arr.forEach(obj => {
+        const key = obj.car_plate_number + obj.phone;
+        if (!uniqueEntries[key]) {
+            uniqueEntries[key] = true;
+            filteredArray.push(obj);
+        }
+    });
+    setCustomersList(filteredArray);
+};
+
+
 
   useEffect(()=>{
       setTotal(oilAmount +tintAmount+tyreAmount+batteryAmount+otherTotal)
@@ -134,6 +178,9 @@ export default function DealForm({setSuccess,  error, setError}){
       plateSource && formData.append("car_plate_source", plateSource);
       plateNumber && formData.append("car_plate_number", plateNumber);
       model && formData.append("car_model", model);
+      // plate number 1 is the plate number that holds the value of plate the came from databse as 
+      // suggested customer
+      plateNumber1 && formData.append("car_plate_number", plateNumber1);
       
       // append the oilChange 
       oilChangeService && formData.append("oilChangeService", oilChangeService);
@@ -254,6 +301,19 @@ export default function DealForm({setSuccess,  error, setError}){
     }
   },[])
 
+  const handleSuggestedCustomer =(customer)=>{
+    // set customer address, car, name 
+    const addArr = customer.address.split("-");
+    setAddress(addArr[0])
+    addArr[1] && setState(addArr[1])
+    addArr[2] && setCountry(addArr[2])
+    setName(customer.name)
+    setPhone(customer.phone)
+    setPlateNumber1(customer.car_plate_number)
+    setPlateSource(customer.car_plate_source)
+    setModel(customer.car_model)
+    setCustomersList([]);
+  }
   return (
     <div className='w-full md:w-1/2 lg:w-1/2 rounded-lg'>
       <div className="flex my-4 ml-5 overflow-x-auto" >
@@ -278,7 +338,7 @@ export default function DealForm({setSuccess,  error, setError}){
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.name")}</label>
                   <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)}
-                    autoComplete="given-name" placeholder={t("dash.sales.name-placeholder")}
+                    autoComplete="given-name" placeholder={t("dash.sales.name-placeholder")} defaultValue={name}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -287,9 +347,29 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="sm:col-span-full">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.phone")} </label>
-                  <input id="phone" onChange={(e)=>setPhone(e.target.value)} style={{direction:lng?.direction}} name="phone" type="tel" autoComplete="phone" placeholder={t("dash.sales.phone-placeholder")}
+                  <input id="phone" defaultValue={phone}
+                  onChange={(e)=>setPhone(e.target.value)} 
+                  style={{direction:lng?.direction}} name="phone" type="tel" autoComplete="phone" 
+                  placeholder={t("dash.sales.phone-placeholder")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
+                  {/* suggested list of customers */}
+                  <div className='mt-5'>
+                    {(customersList?.length > 0) && 
+                    <div className=''>
+                      <label>Suggested Customers:</label>
+                      {customersList?.map((customer, index)=>{
+                      return <div key={index} onClick={()=>handleSuggestedCustomer(customer)}
+                          className='my-2 rounded-lg shadow-sm p-2 px-4 bg-indigo-50 cursor-pointer'>
+                        <h1 className='font-bold'>{customer?.name} - {customer?.phone}</h1>
+                        <p><span className='font-bold'>Car:</span> {customer.car_plate_source} - {customer?.car_plate_number}</p>
+                        <p><span className='font-bold'>Address:</span> {customer?.address}</p>
+                      </div>
+                      })}
+                   
+                    </div>
+                    }
+                  </div>
                 </div>
 
               </div>
@@ -301,22 +381,26 @@ export default function DealForm({setSuccess,  error, setError}){
               <div className="mt-3 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-2">
                 <div className="">
                   <label htmlFor="plate-source" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.plate-source")} </label>
-                  <select onChange={(e)=>setPlateSource(e.target.value)} id="plate-source" name="plate-source" autoComplete="plate-source"
+                  <select value={plateSource}
+                  onChange={(e)=>setPlateSource(e.target.value)} id="plate-source" name="plate-source" 
+                  autoComplete="plate-source" 
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
-                    <option>Abu Dhabi</option>
-                    <option>Dubai</option>
-                    <option>AL Ain</option>
-                    <option>Sharjah</option>
-                    <option> Ajman</option>
-                    <option> Ras Al Khaimah</option>
-                    <option> Other</option>
+                    <option value={"Abu Dhabi"} >Abu Dhabi</option>
+                    <option value={"Dubai"} >Dubai</option>
+                    <option value={"Al Ain"} >Al Ain</option>
+                    <option value={"Sharjah"} >Sharjah</option>
+                    <option value={"Ajman"} > Ajman</option>
+                    <option value={"Ras Al Khaimah"} > Ras Al Khaimah</option>
+                    <option value={"Other"} > Other</option>
                   </select>
                 </div>
           
                 <div className="">
                   <label htmlFor="plate-number" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.plate-number")} <span className='text-red-500'>*</span> </label>
-                  <input required={true}  type="text" onChange={(e)=>setPlateNumber(e.target.value)} name="plate-number" id="plate-number" autoComplete="plate-number"
+                  <input required={true}  type="text"  defaultValue={plateNumber}
+                  onChange={(e)=>setPlateNumber(e.target.value)} name="plate-number" 
+                  id="plate-number" autoComplete="plate-number"
                     placeholder='Y21320'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -329,8 +413,11 @@ export default function DealForm({setSuccess,  error, setError}){
                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                       {t("dash.sales.car-model")} <span className='text-red-500'>*</span></label>
                     <div className="">
-                      <input required={true} onChange={(e)=>setModel(e.target.value)} type="text" placeholder={t("dash.sales.car-model-placeholder")}  name="street-address" id="street-address" autoComplete="street-address"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      <input required={true} defaultValue={model}
+                      onChange={(e)=>setModel(e.target.value)} type="text" 
+                      placeholder={t("dash.sales.car-model-placeholder")}  
+                      name="street-address" id="street-address" autoComplete="street-address"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>
@@ -547,26 +634,28 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                   <div className="">
                     <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.country")} </label>
-                    <select onChange={(e)=>setCountry(e.target.value)} id="country" name="country" autoComplete="country-name"
+                    <select onChange={(e)=>setCountry(e.target.value)} id="country" 
+                    name="country" autoComplete="country-name" value={country}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
-                      <option>United Arab Emirates</option>
-                      <option>Qatar</option>
-                      <option>Oman</option>
-                      <option>Bahrian</option>
-                      <option>Saudi Arabia</option>
+                      <option value={"United Arab Emirates"}>United Arab Emirates</option>
+                      <option value={"Qatar"}>Qatar</option>
+                      <option value={"Oman"}>Oman</option>
+                      <option value={"Bahrian"}>Bahrian</option>
+                      <option value={"Saudi Arabia"}>Saudi Arabia</option>
                     </select>
                   </div>
                   <div className="">
                     <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.emirates")} </label>
-                    <select onChange={(e)=>setState(e.target.value)} id="country" name="country" autoComplete="country-name"
+                    <select onChange={(e)=>setState(e.target.value)} id="country" 
+                    name="country" autoComplete="country-name" value={state}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
-                      <option>Al Ain</option>
-                      <option>Abu Dhabi </option>
-                      <option>Dubai</option>
-                      <option>Sharjah </option>
-                      <option>Ajman</option>
-                      <option>Ras Al khaimah</option>
-                      <option>Other</option>
+                      <option value={"Al Ain"} >Al Ain</option>
+                      <option value={"Abu Dhabi"}>Abu Dhabi </option>
+                      <option value={"Dubai"} >Dubai</option>
+                      <option value={"Sharjah"} >Sharjah </option>
+                      <option value={"Ajman"} >Ajman</option>
+                      <option value={"Ras Al Khaimah"}>Ras Al Khaimah</option>
+                      <option value={"Other"} >Other</option>
                     </select>
                   </div>
                 </div>
@@ -574,7 +663,8 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="mt-3">
                   <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.address")} </label>
-                    <input  onChange={(e)=>setAddress(e.target.value)} type="text"  name="street-address" id="street-address" autoComplete="street-address"
+                    <input  onChange={(e)=>setAddress(e.target.value)} defaultValue={address}
+                    type="text"  name="street-address" id="street-address" autoComplete="street-address"
                       placeholder={t("dash.sales.address-placeholder")}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
