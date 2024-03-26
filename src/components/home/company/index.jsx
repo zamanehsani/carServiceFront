@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import EditCompany from "./edit";
 
 export default function CompanyProfile(){
     const auth = useSelector((state)=>state.auth)
+    const [editMode, setEditMode] = useState(false);
+    const [error, setError] = useState(false);
+
     return (
         <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg my-4 p-5 ">
             <div className="flex my-4 ml-5 overflow-x-auto" >
@@ -13,23 +18,39 @@ export default function CompanyProfile(){
                  <span className="text-indigo-600 mx-3">/</span></Link> 
                 <span className="text-indigo-900"> Company Profile</span> 
             </div>
-            <div className="bg-slate-100 grid sm:grid-cols-1 md:grid-cols-3">
-                <div className="p-3 rounded-lg bg-indigo-400">
-                    <img src={auth?.company?.logo} alt="company logo" 
-                    className=" rounded-md"/>
-                </div>
-                <div className="col-span-2">
-                    <h1 className=" text-indigo-600 leading-10 text-2xl font-bold">Company Detials:</h1>
-                    <p>Name: {auth.company?.name}</p>
-                    <p>Phone: {auth.company?.phone}</p>
-                    <p>Address: {auth.company?.address}</p>
-                    <div>
-                        {auth.company?.description}
+
+            {!editMode &&
+                <div className="bg-slate-100 grid sm:grid-cols-1 md:grid-cols-3">
+                    <div className="p-3 rounded-lg bg-indigo-400">
+                        <img src={auth?.company?.logo} alt="company logo" 
+                        className=" rounded-md"/>
+                    </div>
+                    <div className="col-span-2 px-3">
+                        <h1 className=" text-indigo-600 leading-10 text-2xl font-bold">Company Detials:</h1>
+                        <p>Name: {auth.company?.name}</p>
+                        <p>Phone: {auth.company?.phone}</p>
+                        <p>Address: {auth.company?.address}</p>
+                        <div> {auth.company?.description} </div>
+                    
+                        {(auth?.company?.admin?.username === auth?.user?.username) && 
+                        <span >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" 
+                            className="text-indigo-500 w-8 h-8"
+                            onClick={(e)=>setEditMode(true)}>
+                                <path strokeLinecap="round" strokeLinejoin="round" 
+                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                            </svg>
+                        </span> }
                     </div>
                 </div>
-            
-            </div>
-
+            }
+           
+            {editMode && <EditCompany
+                setEditMode={setEditMode} 
+                error={error}
+                setError={setError}
+                company={auth?.company}
+                /> }
         </div>
     )
 }

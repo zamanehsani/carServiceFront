@@ -2,15 +2,17 @@ import { useState } from 'react'
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import {getUser} from '../../redux/authSlice';
+import {getUserCompany} from '../../redux/authSlice';
+
 import { useDispatch, useSelector } from "react-redux";
 
-export default function EditProfile({setEditMode, user,  error, setError}){
+export default function EditCompany({setEditMode, company,  error, setError}){
     const auth = useSelector((state)=>state.auth)
-    const [first_name , setFirst_name] = useState(user?.first_name);
-    const [Last_name , setLast_name] = useState(user?.last_name);
-    const [email , setEmail] = useState(user?.email);
-    const [username , setUsername] = useState(user?.username);
+    const [name , setName] = useState(company?.name);
+    const [address , setAddress] = useState(company?.address);
+    const [phone , setPhone] = useState(company?.phone);
+    const [note , setNote] = useState(company?.description);
+
     const [t] = useTranslation('global');
     const lng = useSelector((state)=>state.lng);
     const dispatch = useDispatch();
@@ -30,29 +32,29 @@ export default function EditProfile({setEditMode, user,  error, setError}){
         e.preventDefault();
         // create a formdata instance
         const formData = new FormData();
-        first_name && formData.append("first_name", first_name);
-        Last_name && formData.append("last_name", Last_name);
-        email && formData.append("email", email);
-        photo && formData.append("photo", photo);
-        username && formData.append("username", username);
-        formData.append("user_id", user?.id);
+        name && formData.append("name", name);
+        address && formData.append("address", address);
+        phone && formData.append("phone", phone);
+        photo && formData.append("logo", photo);
+        note && formData.append("description", note);
+        formData.append("id", company?.id)
         sendform(formData);
     }
 
     const sendform = async(formData)=>{
-        await axios.put(`${process.env.REACT_APP_API_URL}/api/user-update/`, formData,{
+        await axios.put(`${process.env.REACT_APP_API_URL}/api/companies/${company?.id}/`, formData,{
             headers: { 'Content-Type': 'multipart/form-data'}
         })
         .then((response)=>{
           if(response.status === 200){
-            dispatch(getUser(username));
+            dispatch(getUserCompany(company?.admin?.username));
             setEditMode(false)
         }
-        }).catch((err)=>{setError('Something went wrong, Please try again!');})
+        }).catch((err)=>{ setError('Something went wrong, Please try again!');})
       }
 
     return (
-        <div className='w-full md:w-1/2 lg:w-1/2'>
+        <div className='w-full md:w-1/2 lg:w-1/2 mx-auto'>
             <form className='px-4 py-6 bg-white rounded-lg shadow-md' 
                 onSubmit={handleSubmit}>
                 <div className="space-y-6">
@@ -60,41 +62,47 @@ export default function EditProfile({setEditMode, user,  error, setError}){
                         <h2 className="text-base font-semibold leading-7 text-gray-900">Edit Profile</h2>
                         <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6 py-3">
                             <div className="sm:col-span-full">
-                                <label htmlFor="first_name" className="block text-sm font-medium leading-6 text-gray-900">
-                                    First Name
+                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                                     Name
                                 </label>
-                                <input onChange={(e)=>setFirst_name(e.target.value)} defaultValue={first_name}
-                                id="first_name"  name="first_name" type="text" autoComplete="phone" placeholder='ahmad'
+                                <input onChange={(e)=>setName(e.target.value)} defaultValue={name}
+                                id="name"  name="name" type="text" autoComplete="Name" placeholder='testing'
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
                             <div className="sm:col-span-full">
-                                <label htmlFor="last_name" className="block text-sm font-medium leading-6 text-gray-900">
-                                Last Name
+                                <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
+                                Phone
                                 </label>
-                                <input onChange={(e)=>setLast_name(e.target.value)} defaultValue={Last_name}
-                                    id="last_name"  name="last_name" type="text" autoComplete="phone" placeholder="ahmadi"
+                                <input onChange={(e)=>setPhone(e.target.value)} defaultValue={phone}
+                                    id="phone"  name="phone" type="text" autoComplete="phone" placeholder="0456543234"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
                             <div className="sm:col-span-full">
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Email
+                                <label htmlFor="address" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Address
                                 </label>
-                                <input onChange={(e)=>setEmail(e.target.value)} defaultValue={email}
-                                    id="email"  name="email" type="email" autoComplete="phone" placeholder="info@gmail.com"
+                                <input onChange={(e)=>setAddress(e.target.value)} defaultValue={address}
+                                    id="address"  name="address" type="text" autoComplete="address" placeholder="somedf"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>
+                            
                             <div className="sm:col-span-full">
-                                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                                    username
-                                </label>
-                                <input onChange={(e)=>setUsername(e.target.value)} defaultValue={username}
-                                    id="username"  name="username" type="text" autoComplete="phone" placeholder="ahamd"
+                                <label htmlFor="note" className="block text-sm font-medium leading-6 text-gray-900">
+                                    {t("dash.expenses.note")} </label>
+                                    <textarea onChange={(e)=>setNote(e.target.value)}
+                                    id="note" defaultValue={note}
+                                    name="note"
+                                    placeholder={t("dash.sales.note-placeholder")}
+                                    rows={3}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
+                                    
+                                    />
+                                <p className="px-1 text-sm leading-6 text-gray-600">{t("dash.expenses.note-desc")}</p>
                             </div>
+
                             <div className="col-span-full mt-3">
                             {photo ? <>
                             <div className="mt-4 relative">
