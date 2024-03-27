@@ -1,12 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import EditCompany from "./edit";
+import axios from "axios";
+import User from "./user";
+import Pagination from "../dashboardComponents/Paginator";
+
 
 export default function CompanyProfile(){
     const auth = useSelector((state)=>state.auth)
     const [editMode, setEditMode] = useState(false);
     const [error, setError] = useState(false);
+    const [ userPageSize , setUserPageSize] = useState(10);
+    const [ userCurrentPage , setUserCurrentPage] = useState(1);
+    const [users, setUsers] = useState([]);
+
+    const handlePageChange = (page) => {
+        setUserCurrentPage(page)
+    }
+    useEffect(() => {
+        getUsers();
+    },[userCurrentPage,])
+
+
+    function getUsers(){
+        const queryParams = {};
+            if (userPageSize) {
+                queryParams.page_size = userPageSize
+            }
+            if (userCurrentPage) {
+                queryParams.page = userCurrentPage;
+            }
+            if (auth?.company) {
+                queryParams.company = auth?.company;
+            }
+        axios.get(`${process.env.REACT_APP_API_URL}/api/company-users/`,{ params:queryParams})
+        .then(response =>{
+            console.log("res: ", response.data)
+            setUsers(response?.data)
+        })
+        .catch((err)=>{
+            console.log("err: ", err)
+        })
+    }
 
     return (
         <div className="grid grid-cols-1 max-w-6xl mx-auto rounded-lg my-4 p-5 ">
@@ -42,6 +78,22 @@ export default function CompanyProfile(){
                             </svg>
                         </span> }
                     </div>
+
+                    <div className="flex flex-row my-2 p-3">
+                            <Link className="rounded-md hover:bg-indigo-800 bg-indigo-600 text-lg text-white px-4 py-2 " 
+                            to={'/add-user'}> Add a new user </Link >
+                    </div>
+                    <br />
+                    <div className="flex flex-wrap">
+                            {users?.results?.map((user, index)=> <User key={index} user={user}/> )}
+                    </div>
+                    {users?.total_pages > 1 && <Pagination 
+                        pageSize={userPageSize} 
+                        currentPage={userCurrentPage} 
+                        handlePageChange={handlePageChange}
+                        previous={users.previous ? true: false}
+                        next ={users?.next ? true: false}
+                        total_pages={users?.total_pages} />}
                 </div>
             }
            
