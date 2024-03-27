@@ -36,7 +36,6 @@ export default function CompanyProfile(){
             }
         axios.get(`${process.env.REACT_APP_API_URL}/api/company-users/`,{ params:queryParams})
         .then(response =>{
-            console.log("res: ", response.data)
             setUsers(response?.data)
         })
         .catch((err)=>{

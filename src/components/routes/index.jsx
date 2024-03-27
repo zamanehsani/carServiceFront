@@ -14,6 +14,8 @@ import ExpenseEdit from    '../home/dashboardComponents/expenses/expenseEdit';
 import UserProfile from '../home/user/index'
 import CompanyProfile from '../home/company/index'
 import AddUser from '../home/company/addUser';
+import EditUser from '../home/company/EditUser';
+import UpdatePermissions from '../home/company/updatePermission';
 
 // Define Layout component
 const Layout = ({ children }) => {
@@ -68,6 +70,16 @@ const routes = createBrowserRouter([
     {
       path: "/user",
       element:<PrivateRoute> <Layout> <UserProfile /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/edit-user/:id",
+      element:<PrivateRoute> <Layout> <EditUser /></Layout></PrivateRoute>,
+      errorElement:<Layout><PageNotFound /></Layout>
+    },
+    {
+      path: "/edit-user-permissions/:id",
+      element:<PrivateRoute> <Layout> <UpdatePermissions /></Layout></PrivateRoute>,
       errorElement:<Layout><PageNotFound /></Layout>
     },
     {
