@@ -3,6 +3,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { getSales } from '../../../../redux/salesSlice';
 import axios from 'axios'; 
 import { useTranslation } from 'react-i18next';
+import { fixNumbers } from '../../../../../utils';
 export default function BatteryEdit({instance, setEditMode}){
     const [name,setName] = useState(null);
     const [size,setSize] = useState(null);
@@ -71,7 +72,7 @@ export default function BatteryEdit({instance, setEditMode}){
                 <div className="rounded-md">
                     <label htmlFor="batterySize" className="block text-sm font-medium leading-6 text-gray-900"> {t("dash.sales.battery-size")} </label>
                     <select id="batterySize" name="batterySize" autoComplete="batterySize"
-                        onChange={(e)=>{setSize(parseInt(e.target.value))}} defaultValue={instance?.size}
+                        onChange={(e)=>{setSize(parseInt(fixNumbers(e.target.value)))}} defaultValue={instance?.size}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" >
                         <option value={20}>20 </option>
                         <option value={30}>30</option>
@@ -98,7 +99,7 @@ export default function BatteryEdit({instance, setEditMode}){
                 <div className="mx-4">
                     <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                         {t("dash.sales.amount")} </label>
-                    <input onChange={(e)=>setAmount(parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+                    <input onChange={(e)=>setAmount(parseFloat(fixNumbers(e.target.value)))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                     placeholder='120.00' defaultValue={instance?.amount+''}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />

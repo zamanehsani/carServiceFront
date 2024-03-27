@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getSales } from '../../../redux/salesSlice';
 import axios from 'axios'; 
 import { useTranslation } from 'react-i18next';
+import { fixNumbers } from '../../../../utils';
 
 
 export default function SalesCarEdit({instance, setEditMode}){
@@ -79,7 +80,9 @@ export default function SalesCarEdit({instance, setEditMode}){
                         <div className="">
                             <label htmlFor="plate-number" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.sales.plate-number")} <span className='text-red-500'>*</span> </label>
-                            <input required={true}  type="text" defaultValue={instance.car_plate_number} onChange={(e)=>setPlateNumber(e.target.value)} name="plate-number" id="plate-number" autoComplete="plate-number"
+                            <input required={true}  type="text" defaultValue={instance.car_plate_number} 
+                            onChange={(e)=>setPlateNumber(fixNumbers(e.target.value))} name="plate-number" id="plate-number" 
+                            autoComplete="plate-number"
                                 placeholder='Y21320'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"/>
                         </div>
@@ -90,7 +93,7 @@ export default function SalesCarEdit({instance, setEditMode}){
                             <label htmlFor="model" className="block text-sm font-medium leading-6 text-gray-900">
                             {t("dash.sales.car-model")}</label>
                             <div className="">
-                                <input onChange={(e)=>setCarModel(e.target.value)} type="text" defaultValue={instance.car_model} placeholder='Kia Sedona 2025'  name="model" id="model" autoComplete="model"
+                                <input onChange={(e)=>setCarModel(fixNumbers(e.target.value))} type="text" defaultValue={instance.car_model} placeholder='Kia Sedona 2025'  name="model" id="model" autoComplete="model"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />
                             </div>

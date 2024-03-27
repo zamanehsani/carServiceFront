@@ -4,6 +4,7 @@ import { getSales } from '../../../../redux/salesSlice';
 import axios from 'axios'; 
 import { useTranslation } from 'react-i18next';
 import { use } from 'i18next';
+import { fixNumbers } from '../../../../../utils';
 export default function OilChangeEdit({instance, setEditMode}){
     const [oil,setOil] = useState(null);
     const [currentMilage, setCurrentMilage] = useState(0);
@@ -69,7 +70,7 @@ export default function OilChangeEdit({instance, setEditMode}){
                     <label htmlFor="milage" className="block text-sm font-medium leading-6 text-gray-900">{t("dash.sales.current-milage")} </label>
                     <input type="tel" name="milage" id="milage"
                     autoComplete="milage" placeholder='120,000' defaultValue={instance?.currentMilage+''}
-                    onChange={(e)=>{setCurrentMilage(parseInt(e.target.value))}}
+                    onChange={(e)=>{setCurrentMilage(parseInt(fixNumbers(e.target.value)))}}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -83,7 +84,7 @@ export default function OilChangeEdit({instance, setEditMode}){
                 <div className="">
                     <label htmlFor="oilAmount" className="block text-sm font-medium leading-6 text-gray-900">
                         {t("dash.sales.amount")} </label>
-                    <input onChange={(e)=>setAmount(parseFloat(e.target.value))} type="tel"  name="amount" id="oilAmount" autoComplete="oilAmount"
+                    <input onChange={(e)=>setAmount(parseFloat(fixNumbers(e.target.value)))} type="tel"  name="amount" id="oilAmount" autoComplete="oilAmount"
                     placeholder='120.00' defaultValue={instance?.amount}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />

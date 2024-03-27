@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PhotoIcon } from '@heroicons/react/24/solid'
 import { getExpenses } from "../../../redux/expensesSlice";
 import { useTranslation } from "react-i18next";
+import { fixNumbers } from "../../../../utils";
 
 
 export default function ExpenseEdit(){
@@ -148,7 +149,8 @@ export default function ExpenseEdit(){
                                     <label htmlFor="invoice" className="block text-sm font-medium leading-6 text-gray-900">
                                         {t("dash.expenses.invoice-number")}
                                     </label>
-                                    <input onChange={(e)=>setInvoiceNumber(e.target.value)} defaultValue={exp?.invoice_number}
+                                    <input onChange={(e)=>setInvoiceNumber(fixNumbers(e.target.value))} 
+                                    defaultValue={fixNumbers(exp?.invoice_number)}
                                     id="invoice"  name="invoice" type="tel" autoComplete="phone" placeholder='1234321'
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
@@ -167,7 +169,7 @@ export default function ExpenseEdit(){
                                     <label htmlFor="supplier" className="block text-sm font-medium leading-6 text-gray-900">
                                         {t("dash.expenses.supplier-number")}
                                     </label>
-                                    <input onChange={(e)=>setSupplierNumber(e.target.value)} defaultValue={exp?.supplier_number}
+                                    <input onChange={(e)=>setSupplierNumber(fixNumbers(e.target.value))} defaultValue={exp?.supplier_number}
                                         id="supplier"  name="supplier" type="tel" autoComplete="phone" placeholder='0566643234'
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
@@ -185,7 +187,7 @@ export default function ExpenseEdit(){
                                     <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
                                         {t("dash.expenses.how-many-pieces")}
                                     </label>
-                                    <input onChange={(e)=>setQuantity(parseInt(e.target.value))} defaultValue={exp?.quantity}
+                                    <input onChange={(e)=>setQuantity(parseInt(fixNumbers(e.target.value)))} defaultValue={exp?.quantity}
                                     id="quantity"  name="quantity" type="tel" autoComplete="phone" placeholder='120'
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />
@@ -194,7 +196,7 @@ export default function ExpenseEdit(){
                                     <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                                         {t("dash.expenses.total-amount")}
                                     </label>
-                                    <input onChange={(e)=>setAmount(parseFloat(e.target.value))} defaultValue={exp?.price}
+                                    <input onChange={(e)=>setAmount(parseFloat(fixNumbers(e.target.value)))} defaultValue={exp?.price}
                                     id="amount"  name="amount" type="tel" autoComplete="phone" placeholder='12,000'
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     />

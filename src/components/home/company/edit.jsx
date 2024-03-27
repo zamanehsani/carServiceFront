@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {getUserCompany} from '../../redux/authSlice';
 
 import { useDispatch, useSelector } from "react-redux";
+import { fixNumbers } from '../../../utils';
 
 export default function EditCompany({setEditMode, company,  error, setError}){
     const auth = useSelector((state)=>state.auth)
@@ -74,7 +75,7 @@ export default function EditCompany({setEditMode, company,  error, setError}){
                                 <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                                 Phone
                                 </label>
-                                <input onChange={(e)=>setPhone(e.target.value)} defaultValue={phone}
+                                <input onChange={(e)=>setPhone(fixNumbers(e.target.value))} value={phone+''}
                                     id="phone"  name="phone" type="text" autoComplete="phone" placeholder="0456543234"
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 />

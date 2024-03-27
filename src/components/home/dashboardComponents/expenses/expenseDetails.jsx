@@ -80,15 +80,15 @@ export default function ExpenseDetails(){
 
                 <hr className="my-5 border-gray-100"/>
                 <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.expenses.note")}</h1>
-                <div className="w-full h-40 rounded-md border p-3 border-gray-100">
+                <div className="w-full rounded-md border p-3 border-gray-100">
                     <p className="text-gray-600">{exp?.description}</p>
                 </div>
-                <hr className="my-5 border-gray-100"/>
+                <hr className="my-2 border-gray-100"/>
                
                 <h1 className="font-bold leading-10 text-2xl text-indigo-600">{t("dash.expenses.supplier-details")}</h1>
                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.expenses.supplier-name")}: </span> {exp?.supplier_name}</p>
                 <p className="text-gray-600"><span className="font-semibold mx-2 text-indigo-600">{t("dash.expenses.supplier-number")}: </span> {exp?.supplier_number}</p>
-                <hr className="my-5 border-gray-100"/>
+                <hr className="my-2 border-gray-100"/>
             
                 <div className="w-full md:w-1/2 lg:w-1/3 mx-auto">
                     {/* Conditional check for image presence */}

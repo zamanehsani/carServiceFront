@@ -3,6 +3,7 @@ import { useDispatch,useSelector } from 'react-redux';
 import { getSales } from '../../../../redux/salesSlice';
 import axios from 'axios'; 
 import { useTranslation } from 'react-i18next';
+import { fixNumbers } from '../../../../../utils';
 export default function TyreEdit({instance, setEditMode}){
     const [type,setType] = useState(null);
     const [number,setNumber] = useState(null);
@@ -81,7 +82,7 @@ export default function TyreEdit({instance, setEditMode}){
                 <div className="px-4 rounded md">
                     <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.tyre-number")} </label>
-                    <input onChange={(e)=>setNumber(e.target.value)} defaultValue={instance?.tyreNumber+""} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+                    <input onChange={(e)=>setNumber(fixNumbers(e.target.value))} defaultValue={instance?.tyreNumber+""} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -89,7 +90,7 @@ export default function TyreEdit({instance, setEditMode}){
                 <div className="px-4 rounded md">
                     <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.tyre-quantity")}</label>
-                    <input onChange={(e)=>setQuantity(e.target.value)} defaultValue={instance?.quantity+''} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+                    <input onChange={(e)=>setQuantity(fixNumbers(e.target.value))} defaultValue={instance?.quantity+''} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -97,7 +98,7 @@ export default function TyreEdit({instance, setEditMode}){
                 <div className="mx-4">
                     <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                         {t("dash.sales.amount")} </label>
-                    <input onChange={(e)=>setAmount(parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+                    <input onChange={(e)=>setAmount(parseFloat(fixNumbers(e.target.value)))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                     placeholder='120.00' defaultValue={instance?.amount+''}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />

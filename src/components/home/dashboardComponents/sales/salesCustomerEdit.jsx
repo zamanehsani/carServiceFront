@@ -5,6 +5,7 @@ import { getSales } from '../../../redux/salesSlice';
 import axios from 'axios'; 
 import { use } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { fixNumbers } from '../../../../utils';
 
 
 export default function SalesCustomerEdit({instance, setEditMode}){
@@ -79,7 +80,8 @@ export default function SalesCustomerEdit({instance, setEditMode}){
                         <div className="sm:col-span-full">
                             <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.sales.phone")}</label>
-                            <input id="phone" defaultValue={instance.phone} onChange={(e)=>setPhone(e.target.value)}  name="phone" type="tel" autoComplete="phone" placeholder='0566652534'
+                            <input id="phone" defaultValue={instance.phone} 
+                            onChange={(e)=>setPhone(fixNumbers(e.target.value))}  name="phone" type="tel" autoComplete="phone" placeholder='0566652534'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -87,7 +89,8 @@ export default function SalesCustomerEdit({instance, setEditMode}){
                         <div className="sm:col-span-full">
                             <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
                             {t("dash.sales.amount")} </label>
-                            <input id="price" defaultValue={instance.price} onChange={(e)=>setPrice(parseFloat(e.target.value))}  name="price" type="tel" autoComplete="price" placeholder='12.00'
+                            <input id="price" defaultValue={instance.price} 
+                            onChange={(e)=>setPrice(parseFloat(fixNumbers(e.target.value)))}  name="price" type="tel" autoComplete="price" placeholder='12.00'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
