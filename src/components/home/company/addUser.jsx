@@ -81,7 +81,7 @@ export default function AddUser(){
                                 First Name
                             </label>
                             <input onChange={(e)=>setFirst_name(e.target.value)} defaultValue={first_name}
-                            id="first_name"  name="first_name" type="text"  placeholder='ahmad'
+                            id="first_name"  name="first_name" type="text"  placeholder='ahmad' required={true}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -91,7 +91,7 @@ export default function AddUser(){
                                Last Name
                             </label>
                             <input onChange={(e)=>setLast_name(e.target.value)} defaultValue={last_name}
-                                id="last_name"  name="last_name" type="text" placeholder='ahmadi'
+                                id="last_name"  name="last_name" type="text" placeholder='ahmadi' required={true}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -100,7 +100,7 @@ export default function AddUser(){
                                 Username
                             </label>
                             <input onChange={(e)=>setUsername(e.target.value)} defaultValue={username}
-                                id="username"  name="username" type="text" placeholder='ahmad'
+                                id="username"  name="username" type="text" placeholder='ahmad' required={true}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -109,7 +109,7 @@ export default function AddUser(){
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email</label>
                             <input onChange={(e)=>setEmail(e.target.value)} type="text" name="email" id="email"
-                                placeholder='email' defaultValue={email}
+                                placeholder='email' defaultValue={email} required={true}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -118,7 +118,7 @@ export default function AddUser(){
                                 Password
                             </label>
                             <input onChange={(e)=>setPassword(e.target.value)} defaultValue={password}
-                            id="password"  name="password" type="text" 
+                            id="password"  name="password" type="text"  required={true}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>

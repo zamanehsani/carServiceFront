@@ -26,8 +26,8 @@ export default function RemoveUser({user}){
     return (
         <>
         <button onClick={openModal}
-        className="rounded-sm shadow-sm bg-red-500 px-3 py-1 text-white mx-2 my-1">
-        remove </button>
+        className="rounded-sm shadow-sm bg-red-500 hover:bg-red-400 px-3 py-1 text-white mx-2 my-1">
+        Remove </button>
         
         {/* Modal */}
       {isOpen && (

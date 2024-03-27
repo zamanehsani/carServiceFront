@@ -13,12 +13,12 @@ const Pagination = ({total_pages, currentPage, handlePageChange,next,previous, p
                 <div>
                     <p className="text-sm text-gray-700">
                         Showing
-                        <span className="font-medium px-1">{currentPage+''}</span>
+                        <span className="font-medium px-1">{(currentPage - 1) * pageSize + 1}</span>
                         to
-                        <span className="font-medium px-1">{((currentPage+pageSize)-1)+''}</span>
+                        <span className="font-medium px-1">{((currentPage+pageSize))+''}</span>
                         of
-                        <span className="font-medium px-1">{total_pages+''}</span>
-                        results
+                        <span className="font-medium px-1">{currentPage+''}</span>
+                        results 
                     </p>
                 </div>
                 <div>
