@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import {fixNumbers} from '../../../utils/index';
 
 export default function OilChange({currentMilage, setCurrentMilage, setOil,nextMilage, oilAmount, setOilAmount}){
     // Function to update battery amount
@@ -11,6 +12,11 @@ export default function OilChange({currentMilage, setCurrentMilage, setOil,nextM
         // If amount is NaN or not a valid number, default it to 0
         if (isNaN(amount)) {amount = 0}
         setOilAmount(amount);
+    };
+    const handleCurrentMilageChange = (amount) => {
+        // If amount is NaN or not a valid number, default it to 0
+        if (isNaN(amount)) {amount = 0}
+        setCurrentMilage(amount);
     };
     useEffect(()=>{
         // set the amount back to zero
@@ -33,8 +39,8 @@ export default function OilChange({currentMilage, setCurrentMilage, setOil,nextM
             <div className="">
                 <label htmlFor="milage" className="block text-sm font-medium leading-6 text-gray-900">{t("dash.sales.current-milage")} </label>
                 <input type="tel" name="milage" id="milage" style={{direction:lng?.direction}}
-                autoComplete="milage" placeholder='120,000' defaultValue={currentMilage+''}
-                onChange={(e)=>{setCurrentMilage(parseInt(e.target.value))}}
+                autoComplete="milage" placeholder='120,000' value={currentMilage}
+                onChange={(e)=>{handleCurrentMilageChange(parseInt(fixNumbers(e.target.value)))}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>
@@ -48,7 +54,7 @@ export default function OilChange({currentMilage, setCurrentMilage, setOil,nextM
             <div className="">
                 <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.amount")} </label>
-                <input onChange={(e)=>handleOilAmountChange(parseFloat(e.target.value))} type="tel" style={{direction:lng?.direction}} name="amount" id="street-address" autoComplete="street-address"
+                <input onChange={(e)=>handleOilAmountChange(parseFloat(fixNumbers(e.target.value)))} type="tel" style={{direction:lng?.direction}} name="amount" id="street-address" autoComplete="street-address"
                 placeholder='120.00' defaultValue={oilAmount}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />

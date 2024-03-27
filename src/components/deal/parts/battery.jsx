@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import {fixNumbers} from '../../../utils/index';
 
 export default function Battery({warranty,setWarranty, batterySize, batteryAmount,setBatteryAmount, setBatteryName, setBatterySize}){
     const [t] = useTranslation('global');
@@ -52,7 +53,7 @@ export default function Battery({warranty,setWarranty, batterySize, batteryAmoun
             <div className="rounded md">
                 <label htmlFor="warranty" className="block text-sm font-medium leading-6 text-gray-900">
                 {t("dash.sales.battery-warrenty-start")} </label>
-                <input onChange={(e)=>setWarranty(e.target.value)} defaultValue={warranty+''} type="date"  name="warranty" id="warranty" autoComplete="street-address"
+                <input onChange={(e)=>setWarranty(e.target.value)} defaultValue={warranty+''} type="date"  name="warranty" id="warranty" 
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>
@@ -60,8 +61,8 @@ export default function Battery({warranty,setWarranty, batterySize, batteryAmoun
             <div className="">
                 <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.amount")} </label>
-                <input onChange={(e)=>handleBatteryAmountChange(parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
-                placeholder='120.00' defaultValue={batteryAmount+''} style={{direction:lng?.direction}}
+                <input onChange={(e)=>handleBatteryAmountChange(parseFloat(fixNumbers(e.target.value)))} type="tel"  name="amount" id="street-address"
+                placeholder='120' value={batteryAmount} style={{direction:lng?.direction}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>

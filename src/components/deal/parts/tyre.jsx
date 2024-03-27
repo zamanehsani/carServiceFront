@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { fixNumbers } from "../../../utils";
 
 export default function Tyre({tyreType, setTyreType, tyreQuantity, setTyreQuantity, tyreAmount, setTyreAmount, tyreNumber, setTyreNumber}){
 // Function to update battery amount
@@ -44,7 +45,7 @@ useEffect(()=>{
         <div className="px-4 rounded md">
             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
             {t("dash.sales.tyre-model-number")} </label>
-            <input onChange={(e)=>setTyreNumber(e.target.value)} defaultValue={tyreNumber+""} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+            <input onChange={(e)=>setTyreNumber(fixNumbers(e.target.value))} value={tyreNumber+""} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                 style={{direction:lng?.direction}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
@@ -53,7 +54,7 @@ useEffect(()=>{
         <div className="px-4 rounded md">
             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
             {t("dash.sales.tyre-quantity")} </label>
-            <input onChange={(e)=>setTyreQuantity(e.target.value)} defaultValue={tyreQuantity+''} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+            <input onChange={(e)=>setTyreQuantity(fixNumbers(e.target.value))} value={tyreQuantity+''} type="tel"  name="amount" id="street-address" autoComplete="street-address"
                 style={{direction:lng?.direction}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
@@ -62,8 +63,8 @@ useEffect(()=>{
         <div className="mx-4">
                 <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.amount")} </label>
-                <input onChange={(e)=>handleTyreAmountChange(parseFloat(e.target.value))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
-                placeholder='120.00' defaultValue={tyreAmount+''} style={{direction:lng?.direction}}
+                <input onChange={(e)=>handleTyreAmountChange(parseFloat(fixNumbers(e.target.value)))} type="tel"  name="amount" id="street-address" autoComplete="street-address"
+                placeholder='120.00' value={tyreAmount+''} style={{direction:lng?.direction}}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
             </div>

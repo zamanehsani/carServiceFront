@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { fixNumbers } from '../../../utils';
 
 export default function DealForm({setSuccess,  error, setError}){
   const auth = useSelector((state)=>state.auth)
@@ -17,22 +18,22 @@ export default function DealForm({setSuccess,  error, setError}){
 
   const [t] = useTranslation('global');
   // customer details
-  const [name, setName] = useState(null);
-  const [phone, setPhone] = useState(null);
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [paymentOption, setPaymentOption] = useState('Cash');
   const [photo, setPhoto] = useState(null);
-  const [note, setNote] = useState(null);
+  const [note, setNote] = useState('');
   const [total, setTotal] = useState(0);
   // car details
   const [plateSource, setPlateSource] = useState('Abu Dhabi');
-  const [plateNumber, setPlateNumber] = useState(null);
+  const [plateNumber, setPlateNumber] = useState('');
   const [plateNumber1, setPlateNumber1] = useState(null);
-  const [model, setModel] = useState(null);
+  const [model, setModel] = useState('');
 
   // customer address details 
   const [country, setCountry] = useState('United Arab Emirates');
   const [state, setState] = useState('Al Ain');
-  const [address, setAddress] = useState(null);
+  const [address, setAddress] = useState('');
   
   // this is the other services total amount
   const [otherTotal, setOtherTotal] = useState(0);
@@ -122,6 +123,7 @@ export default function DealForm({setSuccess,  error, setError}){
         SearchCustomer(plateNumber)
       }
       setPlateNumber1(null)
+      setCustomersList([]);
     },[plateNumber])
 
 
@@ -230,15 +232,15 @@ export default function DealForm({setSuccess,  error, setError}){
       // if the response status is create clear all the states.
       if(response.status === 201){
         // clear all the states
-        setName(null);
-        setPhone(null);
+        setName('');
+        setPhone('');
         setPaymentOption('Cash');
         setPhoto(null);
-        setNote(null);
+        setNote('');
         setTotal(0);
         // car details
         setPlateSource('Abu Dhabi');
-        setPlateNumber(null);
+        setPlateNumber('');
         setModel(null);
         // customer address details
         setCountry('United Arab Emirates');
@@ -268,20 +270,20 @@ export default function DealForm({setSuccess,  error, setError}){
   // on leaving the page, reset all the states as well.
   useEffect(()=>{
     return ()=>{
-      setName(null);
-      setPhone(null);
+      setName('');
+      setPhone('');
       setPaymentOption('Cash');
       setPhoto(null);
-      setNote(null);
+      setNote('');
       setTotal(0);
       // car details
       setPlateSource('Abu Dhabi');
-      setPlateNumber(null);
-      setModel(null);
+      setPlateNumber('');
+      setModel('');
       // customer address details
       setCountry('United Arab Emirates');
       setState('Al Ain');
-      setAddress(null);
+      setAddress('');
       // oilchange states:
       setOil(5000);
       setCurrentMilage(0);
@@ -340,8 +342,8 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="sm:col-span-full">
                   <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.name")}</label>
-                  <input type="text" name="name" id="name" onChange={(e)=>setName(e.target.value)}
-                    autoComplete="given-name" placeholder={t("dash.sales.name-placeholder")} defaultValue={name}
+                  <input type="text" name="name" id="name" onChange={(e)=>setName(fixNumbers(e.target.value))}
+                    autoComplete="given-name" placeholder={t("dash.sales.name-placeholder")} value={name+''}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -350,8 +352,8 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="sm:col-span-full">
                   <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.phone")} </label>
-                  <input id="phone" defaultValue={phone}
-                  onChange={(e)=>setPhone(e.target.value)} 
+                  <input id="phone" value={phone+''}
+                  onChange={(e)=>setPhone(fixNumbers(e.target.value))} 
                   style={{direction:lng?.direction}} name="phone" type="tel" autoComplete="phone" 
                   placeholder={t("dash.sales.phone-placeholder")}
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -401,8 +403,8 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="">
                   <label htmlFor="plate-number" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.plate-number")} <span className='text-red-500'>*</span> </label>
-                  <input required={true}  type="text"  defaultValue={plateNumber}
-                  onChange={(e)=>setPlateNumber(e.target.value)} name="plate-number" 
+                  <input required={true}  type="text"  value={plateNumber+''}
+                  onChange={(e)=>setPlateNumber(fixNumbers(e.target.value))} name="plate-number" 
                   id="plate-number" autoComplete="plate-number"
                     placeholder='Y21320'
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -416,8 +418,8 @@ export default function DealForm({setSuccess,  error, setError}){
                     <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                       {t("dash.sales.car-model")} <span className='text-red-500'>*</span></label>
                     <div className="">
-                      <input required={true} defaultValue={model}
-                      onChange={(e)=>setModel(e.target.value)} type="text" 
+                      <input required={true} value={model+''}
+                      onChange={(e)=>setModel(fixNumbers(e.target.value))} type="text" 
                       placeholder={t("dash.sales.car-model-placeholder")}  
                       name="street-address" id="street-address" autoComplete="street-address"
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -666,7 +668,7 @@ export default function DealForm({setSuccess,  error, setError}){
                 <div className="mt-3">
                   <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
                     {t("dash.sales.address")} </label>
-                    <input  onChange={(e)=>setAddress(e.target.value)} defaultValue={address}
+                    <input  onChange={(e)=>setAddress(fixNumbers(e.target.value))} value={address+''}
                     type="text"  name="street-address" id="street-address" autoComplete="street-address"
                       placeholder={t("dash.sales.address-placeholder")}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
