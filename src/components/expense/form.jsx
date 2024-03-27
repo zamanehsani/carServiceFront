@@ -4,16 +4,17 @@ import { useSelector } from 'react-redux';
 import axios from 'axios'; // Import axios
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { fixNumbers } from '../../utils';
 
 export default function Form({setSuccess,  error, setError}){
     const auth = useSelector((state)=>state.auth)
-    const [invoiceNumber , setInvoiceNumber] = useState(null);
-    const [supplierNumber , setSupplierNumber] = useState(null);
-    const [supplierName , setSupplierName] = useState(null);
-    const [name , setName] = useState(null);
-    const [description , setDescription] = useState(null);
-    const [amount , setAmount] = useState(null);
-    const [quantity , setQuantity] = useState(null);
+    const [invoiceNumber , setInvoiceNumber] = useState('');
+    const [supplierNumber , setSupplierNumber] = useState('');
+    const [supplierName , setSupplierName] = useState('');
+    const [name , setName] = useState('');
+    const [description , setDescription] = useState('');
+    const [amount , setAmount] = useState('');
+    const [quantity , setQuantity] = useState(0);
     const [photo , setPhoto] = useState(null);
     const [t] = useTranslation('global');
     const [dragging, setDragging] = useState(false);
@@ -56,12 +57,12 @@ export default function Form({setSuccess,  error, setError}){
           // if the response status is create clear all the states.
           if(response.status === 201){
             // clear all the states
-            setInvoiceNumber(null);
-            setSupplierNumber(null);
-            setName(null);
-            setDescription(null);
-            setAmount(null);
-            setQuantity(null);
+            setInvoiceNumber('');
+            setSupplierNumber('');
+            setName('');
+            setDescription('');
+            setAmount('');
+            setQuantity(0);
             setPhoto(null);
             setSuccess(true);
           }
@@ -70,12 +71,12 @@ export default function Form({setSuccess,  error, setError}){
 
     useEffect(()=>{
         return ()=>{
-            setInvoiceNumber(null);
-            setSupplierNumber(null);
-            setName(null);
-            setDescription(null);
-            setAmount(null);
-            setQuantity(null);
+            setInvoiceNumber('');
+            setSupplierNumber('');
+            setName('');
+            setDescription('');
+            setAmount('');
+            setQuantity(0);
             setPhoto(null);
         }
     },[])
@@ -100,7 +101,7 @@ export default function Form({setSuccess,  error, setError}){
                             <label htmlFor="invoice" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.expenses.invoice-number")}
                             </label>
-                            <input onChange={(e)=>setInvoiceNumber(e.target.value)} defaultValue={invoiceNumber}
+                            <input onChange={(e)=>setInvoiceNumber(fixNumbers(e.target.value))} value={invoiceNumber+''}
                             id="invoice"  name="invoice" type="tel" autoComplete="phone" style={{direction:lng?.direction}} placeholder='1234321'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -119,7 +120,7 @@ export default function Form({setSuccess,  error, setError}){
                             <label htmlFor="supplier" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.expenses.supplier-number")}
                             </label>
-                            <input onChange={(e)=>setSupplierNumber(e.target.value)} defaultValue={supplierNumber}
+                            <input onChange={(e)=>setSupplierNumber(fixNumbers(e.target.value))} value={supplierNumber+''}
                                 id="supplier"  name="supplier" style={{direction:lng?.direction}} type="tel" autoComplete="phone" placeholder={t("dash.sales.phone-placeholder")}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -128,8 +129,8 @@ export default function Form({setSuccess,  error, setError}){
                         <div className="sm:col-span-full">
                             <label htmlFor="expense" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.expenses.what-did-you-buy")}  </label>
-                            <input onChange={(e)=>setName(e.target.value)} type="text" name="expense" id="expense"
-                                autoComplete="given-name" placeholder={t("dash.sales.tyre")} defaultValue={name}
+                            <input onChange={(e)=>setName(fixNumbers(e.target.value))} type="text" name="expense" id="expense"
+                                autoComplete="given-name" placeholder={t("dash.sales.tyre")} value={name+''}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
@@ -137,7 +138,7 @@ export default function Form({setSuccess,  error, setError}){
                             <label htmlFor="quantity" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.expenses.quantity")} 
                             </label>
-                            <input onChange={(e)=>setQuantity(parseInt(e.target.value))} defaultValue={quantity}
+                            <input onChange={(e)=>setQuantity(parseInt(fixNumbers(e.target.value)))} value={parseFloat(quantity||0)}
                             id="quantity"  name="quantity" style={{direction:lng?.direction}} type="tel" autoComplete="phone" placeholder='120'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -146,7 +147,7 @@ export default function Form({setSuccess,  error, setError}){
                             <label htmlFor="amount" className="block text-sm font-medium leading-6 text-gray-900">
                                 {t("dash.expenses.total-amount")}
                             </label>
-                            <input onChange={(e)=>setAmount(parseFloat(e.target.value))} defaultValue={amount}
+                            <input onChange={(e)=>setAmount(parseFloat(fixNumbers(e.target.value)))} value={parseFloat(amount||0)}
                             id="amount"  name="amount" type="tel" style={{direction:lng?.direction}} autoComplete="phone" placeholder='12,000'
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
